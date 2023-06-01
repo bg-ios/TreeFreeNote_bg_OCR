@@ -8,7 +8,7 @@
 import Foundation
 // Model and Sample Data
 
-struct Category: Identifiable {
+struct Category: Identifiable, Equatable {
     var id: String = UUID().uuidString
     var title: String
 }

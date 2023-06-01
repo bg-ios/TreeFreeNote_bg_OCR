@@ -9,17 +9,12 @@ import SwiftUI
 
 struct CategoriesView: View {
     @Binding var selectedCategory: Category?
+    @Namespace var animation
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false,content: {
             HStack(spacing: 10){
                 ForEach(categories){ category in
-                    CategoryItemView(title: category.title,
-                                     isSelected: (selectedCategory?.id == category.id))
-                    .onTapGesture {
-                        withAnimation(.spring()) {
-                            selectedCategory = category
-                        }
-                    }
+                    CategoryItemView(category: category, selectedCategory: $selectedCategory, animation: animation)
                 }
             }
         })

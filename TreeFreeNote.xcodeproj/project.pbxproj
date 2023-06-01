@@ -28,6 +28,7 @@
 		0950CA8C2A27B5590008E778 /* CustomTabbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA8B2A27B5590008E778 /* CustomTabbar.swift */; };
 		0950CA902A27C7550008E778 /* TabbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA8F2A27C7550008E778 /* TabbarItem.swift */; };
 		0950CA922A27C8210008E778 /* TabbarItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA912A27C8210008E778 /* TabbarItemModel.swift */; };
+		0950CA952A28FCE70008E778 /* DocumentGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA942A28FCE70008E778 /* DocumentGridCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		0950CA8B2A27B5590008E778 /* CustomTabbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabbar.swift; sourceTree = "<group>"; };
 		0950CA8F2A27C7550008E778 /* TabbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarItem.swift; sourceTree = "<group>"; };
 		0950CA912A27C8210008E778 /* TabbarItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarItemModel.swift; sourceTree = "<group>"; };
+		0950CA942A28FCE70008E778 /* DocumentGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentGridCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				0950CA892A27A1440008E778 /* DocumentListCell.swift */,
+				0950CA942A28FCE70008E778 /* DocumentGridCell.swift */,
 			);
 			path = DocumentsView;
 			sourceTree = "<group>";
@@ -390,6 +393,7 @@
 				0950CA902A27C7550008E778 /* TabbarItem.swift in Sources */,
 				0950CA7B2A278FF60008E778 /* NavigationHeaderView.swift in Sources */,
 				0950CA812A2796670008E778 /* CategoryItemView.swift in Sources */,
+				0950CA952A28FCE70008E778 /* DocumentGridCell.swift in Sources */,
 				0950CA7D2A27906E0008E778 /* ToolsView.swift in Sources */,
 				0950CA742A266DF80008E778 /* DocumentDetailedView.swift in Sources */,
 				0950CA702A2648010008E778 /* DocumentModel.swift in Sources */,
