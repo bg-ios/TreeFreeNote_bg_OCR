@@ -17,7 +17,7 @@ struct Home: View {
             //NavigationHeaderView
             NavigationHeaderView()
                 .padding()
-            ScrollView(.vertical, showsIndicators: false) {
+//            ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 15, content: {
                     
                     //ToolsView..
@@ -41,7 +41,7 @@ struct Home: View {
                         }
                     }
                 })
-            }
+//            }
         }
         //Light BG Color..
         .background(Color.white.ignoresSafeArea())
