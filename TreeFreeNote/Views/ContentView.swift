@@ -39,6 +39,7 @@ struct ContentView: View {
         }
         .ignoresSafeArea()
     }
+    
 }
 
 struct ContentView_Previews: PreviewProvider {

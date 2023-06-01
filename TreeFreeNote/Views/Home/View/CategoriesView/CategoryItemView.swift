@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct CategoryItemView: View {
+    
     var category: Category
     @Binding var selectedCategory: Category?
     var animation: Namespace.ID

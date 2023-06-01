@@ -13,6 +13,7 @@ struct Home: View {
     @Binding var selectedCategory: Category?
     
     var body: some View {
+        
         VStack{
             //NavigationHeaderView
             NavigationHeaderView()

@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct CategoriesView: View {
+    
     @Binding var selectedCategory: Category?
     @Namespace var animation
+    
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false,content: {
             HStack(spacing: 10){
