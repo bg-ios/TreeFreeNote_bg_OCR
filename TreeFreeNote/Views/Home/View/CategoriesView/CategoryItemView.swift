@@ -25,7 +25,7 @@ struct CategoryItemView: View {
         } label: {
             Text(category.title)
                 .fontWeight(.medium)
-                .foregroundColor(isSelected ? .white :.gray)
+                .foregroundColor(isSelected ? .white : Color.categoriesTextColor)
                 .frame(minWidth: 50)
                 .frame(height: 30)
                 .padding(.horizontal, 10)
@@ -41,7 +41,7 @@ struct CategoryItemView: View {
                             Color.green
                                 .clipShape(Capsule())
                                 .overlay(Capsule()
-                                    .stroke(isSelected ? Color.clear : .gray.opacity(0.8), lineWidth: 1))
+                                    .stroke(isSelected ? Color.clear : Color.categoriesTextColor.opacity(0.8), lineWidth: 1))
                                 .matchedGeometryEffect(id: "Tab", in: animation)
                         }
                     }

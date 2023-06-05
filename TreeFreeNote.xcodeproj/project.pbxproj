@@ -29,6 +29,8 @@
 		0950CA902A27C7550008E778 /* TabbarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA8F2A27C7550008E778 /* TabbarItem.swift */; };
 		0950CA922A27C8210008E778 /* TabbarItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA912A27C8210008E778 /* TabbarItemModel.swift */; };
 		0950CA952A28FCE70008E778 /* DocumentGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA942A28FCE70008E778 /* DocumentGridCell.swift */; };
+		0950CA972A2E0CB50008E778 /* CustomLogoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA962A2E0CB50008E778 /* CustomLogoButton.swift */; };
+		0950CA9C2A2E17AD0008E778 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA9B2A2E17AD0008E778 /* ColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +76,8 @@
 		0950CA8F2A27C7550008E778 /* TabbarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarItem.swift; sourceTree = "<group>"; };
 		0950CA912A27C8210008E778 /* TabbarItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarItemModel.swift; sourceTree = "<group>"; };
 		0950CA942A28FCE70008E778 /* DocumentGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentGridCell.swift; sourceTree = "<group>"; };
+		0950CA962A2E0CB50008E778 /* CustomLogoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLogoButton.swift; sourceTree = "<group>"; };
+		0950CA9B2A2E17AD0008E778 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,8 +129,10 @@
 			isa = PBXGroup;
 			children = (
 				0950CA3D2A260D7F0008E778 /* TreeFreeNoteApp.swift */,
+				0950CA982A2E122C0008E778 /* CustomViews */,
 				0950CA6C2A2647D10008E778 /* Views */,
 				0950CA6E2A2647EB0008E778 /* Model */,
+				0950CA992A2E176E0008E778 /* Helper */,
 				0950CA412A260D850008E778 /* Assets.xcassets */,
 				0950CA432A260D850008E778 /* Preview Content */,
 			);
@@ -258,6 +264,30 @@
 				0950CA912A27C8210008E778 /* TabbarItemModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		0950CA982A2E122C0008E778 /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				0950CA962A2E0CB50008E778 /* CustomLogoButton.swift */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		0950CA992A2E176E0008E778 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				0950CA9A2A2E17870008E778 /* Extension */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		0950CA9A2A2E17870008E778 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0950CA9B2A2E17AD0008E778 /* ColorExtension.swift */,
+			);
+			name = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -397,6 +427,7 @@
 				0950CA7D2A27906E0008E778 /* ToolsView.swift in Sources */,
 				0950CA742A266DF80008E778 /* DocumentDetailedView.swift in Sources */,
 				0950CA702A2648010008E778 /* DocumentModel.swift in Sources */,
+				0950CA972A2E0CB50008E778 /* CustomLogoButton.swift in Sources */,
 				0950CA8C2A27B5590008E778 /* CustomTabbar.swift in Sources */,
 				0950CA402A260D7F0008E778 /* ContentView.swift in Sources */,
 				0950CA832A2796F40008E778 /* CategoriesView.swift in Sources */,
@@ -407,6 +438,7 @@
 				0950CA762A2789450008E778 /* Home.swift in Sources */,
 				0950CA3E2A260D7F0008E778 /* TreeFreeNoteApp.swift in Sources */,
 				0950CA7F2A2791E60008E778 /* Category.swift in Sources */,
+				0950CA9C2A2E17AD0008E778 /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -45,14 +45,14 @@ private extension DocumentListCell {
                 .fixedSize(horizontal: false, vertical: true)
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
-                .foregroundColor(.black)
+                .foregroundColor(Color.primary)
                 .padding(.horizontal, 10)
             
             Text(document.dateCreated)
                 .font(.subheadline)
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
-                .foregroundColor(.gray)
+                .foregroundColor(Color.descriptionTextColor)
                 .padding(.horizontal, 10)
             
             HStack{
@@ -65,7 +65,7 @@ private extension DocumentListCell {
                 Text(document.dateCreated)
                     .font(.subheadline)
                     .multilineTextAlignment(.leading)
-                    .foregroundColor(.gray)
+                    .foregroundColor(Color.secondaryTextColor)
                     .padding(.horizontal, 10)
             }
             .padding(.horizontal, 5)
@@ -78,17 +78,10 @@ private extension DocumentListCell {
             HStack {
                 Spacer()
                 
-                Button(action: {
+                CustomLogoButton(imageName: "share") {
                     print("share action")
-                }) {
-                    Image("share")
-                        .resizable()
-                        .renderingMode(.template)
-                        .font(.footnote)
-                        .foregroundColor(.black)
-                        .padding(8)
-                        .frame(width: 35, height: 35)
                 }
+                .padding(5)
             }
             HStack {
                 Spacer()
@@ -97,46 +90,27 @@ private extension DocumentListCell {
                     .frame(minWidth: 60)
                     .frame(height: 25)
                     .padding(.horizontal, 6)
-                    .background(Color.gray.opacity(0.15))
+                    .background(Color.descriptionTextColor.opacity(0.15))
+                    .foregroundColor(Color.secondaryTextColor)
                     .clipShape(Capsule())
             }
             HStack(spacing: 5){
                 Spacer()
-                Button(action: {
+                CustomLogoButton(imageName: "syncIcon") {
                     print("sync action")
-                }) {
-                    Image("syncIcon")
-                        .resizable()
-                        .renderingMode(.template)
-                        .aspectRatio(contentMode: .fit)
-                        .font(.footnote)
-                        .padding(8)
-                        .frame(width: 35, height: 35)
                 }
-                Button(action: {
+                .padding(5)
+                
+                CustomLogoButton(imageName: "star") {
                     print("starred action")
-                }) {
-                    Image("star")
-                        .resizable()
-                        .renderingMode(.template)
-                        .aspectRatio(contentMode: .fit)
-                        .font(.footnote)
-                        .foregroundColor(.black)
-                        .padding(8)
-                        .frame(width: 35, height: 35)
                 }
-                Button(action: {
+                .padding(5)
+                
+                CustomLogoButton(imageName: "moreIcon") {
                     print("more action")
-                }) {
-                    Image("moreIcon")
-                        .resizable()
-                        .renderingMode(.template)
-                        .aspectRatio(contentMode: .fit)
-                        .font(.footnote)
-                        .foregroundColor(.black)
-                        .padding(8)
-                        .frame(width: 35, height: 35, alignment: .trailing)
                 }
+                .padding(5)
+                .padding(.trailing, 10)
             }
         })
         .frame(width: 120)
