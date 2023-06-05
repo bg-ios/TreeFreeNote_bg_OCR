@@ -18,7 +18,7 @@ struct Home: View {
             //NavigationHeaderView
             NavigationHeaderView()
                 .padding()
-//            ScrollView(.vertical, showsIndicators: false) {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 15, content: {
                     
                     //ToolsView..
@@ -35,14 +35,17 @@ struct Home: View {
                         VStack{
                             ForEach(documentModelSamples){ document in
                              DocumentListCell(document: document)
-                                    .frame(height: 100)
+                                    .frame(height: 120)
+                                    .onTapGesture {
+                                        print("cell Action")
+                                    }
                              Divider()
                                         
                             }
                         }
                     }
                 })
-//            }
+            }
         }
         //Light BG Color..
         .background(Color.white.ignoresSafeArea())

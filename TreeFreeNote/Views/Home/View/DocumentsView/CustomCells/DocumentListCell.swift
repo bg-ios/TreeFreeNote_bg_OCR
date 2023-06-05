@@ -11,21 +11,17 @@ struct DocumentListCell: View {
     var document: DocumentModel
     
     var body: some View {
-        HStack(content: {
+        HStack(spacing: 2, content: {
             Image("Document")
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .foregroundColor(.gray)
                 .background(Color.gray)
                 .frame(width: 80, height: 80)
-            
             documentsDetailsView
                 .padding(.trailing, 5)
             documentPropertiewView
         })
-        .padding(.horizontal, 5)
-        .background(Color.clear)
-        
     }
 }
 
@@ -43,17 +39,17 @@ private extension DocumentListCell {
                 .font(.subheadline)
                 .fontWeight(.medium)
                 .fixedSize(horizontal: false, vertical: true)
-                .lineLimit(2)
+                .lineLimit(3)
                 .multilineTextAlignment(.leading)
                 .foregroundColor(Color.primary)
-                .padding(.horizontal, 10)
+                .padding(.horizontal, 5)
             
             Text(document.dateCreated)
                 .font(.subheadline)
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
                 .foregroundColor(Color.descriptionTextColor)
-                .padding(.horizontal, 10)
+                .padding(.horizontal, 5)
             
             HStack{
                 Image("driveIcon")
@@ -66,15 +62,18 @@ private extension DocumentListCell {
                     .font(.subheadline)
                     .multilineTextAlignment(.leading)
                     .foregroundColor(Color.secondaryTextColor)
-                    .padding(.horizontal, 10)
+                    .padding(.horizontal, 5)
             }
+            .frame(height: 20)
+            .padding(.bottom, 2)
             .padding(.horizontal, 5)
             
         })
+        .padding(.vertical, 5)
     }
     
     var documentPropertiewView: some View {
-        VStack(spacing: 10, content: {
+        VStack(alignment: .trailing, spacing: 10, content: {
             HStack {
                 Spacer()
                 
@@ -87,7 +86,7 @@ private extension DocumentListCell {
                 Spacer()
                 Text(document.documentFolderName)
                     .font(.system(size: 10,weight: .light))
-                    .frame(minWidth: 60)
+                    .frame(maxWidth: 80)
                     .frame(height: 25)
                     .padding(.horizontal, 6)
                     .background(Color.descriptionTextColor.opacity(0.15))
@@ -99,20 +98,15 @@ private extension DocumentListCell {
                 CustomLogoButton(imageName: "syncIcon") {
                     print("sync action")
                 }
-                .padding(5)
                 
                 CustomLogoButton(imageName: "star") {
                     print("starred action")
                 }
-                .padding(5)
-                
                 CustomLogoButton(imageName: "moreIcon") {
                     print("more action")
                 }
-                .padding(5)
-                .padding(.trailing, 10)
             }
         })
-        .frame(width: 120)
+//        .padding(.trailing, 5)
     }
 }
