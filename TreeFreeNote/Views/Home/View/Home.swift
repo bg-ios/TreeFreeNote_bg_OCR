@@ -9,27 +9,34 @@ import SwiftUI
 
 struct Home: View {
     //Selected Category..
-//    @State var selectedItem: Category?
     @Binding var selectedCategory: Category?
     
     var body: some View {
         
         VStack{
-            //NavigationHeaderView
+            ///NavigationHeaderView
             NavigationHeaderView()
                 .padding()
             ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 15, content: {
-                    
-                    //ToolsView..
+                VStack(alignment: .leading, spacing: 10, content: {
+
+                    ///ToolsView..
                     ToolsView()
+                    Spacer(minLength: 10)
+
+                    ///Search View
+                    HomeScreenSearchContainerView()
+                        .padding(.horizontal, 5)
                     
-                    //Categories View
+                    ///Categories View
                     Spacer(minLength: 10)
                     CategoriesView(selectedCategory: $selectedCategory)
-                        .padding(.horizontal, 5)
+                        .padding(5)
+                    FoldersHorizontalListView()
+                        .frame(height: 140)
+                        .padding(.horizontal, 10)
                     Divider()
-                    //Documents ListView
+                    ///Documents ListView
                     DocumentsListView()
                 })
             }

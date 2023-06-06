@@ -2,7 +2,7 @@
 //  CustomLogoButton.swift
 //  TreeFreeNote
 //
-//  Created by Baby on 05/06/23.
+//  Created by Bhargavi on 05/06/23.
 //
 
 import SwiftUI
@@ -35,3 +35,33 @@ struct CustomLogoButton_Previews: PreviewProvider {
         })
     }
 }
+
+
+
+struct RoundButton: ButtonStyle {
+ 
+     var color: Color = .purple
+     
+     func makeBody(configuration: Configuration) -> some View {
+         
+         configuration
+             .label
+             .frame(width: 40, height: 40, alignment: .center)
+             .font(Font.system(size: 25, weight: .semibold))
+             .foregroundColor(configuration.isPressed ? Color.gray : color)
+             .padding(23)
+             .background(
+                 Circle()
+                     .fill(configuration.isPressed ? color : color.opacity(0.25)))
+     }
+    
+//    Button {
+//
+//                          print ("didTap roundButton")
+//
+//                      } label: {
+//
+//                          Text("Ja")
+//
+//                      }.buttonStyle(RoundButton(color: .green))
+ }

@@ -32,6 +32,11 @@
 		0950CA972A2E0CB50008E778 /* CustomLogoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA962A2E0CB50008E778 /* CustomLogoButton.swift */; };
 		0950CA9C2A2E17AD0008E778 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA9B2A2E17AD0008E778 /* ColorExtension.swift */; };
 		0950CA9F2A2E3D6F0008E778 /* DocumentsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA9E2A2E3D6F0008E778 /* DocumentsListView.swift */; };
+		0950CAA12A2F99DC0008E778 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CAA02A2F99DC0008E778 /* RegistrationView.swift */; };
+		0950CAA42A2F9BC00008E778 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CAA32A2F9BC00008E778 /* SearchView.swift */; };
+		0950CAA62A2F9EDF0008E778 /* HomeScreenSearchContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CAA52A2F9EDF0008E778 /* HomeScreenSearchContainerView.swift */; };
+		0950CAA82A2FA2680008E778 /* CustomFoldersListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CAA72A2FA2680008E778 /* CustomFoldersListCell.swift */; };
+		0950CAAB2A2FAB9E0008E778 /* FoldersHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CAAA2A2FAB9E0008E778 /* FoldersHorizontalListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +85,11 @@
 		0950CA962A2E0CB50008E778 /* CustomLogoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLogoButton.swift; sourceTree = "<group>"; };
 		0950CA9B2A2E17AD0008E778 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		0950CA9E2A2E3D6F0008E778 /* DocumentsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsListView.swift; sourceTree = "<group>"; };
+		0950CAA02A2F99DC0008E778 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		0950CAA32A2F9BC00008E778 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		0950CAA52A2F9EDF0008E778 /* HomeScreenSearchContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenSearchContainerView.swift; sourceTree = "<group>"; };
+		0950CAA72A2FA2680008E778 /* CustomFoldersListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFoldersListCell.swift; sourceTree = "<group>"; };
+		0950CAAA2A2FAB9E0008E778 /* FoldersHorizontalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersHorizontalListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				0950CA3F2A260D7F0008E778 /* ContentView.swift */,
+				0950CAA02A2F99DC0008E778 /* RegistrationView.swift */,
 				0950CA732A266DF80008E778 /* DocumentDetailedView.swift */,
 				0950CA8D2A27B55F0008E778 /* Tabbar */,
 				0950CA6D2A2647DF0008E778 /* Home */,
@@ -198,6 +209,8 @@
 			children = (
 				0950CA752A2789450008E778 /* Home.swift */,
 				0950CA7A2A278FF60008E778 /* NavigationHeaderView.swift */,
+				0950CAA92A2FAB6B0008E778 /* FoldersView */,
+				0950CAA22A2F9BA00008E778 /* SearchView */,
 				0950CA882A27A1260008E778 /* DocumentsView */,
 				0950CA842A27972A0008E778 /* ToolsView */,
 				0950CA852A2797360008E778 /* CategoriesView */,
@@ -299,6 +312,24 @@
 				0950CA942A28FCE70008E778 /* DocumentGridCell.swift */,
 			);
 			path = CustomCells;
+			sourceTree = "<group>";
+		};
+		0950CAA22A2F9BA00008E778 /* SearchView */ = {
+			isa = PBXGroup;
+			children = (
+				0950CAA32A2F9BC00008E778 /* SearchView.swift */,
+				0950CAA52A2F9EDF0008E778 /* HomeScreenSearchContainerView.swift */,
+			);
+			path = SearchView;
+			sourceTree = "<group>";
+		};
+		0950CAA92A2FAB6B0008E778 /* FoldersView */ = {
+			isa = PBXGroup;
+			children = (
+				0950CAA72A2FA2680008E778 /* CustomFoldersListCell.swift */,
+				0950CAAA2A2FAB9E0008E778 /* FoldersHorizontalListView.swift */,
+			);
+			path = FoldersView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -432,14 +463,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				0950CA902A27C7550008E778 /* TabbarItem.swift in Sources */,
+				0950CAA62A2F9EDF0008E778 /* HomeScreenSearchContainerView.swift in Sources */,
 				0950CA7B2A278FF60008E778 /* NavigationHeaderView.swift in Sources */,
 				0950CA812A2796670008E778 /* CategoryItemView.swift in Sources */,
+				0950CAA12A2F99DC0008E778 /* RegistrationView.swift in Sources */,
 				0950CA9F2A2E3D6F0008E778 /* DocumentsListView.swift in Sources */,
 				0950CA952A28FCE70008E778 /* DocumentGridCell.swift in Sources */,
 				0950CA7D2A27906E0008E778 /* ToolsView.swift in Sources */,
 				0950CA742A266DF80008E778 /* DocumentDetailedView.swift in Sources */,
 				0950CA702A2648010008E778 /* DocumentModel.swift in Sources */,
+				0950CAAB2A2FAB9E0008E778 /* FoldersHorizontalListView.swift in Sources */,
 				0950CA972A2E0CB50008E778 /* CustomLogoButton.swift in Sources */,
+				0950CAA42A2F9BC00008E778 /* SearchView.swift in Sources */,
 				0950CA8C2A27B5590008E778 /* CustomTabbar.swift in Sources */,
 				0950CA402A260D7F0008E778 /* ContentView.swift in Sources */,
 				0950CA832A2796F40008E778 /* CategoriesView.swift in Sources */,
@@ -448,6 +483,7 @@
 				0950CA722A266D430008E778 /* DocumentListModel.swift in Sources */,
 				0950CA922A27C8210008E778 /* TabbarItemModel.swift in Sources */,
 				0950CA762A2789450008E778 /* Home.swift in Sources */,
+				0950CAA82A2FA2680008E778 /* CustomFoldersListCell.swift in Sources */,
 				0950CA3E2A260D7F0008E778 /* TreeFreeNoteApp.swift in Sources */,
 				0950CA7F2A2791E60008E778 /* Category.swift in Sources */,
 				0950CA9C2A2E17AD0008E778 /* ColorExtension.swift in Sources */,
