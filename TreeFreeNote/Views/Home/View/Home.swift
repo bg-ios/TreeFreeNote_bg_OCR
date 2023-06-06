@@ -28,22 +28,9 @@ struct Home: View {
                     Spacer(minLength: 10)
                     CategoriesView(selectedCategory: $selectedCategory)
                         .padding(.horizontal, 5)
-                    
+                    Divider()
                     //Documents ListView
-                    
-                    ScrollView(.vertical, showsIndicators: false) {
-                        VStack{
-                            ForEach(documentModelSamples){ document in
-                             DocumentListCell(document: document)
-                                    .frame(height: 120)
-                                    .onTapGesture {
-                                        print("cell Action")
-                                    }
-                             Divider()
-                                        
-                            }
-                        }
-                    }
+                    DocumentsListView()
                 })
             }
         }

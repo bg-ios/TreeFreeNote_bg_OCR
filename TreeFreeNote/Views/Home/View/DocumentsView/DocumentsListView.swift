@@ -12,15 +12,25 @@ struct DocumentsListView: View {
     
     var body: some View {
         NavigationView {
-            List {
-                ForEach(documentsArray) { document in
-                    DocumentListCell(document: document)
-                        .frame(height: 120)
+            
+            ScrollView {
+                LazyVStack(alignment: .leading, spacing: 10, pinnedViews: .sectionHeaders) {
+                    Section {
+                        ForEach(documentsArray) { document in
+                            DocumentListCell(document: document)
+                                .frame(height: 120)
+                                .onTapGesture {
+                                    print(document)
+                                }
+                            Divider()
+                        }
+                    }
                 }
             }
-            .listStyle(.plain)
         }
+        
     }
+    
 }
 
 struct DocumentsListView_Previews: PreviewProvider {
