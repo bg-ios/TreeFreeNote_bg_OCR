@@ -10,8 +10,9 @@ import SwiftUI
 struct HomeScreenSearchContainerView: View {
     
     @State var searchText: String = "Text"
-        
-    @State var isShowingBottomSheet = false
+    @Binding var isShowingBottomSheet: Bool
+    
+    @Binding var bottomSheetContentType: BottomSheetType
 
     var body: some View {
         ZStack {
@@ -25,19 +26,19 @@ struct HomeScreenSearchContainerView: View {
                 }
                 CustomLogoButton(imageName: "tagIcon") {
                     print("Tag button clicked")
-                    BottomSheet(isShowing: $isShowingBottomSheet, content: BottomSheetType.newTag.view())
+                    bottomSheetContentType = .newTag
+                    isShowingBottomSheet.toggle()
                     
                 }
                 CustomLogoButton(imageName: "addFolder") {
                     print("Folder button clicked")
-                    BottomSheet(isShowing: $isShowingBottomSheet, content: BottomSheetType.newFolder.view())
-                    
+                    bottomSheetContentType = .newFolder
+                    isShowingBottomSheet.toggle()
                 }
                 CustomLogoButton(imageName: "moreIcon") {
                     print("More button clicked")
                 }
             }
-            BottomSheet(isShowing: $isShowingBottomSheet, content: BottomSheetType.newTag.view())
 
         }
     }
@@ -45,6 +46,6 @@ struct HomeScreenSearchContainerView: View {
 
 struct HomeScreenSearchContainerView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeScreenSearchContainerView()
+        HomeScreenSearchContainerView(isShowingBottomSheet: .constant(false), bottomSheetContentType: .constant(.newTag))
     }
 }

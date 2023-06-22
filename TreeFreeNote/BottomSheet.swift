@@ -13,8 +13,10 @@ enum BottomSheetType: Int {
     
     func view() -> AnyView {
         switch self {
-        case .newTag, .newFolder:
+        case .newTag:
             return AnyView(TagCreationView())
+        case .newFolder:
+            return AnyView(FolderCreationView())
         }
     }
 }

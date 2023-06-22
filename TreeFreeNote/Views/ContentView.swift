@@ -17,27 +17,36 @@ struct ContentView: View {
     //Selected Tab
     @State var selectedTab: String = "Home"
     
+    @State var bottomSheetContentType: BottomSheetType = .newTag
+    @State var isShowingBottomSheet: Bool = false
+
+    
     var body: some View {
-        //TabView
-        VStack(spacing: 0) {
-            TabView{
-                Home(selectedCategory: $selectedItem)
-                    .tag("Home")
-                
-                Color.red
-                    .tag("QR Scan")
-                
-                Color.orange
-                    .tag("OCR Scan")
-                
-                Color.gray
-                    .tag("Import")
+        ZStack {
+            //TabView
+            VStack(spacing: 0) {
+                TabView{
+                    Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet)
+                        .tag("Home")
+                    
+                    Color.red
+                        .tag("QR Scan")
+                    
+                    Color.orange
+                        .tag("OCR Scan")
+                    
+                    Color.gray
+                        .tag("Import")
+                }
+                // Custom Tab View
+                CustomTabbar(selectedTab: $selectedTab)
+                //                .cornerRadius(40, corners: [.topLeft, .topRight])
             }
-            // Custom Tab View
-         CustomTabbar(selectedTab: $selectedTab)
-//                .cornerRadius(40, corners: [.topLeft, .topRight])
+            .ignoresSafeArea()
+            
+            BottomSheet(isShowing: $isShowingBottomSheet, content: bottomSheetContentType.view())
+
         }
-        .ignoresSafeArea()
     }
     
 }
