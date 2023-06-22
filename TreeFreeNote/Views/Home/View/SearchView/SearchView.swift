@@ -14,7 +14,7 @@ struct SearchView: View {
     
     var body: some View {
         HStack(spacing: 2) {
-            
+            ///Search View 
             Image(systemName: "magnifyingglass")
             TextField(placeHolderText, text: $searchText)
                 .padding(.vertical)
