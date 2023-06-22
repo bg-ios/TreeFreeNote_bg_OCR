@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0924D5FD2A42AB3100FCF155 /* FolderCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D5FB2A42AB3100FCF155 /* FolderCreationView.swift */; };
+		0924D5FE2A42AB3100FCF155 /* TagCreationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D5FC2A42AB3100FCF155 /* TagCreationView.swift */; };
+		0924D6012A42ABA800FCF155 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6002A42ABA800FCF155 /* BottomSheet.swift */; };
+		0924D6042A43F87F00FCF155 /* FormInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6022A43F87F00FCF155 /* FormInputView.swift */; };
+		0924D6052A43F87F00FCF155 /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6032A43F87F00FCF155 /* RoundedTextField.swift */; };
 		0950CA3E2A260D7F0008E778 /* TreeFreeNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA3D2A260D7F0008E778 /* TreeFreeNoteApp.swift */; };
 		0950CA402A260D7F0008E778 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA3F2A260D7F0008E778 /* ContentView.swift */; };
 		0950CA422A260D850008E778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0950CA412A260D850008E778 /* Assets.xcassets */; };
@@ -37,6 +42,8 @@
 		0950CAA62A2F9EDF0008E778 /* HomeScreenSearchContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CAA52A2F9EDF0008E778 /* HomeScreenSearchContainerView.swift */; };
 		0950CAA82A2FA2680008E778 /* CustomFoldersListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CAA72A2FA2680008E778 /* CustomFoldersListCell.swift */; };
 		0950CAAB2A2FAB9E0008E778 /* FoldersHorizontalListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CAAA2A2FAB9E0008E778 /* FoldersHorizontalListView.swift */; };
+		0950CAAD2A34AFD30008E778 /* DocumentDBStructure in Resources */ = {isa = PBXBuildFile; fileRef = 0950CAAC2A34AFD30008E778 /* DocumentDBStructure */; };
+		0950CAAF2A34B09F0008E778 /* DocumentSavingModels in Resources */ = {isa = PBXBuildFile; fileRef = 0950CAAE2A34B09F0008E778 /* DocumentSavingModels */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +64,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0924D5FB2A42AB3100FCF155 /* FolderCreationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FolderCreationView.swift; sourceTree = "<group>"; };
+		0924D5FC2A42AB3100FCF155 /* TagCreationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagCreationView.swift; sourceTree = "<group>"; };
+		0924D6002A42ABA800FCF155 /* BottomSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
+		0924D6022A43F87F00FCF155 /* FormInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormInputView.swift; sourceTree = "<group>"; };
+		0924D6032A43F87F00FCF155 /* RoundedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
 		0950CA3A2A260D7F0008E778 /* TreeFreeNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreeFreeNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0950CA3D2A260D7F0008E778 /* TreeFreeNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeFreeNoteApp.swift; sourceTree = "<group>"; };
 		0950CA3F2A260D7F0008E778 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -90,6 +102,8 @@
 		0950CAA52A2F9EDF0008E778 /* HomeScreenSearchContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenSearchContainerView.swift; sourceTree = "<group>"; };
 		0950CAA72A2FA2680008E778 /* CustomFoldersListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFoldersListCell.swift; sourceTree = "<group>"; };
 		0950CAAA2A2FAB9E0008E778 /* FoldersHorizontalListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersHorizontalListView.swift; sourceTree = "<group>"; };
+		0950CAAC2A34AFD30008E778 /* DocumentDBStructure */ = {isa = PBXFileReference; lastKnownFileType = text; path = DocumentDBStructure; sourceTree = "<group>"; };
+		0950CAAE2A34B09F0008E778 /* DocumentSavingModels */ = {isa = PBXFileReference; lastKnownFileType = text; path = DocumentSavingModels; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +131,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0924D5FF2A42AB3A00FCF155 /* FolderView */ = {
+			isa = PBXGroup;
+			children = (
+				0924D5FB2A42AB3100FCF155 /* FolderCreationView.swift */,
+				0924D5FC2A42AB3100FCF155 /* TagCreationView.swift */,
+			);
+			path = FolderView;
+			sourceTree = "<group>";
+		};
 		0950CA312A260D7F0008E778 = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +170,8 @@
 				0950CA992A2E176E0008E778 /* Helper */,
 				0950CA412A260D850008E778 /* Assets.xcassets */,
 				0950CA432A260D850008E778 /* Preview Content */,
+				0950CAAC2A34AFD30008E778 /* DocumentDBStructure */,
+				0950CAAE2A34B09F0008E778 /* DocumentSavingModels */,
 			);
 			path = TreeFreeNote;
 			sourceTree = "<group>";
@@ -182,6 +207,7 @@
 				0950CA3F2A260D7F0008E778 /* ContentView.swift */,
 				0950CAA02A2F99DC0008E778 /* RegistrationView.swift */,
 				0950CA732A266DF80008E778 /* DocumentDetailedView.swift */,
+				0924D5FF2A42AB3A00FCF155 /* FolderView */,
 				0950CA8D2A27B55F0008E778 /* Tabbar */,
 				0950CA6D2A2647DF0008E778 /* Home */,
 			);
@@ -292,6 +318,9 @@
 		0950CA992A2E176E0008E778 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				0924D6022A43F87F00FCF155 /* FormInputView.swift */,
+				0924D6032A43F87F00FCF155 /* RoundedTextField.swift */,
+				0924D6002A42ABA800FCF155 /* BottomSheet.swift */,
 				0950CA9A2A2E17870008E778 /* Extension */,
 			);
 			name = Helper;
@@ -436,8 +465,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0950CAAD2A34AFD30008E778 /* DocumentDBStructure in Resources */,
 				0950CA452A260D850008E778 /* Preview Assets.xcassets in Resources */,
 				0950CA422A260D850008E778 /* Assets.xcassets in Resources */,
+				0950CAAF2A34B09F0008E778 /* DocumentSavingModels in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -464,15 +495,18 @@
 			files = (
 				0950CA902A27C7550008E778 /* TabbarItem.swift in Sources */,
 				0950CAA62A2F9EDF0008E778 /* HomeScreenSearchContainerView.swift in Sources */,
+				0924D6012A42ABA800FCF155 /* BottomSheet.swift in Sources */,
 				0950CA7B2A278FF60008E778 /* NavigationHeaderView.swift in Sources */,
 				0950CA812A2796670008E778 /* CategoryItemView.swift in Sources */,
 				0950CAA12A2F99DC0008E778 /* RegistrationView.swift in Sources */,
 				0950CA9F2A2E3D6F0008E778 /* DocumentsListView.swift in Sources */,
+				0924D5FE2A42AB3100FCF155 /* TagCreationView.swift in Sources */,
 				0950CA952A28FCE70008E778 /* DocumentGridCell.swift in Sources */,
 				0950CA7D2A27906E0008E778 /* ToolsView.swift in Sources */,
 				0950CA742A266DF80008E778 /* DocumentDetailedView.swift in Sources */,
 				0950CA702A2648010008E778 /* DocumentModel.swift in Sources */,
 				0950CAAB2A2FAB9E0008E778 /* FoldersHorizontalListView.swift in Sources */,
+				0924D6052A43F87F00FCF155 /* RoundedTextField.swift in Sources */,
 				0950CA972A2E0CB50008E778 /* CustomLogoButton.swift in Sources */,
 				0950CAA42A2F9BC00008E778 /* SearchView.swift in Sources */,
 				0950CA8C2A27B5590008E778 /* CustomTabbar.swift in Sources */,
@@ -483,7 +517,9 @@
 				0950CA722A266D430008E778 /* DocumentListModel.swift in Sources */,
 				0950CA922A27C8210008E778 /* TabbarItemModel.swift in Sources */,
 				0950CA762A2789450008E778 /* Home.swift in Sources */,
+				0924D5FD2A42AB3100FCF155 /* FolderCreationView.swift in Sources */,
 				0950CAA82A2FA2680008E778 /* CustomFoldersListCell.swift in Sources */,
+				0924D6042A43F87F00FCF155 /* FormInputView.swift in Sources */,
 				0950CA3E2A260D7F0008E778 /* TreeFreeNoteApp.swift in Sources */,
 				0950CA7F2A2791E60008E778 /* Category.swift in Sources */,
 				0950CA9C2A2E17AD0008E778 /* ColorExtension.swift in Sources */,
@@ -645,6 +681,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TreeFreeNote/Preview Content\"";
+				DEVELOPMENT_TEAM = B7577YZMXV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -674,6 +711,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TreeFreeNote/Preview Content\"";
+				DEVELOPMENT_TEAM = B7577YZMXV;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;

@@ -8,13 +8,110 @@
 import SwiftUI
 
 struct DocumentGridCell: View {
+    var document: DocumentModel
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack {
+                ForEach(0..<2) { items in
+//                    Spacer()
+                    VStack(content: {
+                        Image("pn_card")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+//                            .foregroundColor(.gray)
+                            .background(Color.gray)
+                        documentPropertiewView
+                    })
+//                    .frame(width: (UIScreen.main.bounds.size.width/2)-10)
+                    .background(Color.green)
+                    .cornerRadius(10.0, corners: .allCorners)
+//                    .padding(.trailing, 5)
+//                    .padding(.leading, 5)
+//                    .padding(.top, 5)
+//                    Spacer()
+                }
+            }
+        }
     }
 }
 
+
 struct DocumentGridCell_Previews: PreviewProvider {
     static var previews: some View {
-        DocumentGridCell()
+        DocumentGridCell(document: documentModelSamples.first!)
     }
 }
+
+//
+private extension DocumentGridCell {
+    var documentPropertiewView: some View {
+        VStack(spacing: 0, content: {
+                Text(document.name)
+//                    .font(.subheadline)
+                    .fontWeight(.light)
+                    .font(Font.system(size: 10))
+//                    .fixedSize(horizontal: false, vertical: true)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
+                    .foregroundColor(.black)
+//                    .background(Color.red)
+            HStack(spacing: 25){
+//                Spacer()
+                Button(action: {
+                    print("share action")
+                }) {
+                    Image("share")
+                        .resizable()
+                        .renderingMode(.template)
+                        .aspectRatio(contentMode: .fit)
+                        .font(.footnote)
+                        .padding(8)
+                        .frame(width: 30, height: 30, alignment: .center)
+                }
+                Button(action: {
+                    print("sync action")
+                }) {
+                    Image("syncIcon")
+                        .resizable()
+                        .renderingMode(.template)
+                        .aspectRatio(contentMode: .fit)
+                        .font(.footnote)
+                        .padding(8)
+                        .frame(width: 30, height: 30, alignment: .center)
+                }
+                Button(action: {
+                    print("starred action")
+                }) {
+                    Image("star")
+                        .resizable()
+                        .renderingMode(.template)
+                        .aspectRatio(contentMode: .fit)
+                        .font(.footnote)
+                        .foregroundColor(.black)
+                        .padding(8)
+                        .frame(width: 30, height: 30, alignment: .center)
+                }
+                Button(action: {
+                    print("more action")
+                }) {
+                    Image("moreIcon")
+                        .resizable()
+                        .renderingMode(.template)
+                        .aspectRatio(contentMode: .fit)
+                        .font(.footnote)
+                        .foregroundColor(.black)
+                        .padding(8)
+                        .frame(width: 30, height: 30, alignment: .center)
+                }
+            }
+            .frame(width: UIScreen.main.bounds.size.width/2)
+        })
+        .frame(width: UIScreen.main.bounds.size.width/2)
+        .background(Color.yellow)
+//        .shadow(radius: 5)
+//        .cornerRadius(5, corners: .allCorners)
+//        .padding(.trailing, 0)
+//        .padding(.leading, 0)
+    }
+}
+

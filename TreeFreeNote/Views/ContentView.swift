@@ -54,7 +54,7 @@ extension View {
         ModifiedContent(content: self, modifier: CornerRadiusStyle(radius: radius, corners: corners))
     }
 }
-
+/*
 struct CornerRadiusStyle: ViewModifier {
     var radius: CGFloat
     var corners: UIRectCorner
@@ -75,3 +75,4 @@ struct CornerRadiusStyle: ViewModifier {
             .clipShape(CornerRadiusShape(radius: radius, corners: corners))
     }
 }
+*/

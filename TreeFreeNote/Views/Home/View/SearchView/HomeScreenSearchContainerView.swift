@@ -11,25 +11,34 @@ struct HomeScreenSearchContainerView: View {
     
     @State var searchText: String = "Text"
         
+    @State var isShowingBottomSheet = false
+
     var body: some View {
-        
-        HStack(spacing: 10) {
-            SearchView(searchText: $searchText, placeHolderText: "Search") {
-                print(searchText)
+        ZStack {
+            HStack(spacing: 10) {
+                SearchView(searchText: $searchText, placeHolderText: "Search") {
+                    print(searchText)
+                }
+                
+                CustomLogoButton(imageName: "selectIcon") {
+                    print("selection button clicked")
+                }
+                CustomLogoButton(imageName: "tagIcon") {
+                    print("Tag button clicked")
+                    BottomSheet(isShowing: $isShowingBottomSheet, content: BottomSheetType.newTag.view())
+                    
+                }
+                CustomLogoButton(imageName: "addFolder") {
+                    print("Folder button clicked")
+                    BottomSheet(isShowing: $isShowingBottomSheet, content: BottomSheetType.newFolder.view())
+                    
+                }
+                CustomLogoButton(imageName: "moreIcon") {
+                    print("More button clicked")
+                }
             }
-            
-            CustomLogoButton(imageName: "selectIcon") {
-                print("selection button clicked")
-            }
-            CustomLogoButton(imageName: "tagIcon") {
-                print("Tag button clicked")
-            }
-            CustomLogoButton(imageName: "addFolder") {
-                print("Folder button clicked")
-            }
-            CustomLogoButton(imageName: "moreIcon") {
-                print("More button clicked")
-            }
+            BottomSheet(isShowing: $isShowingBottomSheet, content: BottomSheetType.newTag.view())
+
         }
     }
 }

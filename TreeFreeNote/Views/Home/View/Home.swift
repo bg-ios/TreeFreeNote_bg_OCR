@@ -16,20 +16,20 @@ struct Home: View {
         VStack{
             ///NavigationHeaderView
             NavigationHeaderView()
-                .padding()
+                Spacer(minLength: 1)
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .leading, spacing: 10, content: {
 
                     ///ToolsView..
                     ToolsView()
-                    Spacer(minLength: 10)
+                    Spacer(minLength: 2)
 
                     ///Search View
                     HomeScreenSearchContainerView()
                         .padding(.horizontal, 5)
                     
                     ///Categories View
-                    Spacer(minLength: 10)
+//                    Spacer(minLength: 1)
                     CategoriesView(selectedCategory: $selectedCategory)
                         .padding(5)
                     FoldersHorizontalListView()

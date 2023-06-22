@@ -11,10 +11,10 @@ struct ToolsItemView: View {
     var title: String
     
     var body: some View {
-        VStack(spacing: 8) {
+        VStack(spacing: 4) {
             Image(systemName: "circle.grid.2x2")
                 .font(.title2)
-                .padding(10)
+                .padding(4)
                 .background(Color.green.opacity(0.12))
                 .foregroundColor(Color.green)
                 .clipShape(Circle())
