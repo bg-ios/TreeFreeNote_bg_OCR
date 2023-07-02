@@ -10,13 +10,21 @@ import SwiftUI
 enum BottomSheetType: Int {
     case newTag
     case newFolder
+    case folderConfirmationView
+    case eraseAlertView
     
     func view() -> AnyView {
         switch self {
         case .newTag:
-            return AnyView(TagCreationView())
+            return AnyView(TagCreationView(createTag: { newTag in
+                print(newTag)
+                }))
         case .newFolder:
             return AnyView(FolderCreationView())
+        case .folderConfirmationView:
+            return AnyView(FolderConfirmationView(alertType: .confirmationAlert))
+        case .eraseAlertView:
+            return AnyView(FolderConfirmationView(alertType: .eraseAlert))
         }
     }
 }
@@ -41,7 +49,7 @@ struct BottomSheet: View {
                     .background(
                         Color(.white)
                     )
-                    .cornerRadius(16, corners: [.topLeft, .topRight])
+                    .cornerRadius(36, corners: [.topLeft, .topRight])
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)

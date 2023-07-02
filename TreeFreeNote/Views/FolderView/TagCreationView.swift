@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TagCreationView: View {
     @State private var tagName: String = ""
+//    @Binding var isShowing: Bool
+
     var createTag: ((String) -> ())?
     
     var body: some View {
@@ -16,11 +18,8 @@ struct TagCreationView: View {
             HStack {
                 Spacer()
                 Button {
-                    if tagName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                        print("Empty tag ALert")
-                    } else {
-                        self.createTag?(tagName)
-                    }
+                    print("close action")
+//                    isShowing.toggle()
                 } label: {
                     Image(systemName: "xmark.circle")
                         .aspectRatio(contentMode: .fit)
@@ -49,7 +48,12 @@ struct TagCreationView: View {
                     .foregroundColor(Color.black)
                 
                 Button {
-                    print("create new tag")
+                    if tagName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                        print("Empty tag ALert")
+                    } else {
+                        self.createTag?(tagName)
+//                        isShowing.toggle()
+                    }
                 } label: {
                     HStack {
                         Image(systemName: "xmark.circle")
