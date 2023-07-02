@@ -2,7 +2,7 @@
 //  SegmentHeaderView.swift
 //  TreeFreeNote
 //
-//  Created by Baby on 25/06/23.
+//  Created by Bhargavi on 25/06/23.
 //
 
 import SwiftUI
@@ -16,6 +16,10 @@ struct SegmentHeaderView: View {
                 Text(segment.rawValue).tag(segment)
             }
         }.pickerStyle(SegmentedPickerStyle())
+            .padding(.horizontal, 20)
+            .onAppear {
+                selectedSegment = DocumentSegments.allCases.first?.rawValue ?? ""
+            }
     }
 }
 

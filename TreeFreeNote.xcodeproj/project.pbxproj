@@ -13,6 +13,13 @@
 		0924D6042A43F87F00FCF155 /* FormInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6022A43F87F00FCF155 /* FormInputView.swift */; };
 		0924D6052A43F87F00FCF155 /* RoundedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6032A43F87F00FCF155 /* RoundedTextField.swift */; };
 		0924D6092A480FCD00FCF155 /* SegmentHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6082A480FCD00FCF155 /* SegmentHeaderView.swift */; };
+		0924D64C2A4FDBB300FCF155 /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D64B2A4FDBB300FCF155 /* ScanView.swift */; };
+		0924D64E2A50434600FCF155 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D64D2A50434600FCF155 /* RadioButton.swift */; };
+		0924D6522A50492500FCF155 /* LockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6512A50492500FCF155 /* LockView.swift */; };
+		0924D6542A50563700FCF155 /* CreatePinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6532A50563700FCF155 /* CreatePinView.swift */; };
+		0924D6562A505F5E00FCF155 /* OTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6552A505F5E00FCF155 /* OTPView.swift */; };
+		0924D6582A50698800FCF155 /* FolderConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6572A50698800FCF155 /* FolderConfirmationView.swift */; };
+		0924D65A2A510DAF00FCF155 /* DocumentsDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6592A510DAF00FCF155 /* DocumentsDetailedView.swift */; };
 		0950CA3E2A260D7F0008E778 /* TreeFreeNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA3D2A260D7F0008E778 /* TreeFreeNoteApp.swift */; };
 		0950CA402A260D7F0008E778 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA3F2A260D7F0008E778 /* ContentView.swift */; };
 		0950CA422A260D850008E778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0950CA412A260D850008E778 /* Assets.xcassets */; };
@@ -71,6 +78,13 @@
 		0924D6022A43F87F00FCF155 /* FormInputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormInputView.swift; sourceTree = "<group>"; };
 		0924D6032A43F87F00FCF155 /* RoundedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedTextField.swift; sourceTree = "<group>"; };
 		0924D6082A480FCD00FCF155 /* SegmentHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentHeaderView.swift; sourceTree = "<group>"; };
+		0924D64B2A4FDBB300FCF155 /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
+		0924D64D2A50434600FCF155 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
+		0924D6512A50492500FCF155 /* LockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockView.swift; sourceTree = "<group>"; };
+		0924D6532A50563700FCF155 /* CreatePinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePinView.swift; sourceTree = "<group>"; };
+		0924D6552A505F5E00FCF155 /* OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPView.swift; sourceTree = "<group>"; };
+		0924D6572A50698800FCF155 /* FolderConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderConfirmationView.swift; sourceTree = "<group>"; };
+		0924D6592A510DAF00FCF155 /* DocumentsDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsDetailedView.swift; sourceTree = "<group>"; };
 		0950CA3A2A260D7F0008E778 /* TreeFreeNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreeFreeNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0950CA3D2A260D7F0008E778 /* TreeFreeNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeFreeNoteApp.swift; sourceTree = "<group>"; };
 		0950CA3F2A260D7F0008E778 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -138,8 +152,19 @@
 			children = (
 				0924D5FB2A42AB3100FCF155 /* FolderCreationView.swift */,
 				0924D5FC2A42AB3100FCF155 /* TagCreationView.swift */,
+				0924D6552A505F5E00FCF155 /* OTPView.swift */,
+				0924D6512A50492500FCF155 /* LockView.swift */,
+				0924D6572A50698800FCF155 /* FolderConfirmationView.swift */,
 			);
 			path = FolderView;
+			sourceTree = "<group>";
+		};
+		0924D64A2A4FDB7400FCF155 /* QRScan */ = {
+			isa = PBXGroup;
+			children = (
+				0924D64B2A4FDBB300FCF155 /* ScanView.swift */,
+			);
+			path = QRScan;
 			sourceTree = "<group>";
 		};
 		0950CA312A260D7F0008E778 = {
@@ -211,6 +236,7 @@
 				0950CA732A266DF80008E778 /* DocumentDetailedView.swift */,
 				0924D5FF2A42AB3A00FCF155 /* FolderView */,
 				0950CA8D2A27B55F0008E778 /* Tabbar */,
+				0924D64A2A4FDB7400FCF155 /* QRScan */,
 				0950CA6D2A2647DF0008E778 /* Home */,
 			);
 			path = Views;
@@ -279,6 +305,7 @@
 			isa = PBXGroup;
 			children = (
 				0950CA9E2A2E3D6F0008E778 /* DocumentsListView.swift */,
+				0924D6592A510DAF00FCF155 /* DocumentsDetailedView.swift */,
 				0950CA9D2A2E3D510008E778 /* CustomCells */,
 			);
 			path = DocumentsView;
@@ -322,6 +349,8 @@
 			isa = PBXGroup;
 			children = (
 				0924D6022A43F87F00FCF155 /* FormInputView.swift */,
+				0924D6532A50563700FCF155 /* CreatePinView.swift */,
+				0924D64D2A50434600FCF155 /* RadioButton.swift */,
 				0924D6032A43F87F00FCF155 /* RoundedTextField.swift */,
 				0924D6002A42ABA800FCF155 /* BottomSheet.swift */,
 				0950CA9A2A2E17870008E778 /* Extension */,
@@ -496,17 +525,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0924D64E2A50434600FCF155 /* RadioButton.swift in Sources */,
 				0950CA902A27C7550008E778 /* TabbarItem.swift in Sources */,
 				0950CAA62A2F9EDF0008E778 /* HomeScreenSearchContainerView.swift in Sources */,
 				0924D6092A480FCD00FCF155 /* SegmentHeaderView.swift in Sources */,
 				0924D6012A42ABA800FCF155 /* BottomSheet.swift in Sources */,
 				0950CA7B2A278FF60008E778 /* NavigationHeaderView.swift in Sources */,
 				0950CA812A2796670008E778 /* CategoryItemView.swift in Sources */,
+				0924D6582A50698800FCF155 /* FolderConfirmationView.swift in Sources */,
 				0950CAA12A2F99DC0008E778 /* RegistrationView.swift in Sources */,
+				0924D6542A50563700FCF155 /* CreatePinView.swift in Sources */,
 				0950CA9F2A2E3D6F0008E778 /* DocumentsListView.swift in Sources */,
 				0924D5FE2A42AB3100FCF155 /* TagCreationView.swift in Sources */,
+				0924D64C2A4FDBB300FCF155 /* ScanView.swift in Sources */,
+				0924D65A2A510DAF00FCF155 /* DocumentsDetailedView.swift in Sources */,
 				0950CA952A28FCE70008E778 /* DocumentGridCell.swift in Sources */,
 				0950CA7D2A27906E0008E778 /* ToolsView.swift in Sources */,
+				0924D6562A505F5E00FCF155 /* OTPView.swift in Sources */,
 				0950CA742A266DF80008E778 /* DocumentDetailedView.swift in Sources */,
 				0950CA702A2648010008E778 /* DocumentModel.swift in Sources */,
 				0950CAAB2A2FAB9E0008E778 /* FoldersHorizontalListView.swift in Sources */,
@@ -516,6 +551,7 @@
 				0950CA8C2A27B5590008E778 /* CustomTabbar.swift in Sources */,
 				0950CA402A260D7F0008E778 /* ContentView.swift in Sources */,
 				0950CA832A2796F40008E778 /* CategoriesView.swift in Sources */,
+				0924D6522A50492500FCF155 /* LockView.swift in Sources */,
 				0950CA8A2A27A1440008E778 /* DocumentListCell.swift in Sources */,
 				0950CA792A278E670008E778 /* ToolsItemView.swift in Sources */,
 				0950CA722A266D430008E778 /* DocumentListModel.swift in Sources */,

@@ -37,6 +37,9 @@ struct HomeScreenSearchContainerView: View {
                 }
                 CustomLogoButton(imageName: "moreIcon") {
                     print("More button clicked")
+                    bottomSheetContentType = .eraseAlertView
+                    isShowingBottomSheet.toggle()
+
                 }
             }
 
