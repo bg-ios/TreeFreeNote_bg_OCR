@@ -13,7 +13,7 @@ struct ContentView: View {
     init() {
         UITabBar.appearance().isHidden = true
     }
-
+    
     //Selected Category
     @State private var selectedItem: Category?
     //Selected Tab
@@ -24,62 +24,44 @@ struct ContentView: View {
     
     @State var isTabViewShown = true
     @Environment(\.presentationMode) private var presentationMode
-
+    
     var body: some View {
-        NavigationView {
-            ZStack {
-                //TabView
-                VStack(spacing: 0) {
-                    TabView(selection: $selectedTab) {
-                        NavigationView {
-                            Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet)
-                        }
+        ZStack {
+            //TabView
+            VStack(spacing: 0) {
+                TabView(selection: $selectedTab) {
+                    Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet)
                         .tag("Home")
-                        
-                        NavigationLink(destination: Text("QR Scan View")) {
-                            ScanView(isTabViewShown: $isTabViewShown) {
-                                self.selectedTab = "Home"
-                            }
-                        }
-                        .tag("QR Scan")
-                        
-                        NavigationLink(destination: Text(" Scan View")) {
-                            ScanView(isTabViewShown: $isTabViewShown) {
-                                self.selectedTab = "Camera"
-                            }
-                        }
-                        .tag("Camera")
-                        
-                        NavigationLink(destination: Text("OCR Scan View")) {
-                            ScanView(isTabViewShown: $isTabViewShown) {
-                                self.selectedTab = "Home"
-                            }
-                        }
-                        .tag("OCR Scan")
-                        
-                        NavigationLink(destination: Text("Import View")) {
-                            Color.gray
-                        }
-                        .tag("Import")
-                    }
-                    .accentColor(.blue)
                     
-                    // Custom Tab View
-                    if isTabViewShown {
-                        CustomTabbar(selectedTab: $selectedTab, action: {
-                            // Optional: Perform any additional actions when a tab is selected
-//                            NavigationLink(destination: Text("Camera View")) {
-//                                ScanView(isTabViewShown: $isTabViewShown) {
-//                                    self.selectedTab = "Home"
-//                                }
-//                            }
-                        })
+                    ScanView(isTabViewShown: $isTabViewShown) {
+                        self.selectedTab = "Home"
                     }
+                    .tag("QR Scan")
+                    
+                    ScanView(isTabViewShown: $isTabViewShown) {
+                        self.selectedTab = "Camera"
+                    }
+                    .tag("Camera")
+                    
+                    ScanView(isTabViewShown: $isTabViewShown) {
+                        self.selectedTab = "Home"
+                    }
+                    .tag("OCR Scan")
+                    
+                    Color.gray
+                        .tag("Import")
                 }
-                .ignoresSafeArea()
                 
-                BottomSheet(isShowing: $isShowingBottomSheet, content: bottomSheetContentType.view())
+                // Custom Tab View
+                if isTabViewShown {
+                    CustomTabbar(selectedTab: $selectedTab, action: {
+                        // Optional: Perform any additional actions when a tab is selected
+                    })
+                }
             }
+            .ignoresSafeArea()
+            
+            BottomSheet(isShowing: $isShowingBottomSheet, content: bottomSheetContentType.view())
         }
     }
 }

@@ -17,7 +17,6 @@
 		0924D64E2A50434600FCF155 /* RadioButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D64D2A50434600FCF155 /* RadioButton.swift */; };
 		0924D6522A50492500FCF155 /* LockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6512A50492500FCF155 /* LockView.swift */; };
 		0924D6542A50563700FCF155 /* CreatePinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6532A50563700FCF155 /* CreatePinView.swift */; };
-		0924D6562A505F5E00FCF155 /* OTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6552A505F5E00FCF155 /* OTPView.swift */; };
 		0924D6582A50698800FCF155 /* FolderConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6572A50698800FCF155 /* FolderConfirmationView.swift */; };
 		0924D65A2A510DAF00FCF155 /* DocumentsDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6592A510DAF00FCF155 /* DocumentsDetailedView.swift */; };
 		0950CA3E2A260D7F0008E778 /* TreeFreeNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA3D2A260D7F0008E778 /* TreeFreeNoteApp.swift */; };
@@ -82,7 +81,6 @@
 		0924D64D2A50434600FCF155 /* RadioButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButton.swift; sourceTree = "<group>"; };
 		0924D6512A50492500FCF155 /* LockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LockView.swift; sourceTree = "<group>"; };
 		0924D6532A50563700FCF155 /* CreatePinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePinView.swift; sourceTree = "<group>"; };
-		0924D6552A505F5E00FCF155 /* OTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPView.swift; sourceTree = "<group>"; };
 		0924D6572A50698800FCF155 /* FolderConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderConfirmationView.swift; sourceTree = "<group>"; };
 		0924D6592A510DAF00FCF155 /* DocumentsDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsDetailedView.swift; sourceTree = "<group>"; };
 		0950CA3A2A260D7F0008E778 /* TreeFreeNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreeFreeNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,7 +150,6 @@
 			children = (
 				0924D5FB2A42AB3100FCF155 /* FolderCreationView.swift */,
 				0924D5FC2A42AB3100FCF155 /* TagCreationView.swift */,
-				0924D6552A505F5E00FCF155 /* OTPView.swift */,
 				0924D6512A50492500FCF155 /* LockView.swift */,
 				0924D6572A50698800FCF155 /* FolderConfirmationView.swift */,
 			);
@@ -541,7 +538,6 @@
 				0924D65A2A510DAF00FCF155 /* DocumentsDetailedView.swift in Sources */,
 				0950CA952A28FCE70008E778 /* DocumentGridCell.swift in Sources */,
 				0950CA7D2A27906E0008E778 /* ToolsView.swift in Sources */,
-				0924D6562A505F5E00FCF155 /* OTPView.swift in Sources */,
 				0950CA742A266DF80008E778 /* DocumentDetailedView.swift in Sources */,
 				0950CA702A2648010008E778 /* DocumentModel.swift in Sources */,
 				0950CAAB2A2FAB9E0008E778 /* FoldersHorizontalListView.swift in Sources */,
