@@ -28,12 +28,12 @@ struct Home: View {
                     
                     ///Search View
                     HomeScreenSearchContainerView(isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType)
-                        .padding(.horizontal, 5)
+                        .padding(.horizontal, 10)
                     
                     ///Categories View
                     //                    Spacer(minLength: 1)
                     CategoriesView(selectedCategory: $selectedCategory)
-                        .padding(5)
+                        .padding(10)
                     FoldersHorizontalListView()
                         .frame(height: 140)
                         .padding(.horizontal, 10)
