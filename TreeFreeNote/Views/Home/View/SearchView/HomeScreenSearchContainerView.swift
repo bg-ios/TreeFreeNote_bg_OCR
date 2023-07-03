@@ -13,33 +13,55 @@ struct HomeScreenSearchContainerView: View {
     @Binding var isShowingBottomSheet: Bool
     
     @Binding var bottomSheetContentType: BottomSheetType
-
+    
     var body: some View {
         ZStack {
-            HStack(spacing: 10) {
-                SearchView(searchText: $searchText, placeHolderText: "Search") {
-                    print(searchText)
-                }
-                
-                CustomLogoButton(imageName: "selectIcon") {
-                    print("selection button clicked")
-                }
-                CustomLogoButton(imageName: "tagIcon") {
-                    print("Tag button clicked")
-                    bottomSheetContentType = .newTag
-                    isShowingBottomSheet.toggle()
+            VStack(alignment: .leading) {
+                HStack(spacing: 10) {
+                    Button {
+                        print("Search Action")
+                    } label: {
+                        HStack {
+                            ///Search View
+                            Image(systemName: "magnifyingglass")
+                                .foregroundColor(Color.gray)
+                                .padding(.leading, -8)
+                            Text("Search")
+                                .foregroundColor(Color.gray.opacity(0.6))
+                                .padding(.leading, -5)
+                                .frame(height: 30)
+                                .frame(alignment: .leading)
+                            Spacer()
+                        }
+                        .padding()
+                        .frame(height: 30)
+                        .frame(minWidth: 0,
+                               maxWidth: .infinity)
+                        .background(Color.clear)
+                        .clipShape(Capsule())
+                        .overlay(Capsule()
+                            .stroke(.gray, lineWidth: 1))
+                    }
                     
-                }
-                CustomLogoButton(imageName: "addFolder") {
-                    print("Folder button clicked")
-                    bottomSheetContentType = .newFolder
-                    isShowingBottomSheet.toggle()
-                }
-                CustomLogoButton(imageName: "moreIcon") {
-                    print("More button clicked")
-                    bottomSheetContentType = .eraseAlertView
-                    isShowingBottomSheet.toggle()
-
+                    CustomLogoButton(imageName: "selectIcon") {
+                        print("selection button clicked")
+                    }
+                    CustomLogoButton(imageName: "tagIcon") {
+                        print("Tag button clicked")
+                        bottomSheetContentType = .newTag
+                        isShowingBottomSheet.toggle()
+                        
+                    }
+                    CustomLogoButton(imageName: "addFolder") {
+                        print("Folder button clicked")
+                        bottomSheetContentType = .newFolder
+                        isShowingBottomSheet.toggle()
+                    }
+                    CustomLogoButton(imageName: "moreIcon") {
+                        print("More button clicked")
+                        bottomSheetContentType = .eraseAlertView
+                        isShowingBottomSheet.toggle()
+                    }
                 }
             }
 
