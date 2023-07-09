@@ -27,12 +27,13 @@ struct DocumentListCell: View {
                     .frame(width: 50, height: 25)
 
             }
-            VStack(spacing: 8) {
+            VStack(spacing: 2) {
                 documentNameRowView
                 dateRowView
                 cloudAcountRowView
             }
         })
+        .listRowBackground(Color.clear)
     }
 }
 
@@ -100,12 +101,11 @@ private extension DocumentListCell {
                     .font(.subheadline)
                     .multilineTextAlignment(.leading)
                     .foregroundColor(Color.secondaryTextColor)
-                    .padding(.horizontal, 5)
             }
             .frame(height: 20)
             .padding(.bottom, 2)
             .padding(.horizontal, 5)
-            Spacer()
+            Spacer(minLength: 5)
             
             HStack(spacing: 5){
                 CustomLogoButton(imageName: "syncIcon") {
