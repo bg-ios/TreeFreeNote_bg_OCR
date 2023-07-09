@@ -14,37 +14,43 @@ struct Home: View {
     @Binding var isShowingBottomSheet: Bool
     
     var body: some View {
-        
-        VStack{
-            ///NavigationHeaderView
-            NavigationHeaderView()
-            Spacer(minLength: 1)
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .leading, spacing: 10, content: {
-                    
-                    ///ToolsView..
-                    ToolsView()
-                    Spacer(minLength: 2)
-                    
-                    ///Search View
-                    HomeScreenSearchContainerView(isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType)
-                        .padding(.horizontal, 10)
-                    
-                    ///Categories View
-                    //                    Spacer(minLength: 1)
-                    CategoriesView(selectedCategory: $selectedCategory)
-                        .padding(10)
-                    FoldersHorizontalListView()
-                        .frame(height: 140)
-                        .padding(.horizontal, 10)
-                    Divider()
-                    ///Documents ListView
-                    DocumentsListView()
-                })
+        NavigationView {
+            VStack{
+                ///NavigationHeaderView
+                NavigationHeaderView()
+                Spacer(minLength: 1)
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 10, content: {
+                        
+                        ///ToolsView..
+                        ToolsView()
+                        Spacer(minLength: 2)
+                        
+                        ///Search View
+                        HomeScreenSearchContainerView(isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType)
+                            .padding(.horizontal, 10)
+                        
+                        ///Categories View
+                        CategoriesView(selectedCategory: $selectedCategory)
+                            .padding(10)
+                        //                        Spacer(minLength: 2)
+                        FoldersHorizontalListView()
+                            .frame(height: 140)
+                        
+                        Divider()
+                        ///Documents ListView
+                        DocumentsListView()
+                    })
+                    .navigationBarTitleDisplayMode(.inline)
+                }
             }
+            .navigationBarHidden(true)
+            .navigationBarTitle(Text("Home"))
+//            .edgesIgnoringSafeArea([.top, .bottom])
+
+            //Light BG Color..
+            .background(Color.white.ignoresSafeArea())
         }
-        //Light BG Color..
-        .background(Color.white.ignoresSafeArea())
     }
 }
 

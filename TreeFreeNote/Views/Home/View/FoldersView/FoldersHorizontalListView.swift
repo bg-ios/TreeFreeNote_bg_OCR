@@ -9,16 +9,19 @@ import SwiftUI
 
 struct FoldersHorizontalListView: View {
     var body: some View {
-        NavigationView {
         ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 20) {
-                    ForEach(documentModelSamples) { document in
+            HStack(alignment: .top, spacing: 10) {
+                ForEach(documentModelSamples) { document in
+                    NavigationLink {
+                        DocumentsDetailedView(documentInfo: document)
+                    } label: {
                         CustomFoldersListCell(filesCount: .constant(""))
                             .frame(width: 200, height: 140)
                     }
                 }
             }
         }
+        .frame(height: 145)
     }
 }
 

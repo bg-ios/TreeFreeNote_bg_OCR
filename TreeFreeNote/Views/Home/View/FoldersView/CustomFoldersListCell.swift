@@ -14,19 +14,22 @@ struct CustomFoldersListCell: View {
         VStack(alignment: .leading) {
             VStack(alignment: .leading) {
                 folderPropertiesView
-                Text("Folder Name")
-                    .foregroundColor(Color.priaryTextColor)
-                    .font(.system(size: 14, weight: .medium))
-                    .frame(height: 20)
-                HStack(spacing: 15) {
-                    Text("cloud mail details")
-                        .foregroundColor(Color.descriptionTextColor)
-                        .font(.system(size: 12, weight: .thin))
-                        .fontWeight(.medium)
-                    Image("driveIcon")
-                        .resizable()
-                        .renderingMode(.original)
-                        .frame(width: 20, height: 20)
+                    .padding(.trailing, -10)
+                VStack(alignment: .leading) {
+                    Text("Folder Name")
+                        .foregroundColor(Color.priaryTextColor)
+                        .font(.system(size: 14, weight: .medium))
+                        .frame(height: 20)
+                    HStack(spacing: 15) {
+                        Text("cloud mail details")
+                            .foregroundColor(Color.descriptionTextColor)
+                            .font(.system(size: 12, weight: .thin))
+                            .fontWeight(.medium)
+                        Image("driveIcon")
+                            .resizable()
+                            .renderingMode(.original)
+                            .frame(width: 20, height: 20)
+                    }
                 }
             }
             .padding()
@@ -40,8 +43,8 @@ struct CustomFoldersListCell: View {
                 .offset(x:10, y: -120)
             
         }
+        .listRowBackground(Color.clear)
         .frame(width: 200, height: 140)
-//        .background(Color.red)
     }
 }
 extension CustomFoldersListCell {
