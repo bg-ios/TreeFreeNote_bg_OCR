@@ -18,11 +18,11 @@ struct DocumentListCell: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 80, height: 80)
-                    .allowsHitTesting(false)
+                        .allowsHitTesting(false)
                 }
                 .padding(.all, 10)
                 .background(Color.gray.opacity(0.5))
-                
+                .padding(.leading, 10)
                 BadgeView(title: "222", padding: 5, radius: 0, rotation: 0, xOffset: 30, yOffset: -35)
                     .frame(width: 50, height: 25)
 
@@ -64,7 +64,7 @@ private extension DocumentListCell {
             .onTapGesture {
                 print("share action")
             }
-            .padding(5)
+            .padding(.horizontal,5)
         }
     }
     
