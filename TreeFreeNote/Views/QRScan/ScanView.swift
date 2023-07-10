@@ -10,30 +10,26 @@ import SwiftUI
 struct ScanView: View {
     @Binding var isTabViewShown: Bool
     let backAction: () -> Void
-
+    
     var body: some View {
         VStack{
-            HStack{
-                Button {
-                    print("tap on camera")
-                    backAction()
-                } label: {
-                    Text("Back")
-                        .frame(height: 40)
-                        .padding(16)
-                }
-                Spacer()
+            ImageScannerControllerViewRepresenter(controller: ImageScannerController()) { results in
+                print("Scan resultss -- \(results)")
+                self.backAction()
+            } didClickOnScannerCancel: {
+                print("cancel")
+                self.backAction()
             }
-            .background(Color.gray.opacity(0.7))
-            Spacer()
-
         }
-        .onAppear {
+        .onAppear{
             isTabViewShown = false
         }
         .onDisappear{
             isTabViewShown.toggle()
         }
+        .background(Color.gray)
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
 }
 
