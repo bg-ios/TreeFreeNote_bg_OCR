@@ -12,6 +12,7 @@ struct TreeFreeNoteApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+            //check
         }
     }
 }
