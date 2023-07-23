@@ -8,9 +8,9 @@
 import Foundation
 
 struct Document {
-    let id: String
+//    let id: String
     let title: String
-    let creationDate: Date
+    let creationDate: String
     let fileFormat: String
-    var pages: [ScannedPage]
+//    var pages: [ScannedPage]
 }
