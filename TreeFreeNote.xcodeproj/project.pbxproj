@@ -100,6 +100,9 @@
 		095BC8D22A5AA55D00729692 /* CaptureSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095BC8A22A5AA55D00729692 /* CaptureSession.swift */; };
 		095BC8D32A5AA55D00729692 /* CaptureSession+Focus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095BC8A32A5AA55D00729692 /* CaptureSession+Focus.swift */; };
 		095BC8D52A5C3CB200729692 /* ImageScannerControllerViewRepresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095BC8D42A5C3CB200729692 /* ImageScannerControllerViewRepresenter.swift */; };
+		095BC8D72A5D0CD900729692 /* DocumentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095BC8D62A5D0CD900729692 /* DocumentManager.swift */; };
+		095BC8D92A5D0D0B00729692 /* ScannedPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095BC8D82A5D0D0B00729692 /* ScannedPage.swift */; };
+		095BC8DB2A5D0D4900729692 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095BC8DA2A5D0D4900729692 /* Document.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -234,6 +237,9 @@
 		095BC8A22A5AA55D00729692 /* CaptureSession.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaptureSession.swift; sourceTree = "<group>"; };
 		095BC8A32A5AA55D00729692 /* CaptureSession+Focus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CaptureSession+Focus.swift"; sourceTree = "<group>"; };
 		095BC8D42A5C3CB200729692 /* ImageScannerControllerViewRepresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageScannerControllerViewRepresenter.swift; sourceTree = "<group>"; };
+		095BC8D62A5D0CD900729692 /* DocumentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentManager.swift; sourceTree = "<group>"; };
+		095BC8D82A5D0D0B00729692 /* ScannedPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedPage.swift; sourceTree = "<group>"; };
+		095BC8DA2A5D0D4900729692 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,7 +314,7 @@
 				095BC8552A5AA55D00729692 /* WeScan */,
 				0950CA982A2E122C0008E778 /* CustomViews */,
 				0950CA6C2A2647D10008E778 /* Views */,
-				0950CA6E2A2647EB0008E778 /* Model */,
+				0950CA6E2A2647EB0008E778 /* DBModels */,
 				0950CA992A2E176E0008E778 /* Helper */,
 				0950CA412A260D850008E778 /* Assets.xcassets */,
 				0950CA432A260D850008E778 /* Preview Content */,
@@ -366,11 +372,14 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		0950CA6E2A2647EB0008E778 /* Model */ = {
+		0950CA6E2A2647EB0008E778 /* DBModels */ = {
 			isa = PBXGroup;
 			children = (
+				095BC8D62A5D0CD900729692 /* DocumentManager.swift */,
+				095BC8D82A5D0D0B00729692 /* ScannedPage.swift */,
+				095BC8DA2A5D0D4900729692 /* Document.swift */,
 			);
-			name = Model;
+			name = DBModels;
 			sourceTree = "<group>";
 		};
 		0950CA772A27894D0008E778 /* View */ = {
@@ -823,6 +832,7 @@
 				0924D6012A42ABA800FCF155 /* BottomSheet.swift in Sources */,
 				0950CA7B2A278FF60008E778 /* NavigationHeaderView.swift in Sources */,
 				0950CA812A2796670008E778 /* CategoryItemView.swift in Sources */,
+				095BC8D92A5D0D0B00729692 /* ScannedPage.swift in Sources */,
 				095BC8BB2A5AA55D00729692 /* CGSize+Utils.swift in Sources */,
 				0924D6582A50698800FCF155 /* FolderConfirmationView.swift in Sources */,
 				0950CAA12A2F99DC0008E778 /* RegistrationView.swift in Sources */,
@@ -840,9 +850,11 @@
 				0950CA952A28FCE70008E778 /* DocumentGridCell.swift in Sources */,
 				095BC8C42A5AA55D00729692 /* EditImageViewController.swift in Sources */,
 				095BC8D12A5AA55D00729692 /* CaptureSession+Orientation.swift in Sources */,
+				095BC8D72A5D0CD900729692 /* DocumentManager.swift in Sources */,
 				095BC8B42A5AA55D00729692 /* CaptureSessionManager.swift in Sources */,
 				095BC8C82A5AA55D00729692 /* Error.swift in Sources */,
 				095BC8D22A5AA55D00729692 /* CaptureSession.swift in Sources */,
+				095BC8DB2A5D0D4900729692 /* Document.swift in Sources */,
 				0950CA7D2A27906E0008E778 /* ToolsView.swift in Sources */,
 				0950CA742A266DF80008E778 /* DocumentDetailedView.swift in Sources */,
 				0950CA702A2648010008E778 /* DocumentModel.swift in Sources */,

@@ -2,7 +2,7 @@
 //  ImageScannerControllerViewRepresenter.swift
 //  TreeFreeNote
 //
-//  Created by Baby on 10/07/23.
+//  Created by Bhargavi on 10/07/23.
 //
 
 import SwiftUI
@@ -54,7 +54,7 @@ class Coordinator:NSObject, ImageScannerControllerDelegate {
     }
     
     func imageScannerController(_ scanner: ImageScannerController, didFailWithError error: Error) {
-        
+        self.didClickOnScannerCancel()
     }
         
 }
