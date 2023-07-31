@@ -55,56 +55,37 @@ private extension DocumentGridCell {
                     .multilineTextAlignment(.center)
                     .foregroundColor(.black)
 //                    .background(Color.red)
-            HStack(spacing: 25){
+            HStack(spacing: 20){
 //                Spacer()
-                Button(action: {
+                CustomLogoButton(imageName: "share") {
                     print("share action")
-                }) {
-                    Image("share")
-                        .resizable()
-                        .renderingMode(.template)
-                        .aspectRatio(contentMode: .fit)
-                        .font(.footnote)
-                        .padding(8)
-                        .frame(width: 30, height: 30, alignment: .center)
                 }
-                Button(action: {
-                    print("sync action")
-                }) {
-                    Image("syncIcon")
-                        .resizable()
-                        .renderingMode(.template)
-                        .aspectRatio(contentMode: .fit)
-                        .font(.footnote)
-                        .padding(8)
-                        .frame(width: 30, height: 30, alignment: .center)
+                CustomLogoButton(imageName: "syncIcon") {
+                    print("syncIcon action")
                 }
-                Button(action: {
+                CustomLogoButton(imageName: "star") {
                     print("starred action")
-                }) {
-                    Image("star")
-                        .resizable()
-                        .renderingMode(.template)
-                        .aspectRatio(contentMode: .fit)
-                        .font(.footnote)
-                        .foregroundColor(.black)
-                        .padding(8)
-                        .frame(width: 30, height: 30, alignment: .center)
                 }
-                Button(action: {
+                CustomLogoButton(imageName: "moreIcon") {
                     print("more action")
-                }) {
-                    Image("moreIcon")
-                        .resizable()
-                        .renderingMode(.template)
-                        .aspectRatio(contentMode: .fit)
-                        .font(.footnote)
-                        .foregroundColor(.black)
-                        .padding(8)
-                        .frame(width: 30, height: 30, alignment: .center)
                 }
+//
+//                Button(action: {
+//                    print("more action")
+//                }) {
+//                    Image("moreIcon")
+//                        .resizable()
+//                        .renderingMode(.template)
+//                        .aspectRatio(contentMode: .fit)
+//                        .font(.footnote)
+//                        .foregroundColor(.black)
+//                        .padding(8)
+//                        .frame(width: 30, height: 30, alignment: .center)
+//                }
             }
             .frame(width: UIScreen.main.bounds.size.width/2)
+            .padding(.horizontal, 15)
+            .padding(.vertical, 5)
         })
         .frame(width: UIScreen.main.bounds.size.width/2)
         .background(Color.yellow)

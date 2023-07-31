@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "sync (1).png",
+      "filename" : "syncIcon.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "syncIcon@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "syncIcon@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

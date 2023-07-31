@@ -81,6 +81,7 @@ struct TagCreationView: View {
             .frame(height: 40)
             
         }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 

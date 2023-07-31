@@ -35,7 +35,7 @@ struct Home: View {
                             .padding(10)
                         //                        Spacer(minLength: 2)
                         FoldersHorizontalListView()
-                            .frame(height: 140)
+                            .frame(height: 120)
                         
                         Divider()
                         ///Documents ListView
