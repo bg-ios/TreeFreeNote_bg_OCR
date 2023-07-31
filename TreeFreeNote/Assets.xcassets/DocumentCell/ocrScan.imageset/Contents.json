@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "qr-code-scan.png",
+      "filename" : "OCR.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "OCR@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "OCR@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

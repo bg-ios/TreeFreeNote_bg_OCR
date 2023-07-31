@@ -1,15 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "cloud-sync.png",
+      "filename" : "syncSuccess.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
+      "filename" : "syncSuccess@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "syncSuccess@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

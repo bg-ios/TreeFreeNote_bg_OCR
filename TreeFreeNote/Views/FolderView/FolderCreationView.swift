@@ -91,6 +91,7 @@ struct FolderCreationView: View {
                 .cornerRadius(20, corners: [.topRight,.topLeft, .bottomLeft, .bottomRight])
             }
         }
+        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 

@@ -33,17 +33,17 @@ struct ContentView: View {
                     Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet)
                         .tag("Home")
                     
-                    ScanView(isTabViewShown: $isTabViewShown) {
+                    ScanView(scannedPages: [], isTabViewShown: $isTabViewShown) {
                         self.selectedTab = "Home"
                     }
                     .tag("QR Scan")
                     
-                    ScanView(isTabViewShown: $isTabViewShown) {
+                    ScanView(scannedPages: [], isTabViewShown: $isTabViewShown) {
                         self.selectedTab = "Camera"
                     }
                     .tag("Camera")
                     
-                    ScanView(isTabViewShown: $isTabViewShown) {
+                    ScanView(scannedPages: [], isTabViewShown: $isTabViewShown) {
                         self.selectedTab = "Home"
                     }
                     .tag("OCR Scan")

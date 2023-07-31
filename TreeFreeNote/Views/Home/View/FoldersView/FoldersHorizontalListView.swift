@@ -16,12 +16,12 @@ struct FoldersHorizontalListView: View {
                         DocumentsDetailedView(documentInfo: document)
                     } label: {
                         CustomFoldersListCell(filesCount: .constant(""))
-                            .frame(width: 200, height: 140)
+                            .frame(width: 200, height: 120)
                     }
                 }
             }
         }
-        .frame(height: 145)
+        .frame(height: 120)
     }
 }
 

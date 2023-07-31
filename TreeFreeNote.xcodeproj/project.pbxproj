@@ -103,6 +103,8 @@
 		095BC8D72A5D0CD900729692 /* DocumentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095BC8D62A5D0CD900729692 /* DocumentManager.swift */; };
 		095BC8D92A5D0D0B00729692 /* ScannedPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095BC8D82A5D0D0B00729692 /* ScannedPage.swift */; };
 		095BC8DB2A5D0D4900729692 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095BC8DA2A5D0D4900729692 /* Document.swift */; };
+		0991B6302A6ED15200E44FB8 /* DocumentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0991B62F2A6ED15200E44FB8 /* DocumentHandler.swift */; };
+		0991B6322A74F54E00E44FB8 /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0991B6312A74F54E00E44FB8 /* ImageButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -240,6 +242,8 @@
 		095BC8D62A5D0CD900729692 /* DocumentManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentManager.swift; sourceTree = "<group>"; };
 		095BC8D82A5D0D0B00729692 /* ScannedPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedPage.swift; sourceTree = "<group>"; };
 		095BC8DA2A5D0D4900729692 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
+		0991B62F2A6ED15200E44FB8 /* DocumentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentHandler.swift; sourceTree = "<group>"; };
+		0991B6312A74F54E00E44FB8 /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -376,6 +380,7 @@
 			isa = PBXGroup;
 			children = (
 				095BC8D62A5D0CD900729692 /* DocumentManager.swift */,
+				0991B62F2A6ED15200E44FB8 /* DocumentHandler.swift */,
 				095BC8D82A5D0D0B00729692 /* ScannedPage.swift */,
 				095BC8DA2A5D0D4900729692 /* Document.swift */,
 			);
@@ -473,6 +478,7 @@
 			isa = PBXGroup;
 			children = (
 				0924D6022A43F87F00FCF155 /* FormInputView.swift */,
+				0991B6312A74F54E00E44FB8 /* ImageButton.swift */,
 				0924D6532A50563700FCF155 /* CreatePinView.swift */,
 				0924D64D2A50434600FCF155 /* RadioButton.swift */,
 				0924D6032A43F87F00FCF155 /* RoundedTextField.swift */,
@@ -830,6 +836,7 @@
 				0924D6092A480FCD00FCF155 /* SegmentHeaderView.swift in Sources */,
 				095BC8C12A5AA55D00729692 /* UIImage+Orientation.swift in Sources */,
 				0924D6012A42ABA800FCF155 /* BottomSheet.swift in Sources */,
+				0991B6302A6ED15200E44FB8 /* DocumentHandler.swift in Sources */,
 				0950CA7B2A278FF60008E778 /* NavigationHeaderView.swift in Sources */,
 				0950CA812A2796670008E778 /* CategoryItemView.swift in Sources */,
 				095BC8D92A5D0D0B00729692 /* ScannedPage.swift in Sources */,
@@ -855,6 +862,7 @@
 				095BC8C82A5AA55D00729692 /* Error.swift in Sources */,
 				095BC8D22A5AA55D00729692 /* CaptureSession.swift in Sources */,
 				095BC8DB2A5D0D4900729692 /* Document.swift in Sources */,
+				0991B6322A74F54E00E44FB8 /* ImageButton.swift in Sources */,
 				0950CA7D2A27906E0008E778 /* ToolsView.swift in Sources */,
 				0950CA742A266DF80008E778 /* DocumentDetailedView.swift in Sources */,
 				0950CA702A2648010008E778 /* DocumentModel.swift in Sources */,
@@ -1102,7 +1110,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.necun.TreeFreeNote;
+				PRODUCT_BUNDLE_IDENTIFIER = com.necun.TreeFreeNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1133,7 +1141,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.necun.TreeFreeNote;
+				PRODUCT_BUNDLE_IDENTIFIER = com.necun.TreeFreeNotes;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

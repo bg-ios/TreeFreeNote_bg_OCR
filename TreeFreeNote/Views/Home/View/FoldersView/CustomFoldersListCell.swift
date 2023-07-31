@@ -11,48 +11,65 @@ struct CustomFoldersListCell: View {
     @Binding var filesCount: String
     
     var body: some View {
-        VStack(alignment: .leading) {
-            VStack(alignment: .leading) {
-                folderPropertiesView
-                    .padding(.trailing, -10)
-                VStack(alignment: .leading) {
-                    Text("Folder Name")
-                        .foregroundColor(Color.priaryTextColor)
-                        .font(.system(size: 14, weight: .medium))
-                        .frame(height: 20)
-                    HStack(spacing: 15) {
-                        Text("cloud mail details")
-                            .foregroundColor(Color.descriptionTextColor)
-                            .font(.system(size: 12, weight: .thin))
-                            .fontWeight(.medium)
-                        Image("driveIcon")
-                            .resizable()
-                            .renderingMode(.original)
-                            .frame(width: 20, height: 20)
+        VStack {
+            ZStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    folderPropertiesView
+                        .padding(.trailing, -10)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Folder Name")
+                            .foregroundColor(Color.priaryTextColor)
+                            .font(.system(size: 14, weight: .medium))
+                            .frame(height: 20)
+                        HStack(spacing: 10) {
+                            Text("cloud mail details")
+                                .foregroundColor(Color.descriptionTextColor)
+                                .font(.system(size: 12, weight: .thin))
+                                .fontWeight(.medium)
+                            Spacer()
+                                .background(Color.red)
+                            Image("driveIcon")
+                                .resizable()
+                                .renderingMode(.original)
+                                .frame(width: 20, height: 20)
+                                .padding(.trailing, 10)
+                        }
+                        .frame(height: 25)
                     }
                 }
+                .padding(10)
+                .background(Color.gray.opacity(0.09))
+                .cornerRadius(10)
+                .offset(y: 15)
+                
+                ZStack {
+                    Image("FolderBgIcon")
+                        .resizable()
+                        .renderingMode(.template)
+                        .frame(width: 35, height: 35)
+                        .foregroundColor(Color.green)
+                    Image("driveIcon")
+                        .resizable()
+                        .renderingMode(.original)
+                        .frame(width: 15, height: 15)
+                }
+                .frame(width: 35, height: 35)
+                .offset(x:-70, y: -35)
+                
             }
-            .padding()
-            .background(Color.gray.opacity(0.09))
-            .cornerRadius(10)
-            .offset(y: 20)
-            Image("tagIcon")
-                .resizable()
-                .renderingMode(.template)
-                .frame(width: 30, height: 30)
-                .offset(x:10, y: -120)
-            
         }
         .listRowBackground(Color.clear)
-        .frame(width: 200, height: 140)
+        .frame(width: 200, height: 120)
     }
 }
 extension CustomFoldersListCell {
     var folderPropertiesView: some View {
-        HStack {
+        HStack(spacing: 5) {
             Spacer()
             Text("2")
                 .foregroundColor(Color.secondaryTextColor)
+                .font(.title3)
+                .frame(height: 30)
             CustomLogoButton(imageName: "tagIcon") {
                 print("pin Icon clicked")
             }

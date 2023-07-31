@@ -41,6 +41,7 @@ struct LockView: View {
 
         }
         .padding(27)
+        .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 

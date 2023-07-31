@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ScanView: View {
+    @State var scannedPages: [String]
     @Binding var isTabViewShown: Bool
     let backAction: () -> Void
     
@@ -15,7 +16,13 @@ struct ScanView: View {
         VStack{
             ImageScannerControllerViewRepresenter(controller: ImageScannerController()) { results in
                 print("Scan resultss -- \(results)")
-                self.backAction()
+                
+                guard let image = results.enhancedScan?.image else { return }
+                if let imagePath = DocumentHandler().saveImageToDocumentDirectory(image: image) {
+                    self.scannedPages.append(imagePath)
+                }
+                
+//                self.backAction()
             } didClickOnScannerCancel: {
                 print("cancel")
                 self.backAction()
@@ -35,7 +42,7 @@ struct ScanView: View {
 
 struct ScanView_Previews: PreviewProvider {
     static var previews: some View {
-        ScanView(isTabViewShown: . constant(false), backAction: {
+        ScanView(scannedPages: [], isTabViewShown: . constant(false), backAction: {
         })
     }
 }

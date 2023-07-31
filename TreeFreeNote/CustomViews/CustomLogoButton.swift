@@ -19,11 +19,11 @@ struct CustomLogoButton: View {
                 .resizable()
                 .renderingMode(.original)
                 .aspectRatio(contentMode: .fit)
+                .font(.footnote)
                 .padding(5)
-                .background(Color.clear)
+                .frame(width: 30, height: 30, alignment: .center)
                 .foregroundColor(Color.iconForegroundColor)
         }
-        .frame(width: 35, height: 35)
     }
 }
 
