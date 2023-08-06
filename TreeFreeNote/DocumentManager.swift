@@ -6,13 +6,34 @@
 //
 
 import Foundation
+import SQLite3
+import UIKit
+
+struct PersonModel {
+    
+    let firstName: String?
+    let lastName: String?
+    let phone: String?
+    let address: String?
+}
+
 
 class DocumentManager {
     private var documents: [Document] = []
-    
-    func createDocument(withTitle title: String, fileFormat: String) {
+    var db = DBManager.shared.db
+    func createDocument(withTitle title: String,  fileFormat: String) {
         // Create a new Document object and add it to the documents array
+        
     }
+    
+    func insertDocument(withTitle title: String,  fileFormat: String) {
+        let doc_insert = Document.init(title: title, creationDate: Utility().current_date(), fileFormat: fileFormat)
+        print(doc_insert)
+//        let rowid = (try! db?.)!
+    }
+    
+    
+   
     
     func addScannedPage(_ page: ScannedPage, toDocument document: Document) {
         // Add the scanned page to the specified document
