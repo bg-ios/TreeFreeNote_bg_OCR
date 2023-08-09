@@ -10,6 +10,7 @@ import SwiftUI
 struct TagCreationView: View {
     @State private var tagName: String = ""
 //    @Binding var isShowing: Bool
+    @Binding var isShowingBottomSheet: Bool
 
     var createTag: ((String) -> ())?
     
@@ -20,6 +21,7 @@ struct TagCreationView: View {
                 Button {
                     print("close action")
 //                    isShowing.toggle()
+                    isShowingBottomSheet.toggle()
                 } label: {
                     Image(systemName: "xmark.circle")
                         .aspectRatio(contentMode: .fit)
@@ -85,11 +87,11 @@ struct TagCreationView: View {
     }
 }
 
-struct NewTagCreationView_Previews: PreviewProvider {
-    static var previews: some View {
-        TagCreationView()
-    }
-}
+//struct NewTagCreationView_Previews: PreviewProvider {
+//    static var previews: some View {
+////        TagCreationView(isShowing: )
+//    }
+//}
 
 public struct PlaceholderStyle: ViewModifier {
     var showPlaceHolder: Bool

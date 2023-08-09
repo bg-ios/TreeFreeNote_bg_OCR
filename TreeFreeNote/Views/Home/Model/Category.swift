@@ -8,9 +8,17 @@
 import Foundation
 // Model and Sample Data
 
-struct Category: Identifiable, Equatable {
+struct Category: Identifiable, Equatable, Codable {
     var id: String = UUID().uuidString
     var title: String
+}
+
+struct CategoriesModel {
+    private(set) var categories :[Category] = []
+    
+    mutating func addCategory(_ category: Category){
+        categories.append(category)
+    }
 }
 
 var categories = [

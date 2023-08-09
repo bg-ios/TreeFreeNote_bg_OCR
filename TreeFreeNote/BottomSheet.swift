@@ -16,7 +16,7 @@ enum BottomSheetType: Int {
     func view() -> AnyView {
         switch self {
         case .newTag:
-            return AnyView(TagCreationView(createTag: { newTag in
+            return AnyView(TagCreationView(isShowingBottomSheet: .constant(false), createTag: { newTag in
                 print(newTag)
                 }))
         case .newFolder:
