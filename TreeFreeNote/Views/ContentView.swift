@@ -61,7 +61,7 @@ struct ContentView: View {
             }
             .ignoresSafeArea()
             
-            BottomSheet(isShowing: $isShowingBottomSheet, content: bottomSheetContentType.view())
+            BottomSheet(isShowingBottomSheet: $isShowingBottomSheet, content: bottomSheetContentType.view())
         }
     }
 }
