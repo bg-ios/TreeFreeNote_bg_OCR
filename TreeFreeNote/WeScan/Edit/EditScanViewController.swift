@@ -17,7 +17,7 @@ final class EditScanViewController: UIViewController {
         imageView.clipsToBounds = true
         imageView.isOpaque = true
         imageView.image = image
-        imageView.backgroundColor = .black
+        imageView.backgroundColor = .clear
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -25,7 +25,7 @@ final class EditScanViewController: UIViewController {
 
     private lazy var quadView: QuadrilateralView = {
         let quadView = QuadrilateralView()
-        quadView.editable = true
+        quadView.editable = false
         quadView.translatesAutoresizingMaskIntoConstraints = false
         return quadView
     }()
@@ -79,27 +79,33 @@ final class EditScanViewController: UIViewController {
 
     override public func viewDidLoad() {
         super.viewDidLoad()
-
+        self.view.backgroundColor = .black.withAlphaComponent(0.2)
         setupViews()
         setupConstraints()
-        title = NSLocalizedString("wescan.edit.title",
-                                  tableName: nil,
-                                  bundle: Bundle(for: EditScanViewController.self),
-                                  value: "Edit Scan",
-                                  comment: "The title of the EditScanViewController"
-        )
-        navigationItem.rightBarButtonItem = nextButton
+        navigationController?.navigationBar.isHidden = true
+
+//        title = NSLocalizedString("wescan.edit.title",
+//                                  tableName: nil,
+//                                  bundle: Bundle(for: EditScanViewController.self),
+//                                  value: "Edit Scan",
+//                                  comment: "The title of the EditScanViewController"
+//        )
+//        navigationItem.rightBarButtonItem = nextButton
         if let firstVC = self.navigationController?.viewControllers.first, firstVC == self {
-            navigationItem.leftBarButtonItem = cancelButton
+//            navigationItem.leftBarButtonItem = cancelButton
         } else {
             navigationItem.leftBarButtonItem = nil
         }
 
-        zoomGestureController = ZoomGestureController(image: image, quadView: quadView)
-
-        let touchDown = UILongPressGestureRecognizer(target: zoomGestureController, action: #selector(zoomGestureController.handle(pan:)))
-        touchDown.minimumPressDuration = 0
-        view.addGestureRecognizer(touchDown)
+//        zoomGestureController = ZoomGestureController(image: image, quadView: quadView)
+//
+//        let touchDown = UILongPressGestureRecognizer(target: zoomGestureController, action: #selector(zoomGestureController.handle(pan:)))
+//        touchDown.minimumPressDuration = 0
+////        view.addGestureRecognizer(touchDown)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.pushReviewController()
+        }
     }
 
     override public func viewDidLayoutSubviews() {
@@ -110,6 +116,7 @@ final class EditScanViewController: UIViewController {
 
     override public func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
 
         // Work around for an iOS 11.2 bug where UIBarButtonItems don't get back to their normal state after being pressed.
         navigationController?.navigationBar.tintAdjustmentMode = .normal
@@ -152,12 +159,11 @@ final class EditScanViewController: UIViewController {
     }
 
     @objc func pushReviewController() {
-        guard let quad = quadView.quad,
-            let ciImage = CIImage(image: image) else {
-                if let imageScannerController = navigationController as? ImageScannerController {
-                    let error = ImageScannerControllerError.ciImageCreation
-                    imageScannerController.imageScannerDelegate?.imageScannerController(imageScannerController, didFailWithError: error)
-                }
+        guard let ciImage = CIImage(image: image) else {
+//                if let imageScannerController = navigationController as? ImageScannerController {
+//                    let error = ImageScannerControllerError.ciImageCreation
+//                    imageScannerController.imageScannerDelegate?.imageScannerController(imageScannerController, didFailWithError: error)
+//                }
                 return
         }
         let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
@@ -188,8 +194,7 @@ final class EditScanViewController: UIViewController {
             enhancedScan: enhancedScan
         )
 
-        let reviewViewController = ReviewViewController(results: results)
-        navigationController?.pushViewController(reviewViewController, animated: true)
+        self.navigationController?.popViewController(animated: false)
     }
 
     private func displayQuad() {

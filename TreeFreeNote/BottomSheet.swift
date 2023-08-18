@@ -16,7 +16,7 @@ enum BottomSheetType: Int {
     func view() -> AnyView {
         switch self {
         case .newTag:
-            return AnyView(TagCreationView(createTag: { newTag in
+            return AnyView(TagCreationView(isShowingBottomSheet: .constant(true), createTag: { newTag in
                 print(newTag)
                 }))
         case .newFolder:
@@ -31,17 +31,17 @@ enum BottomSheetType: Int {
 
 struct BottomSheet: View {
 
-    @Binding var isShowing: Bool
+    @Binding var isShowingBottomSheet: Bool
     var content: AnyView
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            if (isShowing) {
+            if (isShowingBottomSheet) {
                 Color.black
                     .opacity(0.3)
                     .ignoresSafeArea()
                     .onTapGesture {
-                        isShowing.toggle()
+                        isShowingBottomSheet.toggle()
                     }
                 content
                     .padding(.bottom, 42)
@@ -54,6 +54,15 @@ struct BottomSheet: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         .ignoresSafeArea()
-        .animation(.easeInOut, value: isShowing)
+        .animation(.easeInOut, value: isShowingBottomSheet)
+    }
+}
+
+struct ObservedHolder<T: ObservableObject, Content: View>: View {
+    @ObservedObject var value: T
+    var content: (ObservedObject<T>.Wrapper) -> Content
+
+    var body: some View {
+        content(_value.projectedValue)
     }
 }

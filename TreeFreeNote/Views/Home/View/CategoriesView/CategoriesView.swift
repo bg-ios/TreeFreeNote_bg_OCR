@@ -10,12 +10,14 @@ import SwiftUI
 struct CategoriesView: View {
     
     @Binding var selectedCategory: Category?
+    @ObservedObject var categoriesViewModel = CategoriesViewModel()
+
     @Namespace var animation
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false,content: {
             HStack(spacing: 10){
-                ForEach(categories){ category in
+                ForEach(categoriesViewModel.categories){ category in
                     CategoryItemView(category: category, selectedCategory: $selectedCategory, animation: animation)
                 }
             }
