@@ -50,7 +50,7 @@ protocol RectangleDetectionDelegateProtocol: NSObjectProtocol {
 final class CaptureSessionManager: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
 
     private let videoPreviewLayer: AVCaptureVideoPreviewLayer
-    private let captureSession = AVCaptureSession()
+    let captureSession = AVCaptureSession()
     private let rectangleFunnel = RectangleFeaturesFunnel()
     weak var delegate: RectangleDetectionDelegateProtocol?
     private var displayedRectangleResult: RectangleDetectorResult?
