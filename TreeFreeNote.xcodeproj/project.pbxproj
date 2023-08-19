@@ -412,10 +412,10 @@
 			children = (
 				0991B63B2A7FC10600E44FB8 /* DBManager.swift */,
 				0991B63C2A7FC10600E44FB8 /* DBQueries.swift */,
-				095BC8D62A5D0CD900729692 /* DocumentManager.swift */,
-				0991B62F2A6ED15200E44FB8 /* DocumentHandler.swift */,
 				095BC8D82A5D0D0B00729692 /* ScannedPage.swift */,
 				095BC8DA2A5D0D4900729692 /* Document.swift */,
+				095BC8D62A5D0CD900729692 /* DocumentManager.swift */,
+				0991B62F2A6ED15200E44FB8 /* DocumentHandler.swift */,
 				0991B63F2A81071000E44FB8 /* UserDefaultsManager.swift */,
 			);
 			name = DBModels;
@@ -729,7 +729,6 @@
 				AACA31885E167DB3BDBF4F24 /* Pods-TreeFreeNoteTests.debug.xcconfig */,
 				BE6D38E6B7D1E268785A9954 /* Pods-TreeFreeNoteTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

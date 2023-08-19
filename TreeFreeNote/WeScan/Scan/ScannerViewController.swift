@@ -10,6 +10,14 @@
 import AVFoundation
 import UIKit
 
+/// Camera functions Array
+enum SacnnerViewButtonType: String, CaseIterable {
+    case Back = "Back"
+    case CameraFlip = "CameraFlip"
+    case Flash = "Flash"
+    case gridView = "gridView"
+}
+
 /// The `ScannerViewController` offers an interface to give feedback to the user regarding quadrilaterals that are detected. It also gives the user the opportunity to capture an image with a detected rectangle.
 public final class ScannerViewController: UIViewController {
 
@@ -35,36 +43,30 @@ public final class ScannerViewController: UIViewController {
         return button
     }()
 
-    private lazy var cancelButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(NSLocalizedString("wescan.scanning.cancel", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: "Cancel", comment: "The cancel button"), for: .normal)
+    private lazy var autoScanButton: UIButton = {
+        let image = UIImage(named: "ManualScan")
+        let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(cancelImageScannerController), for: .touchUpInside)
-        return button
-    }()
-
-    private lazy var autoScanButton: UIBarButtonItem = {
-        let title = NSLocalizedString("wescan.scanning.auto", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: "Auto", comment: "The auto button state")
-        let button = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(toggleAutoScan))
+        button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(toggleAutoScan), for: .touchUpInside)
         button.tintColor = .white
-
-        return button
-    }()
-
-    private lazy var flashButton: UIBarButtonItem = {
-        let image = UIImage(systemName: "bolt.fill", named: "flash", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
-        let button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(toggleFlash))
-        button.tintColor = .white
-
         return button
     }()
 
     private lazy var activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView(style: .gray)
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
         activityIndicator.hidesWhenStopped = true
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         return activityIndicator
     }()
+    
+    private lazy var optionsScrollView: UIScrollView = {
+        return addCameraOptionsScrollView()
+    }()
+    
+    private var flashButton: UIButton?
+    
+    var currentCamera: AVCaptureDevice?
 
     // MARK: - Life Cycle
 
@@ -75,11 +77,11 @@ public final class ScannerViewController: UIViewController {
         view.backgroundColor = UIColor.black
 
         setupViews()
-        setupNavigationBar()
         setupConstraints()
 
         captureSessionManager = CaptureSessionManager(videoPreviewLayer: videoPreviewLayer, delegate: self)
 
+        CaptureSession.current.isAutoScanEnabled = false
         originalBarStyle = navigationController?.navigationBar.barStyle
 
         NotificationCenter.default.addObserver(self, selector: #selector(subjectAreaDidChange), name: Notification.Name.AVCaptureDeviceSubjectAreaDidChange, object: nil)
@@ -89,12 +91,12 @@ public final class ScannerViewController: UIViewController {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
 
+        self.navigationController?.navigationBar.isHidden = true
         CaptureSession.current.isEditing = false
         quadView.removeQuadrilateral()
         captureSessionManager?.start()
         UIApplication.shared.isIdleTimerDisabled = true
 
-        navigationController?.navigationBar.barStyle = .blackTranslucent
     }
 
     override public func viewDidLayoutSubviews() {
@@ -107,13 +109,12 @@ public final class ScannerViewController: UIViewController {
         super.viewWillDisappear(animated)
         UIApplication.shared.isIdleTimerDisabled = false
 
-        navigationController?.navigationBar.isTranslucent = false
-        navigationController?.navigationBar.barStyle = originalBarStyle ?? .default
         captureSessionManager?.stop()
         guard let device = AVCaptureDevice.default(for: AVMediaType.video) else { return }
         if device.torchMode == .on {
-            toggleFlash()
+            let _ = CaptureSession.current.toggleFlash()
         }
+        flashButton?.setImage(UIImage(named: "FlashOff"), for: .normal)
     }
 
     // MARK: - Setups
@@ -124,65 +125,10 @@ public final class ScannerViewController: UIViewController {
         quadView.translatesAutoresizingMaskIntoConstraints = false
         quadView.editable = false
         view.addSubview(quadView)
-        view.addSubview(cancelButton)
+        view.addSubview(autoScanButton)
         view.addSubview(shutterButton)
         view.addSubview(activityIndicator)
-    }
-
-    private func setupNavigationBar() {
-        navigationItem.setLeftBarButton(flashButton, animated: false)
-        navigationItem.setRightBarButton(autoScanButton, animated: false)
-
-        if UIImagePickerController.isFlashAvailable(for: .rear) == false {
-            let flashOffImage = UIImage(systemName: "bolt.slash.fill", named: "flashUnavailable", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
-            flashButton.image = flashOffImage
-            flashButton.tintColor = UIColor.lightGray
-        }
-    }
-
-    private func setupConstraints() {
-        var quadViewConstraints = [NSLayoutConstraint]()
-        var cancelButtonConstraints = [NSLayoutConstraint]()
-        var shutterButtonConstraints = [NSLayoutConstraint]()
-        var activityIndicatorConstraints = [NSLayoutConstraint]()
-
-        quadViewConstraints = [
-            quadView.topAnchor.constraint(equalTo: view.topAnchor),
-            view.bottomAnchor.constraint(equalTo: quadView.bottomAnchor),
-            view.trailingAnchor.constraint(equalTo: quadView.trailingAnchor),
-            quadView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        ]
-
-        shutterButtonConstraints = [
-            shutterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            shutterButton.widthAnchor.constraint(equalToConstant: 65.0),
-            shutterButton.heightAnchor.constraint(equalToConstant: 65.0)
-        ]
-
-        activityIndicatorConstraints = [
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ]
-
-        if #available(iOS 11.0, *) {
-            cancelButtonConstraints = [
-                cancelButton.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 24.0),
-                view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: (65.0 / 2) - 10.0)
-            ]
-
-            let shutterButtonBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: shutterButton.bottomAnchor, constant: 8.0)
-            shutterButtonConstraints.append(shutterButtonBottomConstraint)
-        } else {
-            cancelButtonConstraints = [
-                cancelButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 24.0),
-                view.bottomAnchor.constraint(equalTo: cancelButton.bottomAnchor, constant: (65.0 / 2) - 10.0)
-            ]
-
-            let shutterButtonBottomConstraint = view.bottomAnchor.constraint(equalTo: shutterButton.bottomAnchor, constant: 8.0)
-            shutterButtonConstraints.append(shutterButtonBottomConstraint)
-        }
-
-        NSLayoutConstraint.activate(quadViewConstraints + cancelButtonConstraints + shutterButtonConstraints + activityIndicatorConstraints)
+        view.addSubview(optionsScrollView)
     }
 
     // MARK: - Tap to Focus
@@ -225,51 +171,196 @@ public final class ScannerViewController: UIViewController {
         }
     }
 
-    // MARK: - Actions
+}
 
+    //Actions
+extension ScannerViewController {
+    
+    @objc private func cameraOptionsbuttonTapped(_ sender: UIButton) {
+        // Handle button tap here
+        if let buttonTag = sender.accessibilityIdentifier {
+            print("Button tapped: \(buttonTag)")
+            
+            switch SacnnerViewButtonType(rawValue: buttonTag) {
+            case .Back:
+                self.cancelImageScannerController()
+            case .CameraFlip:
+                self.toggleCamera()
+            case .Flash:
+                self.toggleFlash(sender: sender)
+            case .gridView:
+                break
+            case .none:
+                break
+            }
+        }
+    }
+    // MARK: - Actions
+    
     @objc private func captureImage(_ sender: UIButton) {
         (navigationController as? ImageScannerController)?.flashToBlack()
         shutterButton.isUserInteractionEnabled = false
         captureSessionManager?.capturePhoto()
     }
-
-    @objc private func toggleAutoScan() {
-        if CaptureSession.current.isAutoScanEnabled {
-            CaptureSession.current.isAutoScanEnabled = false
-            autoScanButton.title = NSLocalizedString("wescan.scanning.manual", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: "Manual", comment: "The manual button state")
-        } else {
-            CaptureSession.current.isAutoScanEnabled = true
-            autoScanButton.title = NSLocalizedString("wescan.scanning.auto", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: "Auto", comment: "The auto button state")
-        }
-    }
-
-    @objc private func toggleFlash() {
-        let state = CaptureSession.current.toggleFlash()
-
-        let flashImage = UIImage(systemName: "bolt.fill", named: "flash", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
-        let flashOffImage = UIImage(systemName: "bolt.slash.fill", named: "flashUnavailable", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
-
-        switch state {
-        case .on:
-            flashEnabled = true
-            flashButton.image = flashImage
-            flashButton.tintColor = .yellow
-        case .off:
-            flashEnabled = false
-            flashButton.image = flashImage
-            flashButton.tintColor = .white
-        case .unknown, .unavailable:
-            flashEnabled = false
-            flashButton.image = flashOffImage
-            flashButton.tintColor = UIColor.lightGray
-        }
-    }
-
-    @objc private func cancelImageScannerController() {
+    
+    private func cancelImageScannerController() {
         guard let imageScannerController = navigationController as? ImageScannerController else { return }
         imageScannerController.imageScannerDelegate?.imageScannerControllerDidCancel(imageScannerController)
     }
+    
+    private func toggleCamera() {
+        captureSessionManager?.captureSession.beginConfiguration()
+        if let currentInput = captureSessionManager?.captureSession.inputs.first as? AVCaptureDeviceInput {
+            captureSessionManager?.captureSession.removeInput(currentInput)
+            
+            // Toggle between front and back cameras
+            if currentInput.device.position == .back {
+                if let frontCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) {
+                    currentCamera = frontCamera
+                }
+            } else {
+                if let backCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) {
+                    currentCamera = backCamera
+                }
+            }
+            
+            // Add the new input
+            do {
+                let captureInput = try AVCaptureDeviceInput(device: currentCamera!)
+                captureSessionManager?.captureSession.addInput(captureInput)
+            } catch {
+                print("Error setting device input: \(error.localizedDescription)")
+            }
+            
+            captureSessionManager?.captureSession.commitConfiguration()
+        }
+    }
+    
+    @objc private func toggleAutoScan() {
+        if CaptureSession.current.isAutoScanEnabled {
+            CaptureSession.current.isAutoScanEnabled = false
+            autoScanButton.setImage(UIImage(named: "ManualScan"), for: .normal)
+        } else {
+            CaptureSession.current.isAutoScanEnabled = true
+            autoScanButton.setImage(UIImage(named: "AutoScan"), for: .normal)
+        }
+    }
+    
+    @objc private func toggleFlash(sender: UIButton?) {
+        let state = CaptureSession.current.toggleFlash()
+        
+        let flashImage = UIImage(named: "FlashOn")
+        let flashOffImage = UIImage(named: "FlashOff")
+        
+        switch state {
+        case .on, .off:
+            flashEnabled = (state == .on) ? true : false
+            flashButton?.setImage((state == .on) ? flashImage : flashOffImage, for: .normal)
+        case .unknown, .unavailable:
+            flashEnabled = false
+            flashButton?.setImage(flashOffImage, for: .normal)
+            flashButton?.tintColor = UIColor.lightGray
+        }
+    }
+}
 
+// Bottom Options View layout
+extension ScannerViewController {
+    
+    private func getFlashImage() -> UIImage? {
+        guard UIImagePickerController.isFlashAvailable(for: .rear) == false else {
+            return UIImage(named: "FlashOff")
+        }
+        return UIImage(named: "FlashOn")
+    }
+    
+    private func addCameraOptionsScrollView() -> UIScrollView {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(scrollView)
+        // Create a horizontal stack view to hold the buttons
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 50 // Adjust the spacing between buttons
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(stackView)
+        
+        stackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
+        stackView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
+
+        // Add buttons to the stack view
+        for buttonType in SacnnerViewButtonType.allCases {
+            let button = UIButton(type: .system)
+            var buttonImage: UIImage?
+            switch buttonType {
+            case .Back:
+                buttonImage = UIImage(named: "Back")
+            case .CameraFlip:
+                buttonImage = UIImage(named: "Camera")
+            case .Flash:
+                buttonImage = self.getFlashImage()
+                flashButton = button
+            case .gridView:
+                buttonImage = UIImage(named: "Grid")
+            }
+            if buttonImage != nil {
+                button.setImage(buttonImage, for: .normal)
+            }
+            button.accessibilityIdentifier = buttonType.rawValue
+            button.addTarget(self, action: #selector(cameraOptionsbuttonTapped(_:)), for: .touchUpInside)
+            button.widthAnchor.constraint(equalToConstant: 40).isActive = true
+            button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            button.tintColor = .white
+            stackView.addArrangedSubview(button)
+        }
+        
+        // Set the content size of the scroll view to enable scrolling horizontally
+        scrollView.contentSize = CGSize(width: CGFloat(SacnnerViewButtonType.allCases.count * 50 + (SacnnerViewButtonType.allCases.count - 1) * 50), height: 0)
+        return scrollView
+    }
+    
+    private func setupConstraints() {
+        var quadViewConstraints = [NSLayoutConstraint]()
+        var autoScanButtonConstraints = [NSLayoutConstraint]()
+        var shutterButtonConstraints = [NSLayoutConstraint]()
+        var activityIndicatorConstraints = [NSLayoutConstraint]()
+        var cameraOptionsConstraints = [NSLayoutConstraint]()
+        
+        quadViewConstraints = [
+            quadView.topAnchor.constraint(equalTo: view.topAnchor),
+            view.bottomAnchor.constraint(equalTo: quadView.bottomAnchor),
+            view.trailingAnchor.constraint(equalTo: quadView.trailingAnchor),
+            quadView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        ]
+
+        shutterButtonConstraints = [
+            shutterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            shutterButton.widthAnchor.constraint(equalToConstant: 65.0),
+            shutterButton.heightAnchor.constraint(equalToConstant: 65.0),
+            view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: shutterButton.bottomAnchor, constant: 8.0)
+        ]
+
+        activityIndicatorConstraints = [
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ]
+        
+        autoScanButtonConstraints = [
+            autoScanButton.widthAnchor.constraint(equalToConstant: 45.0),
+            autoScanButton.heightAnchor.constraint(equalToConstant: 45.0),
+            autoScanButton.trailingAnchor.constraint(equalTo: shutterButton.leadingAnchor, constant: -25),
+            autoScanButton.centerYAnchor.constraint(equalTo: shutterButton.centerYAnchor)
+        ]
+                        
+        cameraOptionsConstraints = [
+            optionsScrollView.bottomAnchor.constraint(equalTo: shutterButton.topAnchor),
+            optionsScrollView.heightAnchor.constraint(equalToConstant: 65.0),
+            view.trailingAnchor.constraint(equalTo: optionsScrollView.trailingAnchor),
+            optionsScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(quadViewConstraints + shutterButtonConstraints + activityIndicatorConstraints + cameraOptionsConstraints + autoScanButtonConstraints)
+    }
 }
 
 extension ScannerViewController: RectangleDetectionDelegateProtocol {
