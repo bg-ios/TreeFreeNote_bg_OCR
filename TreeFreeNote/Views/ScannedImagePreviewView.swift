@@ -47,7 +47,7 @@ struct ScannedImagePreviewView: View {
                 Spacer()
                 Text("\(currentIndex) / \(imageNames.count)")
                 Spacer()
-                Button("Next") {
+                Button("Save") {
                 }
             }
             .padding()
