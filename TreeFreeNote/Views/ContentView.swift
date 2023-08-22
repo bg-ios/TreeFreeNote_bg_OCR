@@ -25,12 +25,14 @@ struct ContentView: View {
     @State var isTabViewShown = true
     @Environment(\.presentationMode) private var presentationMode
     
+    @State var categoriesViewModel = CategoriesViewModel()
+    
     var body: some View {
         ZStack {
             //TabView
             VStack(spacing: 0) {
                 TabView(selection: $selectedTab) {
-                    Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet)
+                    Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet, categoriesViewModel: categoriesViewModel)
                         .tag("Home")
                     
                     ScanView(scannedPages: [], isTabViewShown: $isTabViewShown) {
@@ -61,7 +63,25 @@ struct ContentView: View {
             }
             .ignoresSafeArea()
             
-            BottomSheet(isShowingBottomSheet: $isShowingBottomSheet, content: bottomSheetContentType.view())
+            BottomSheet(isShowingBottomSheet: $isShowingBottomSheet, content: self.createBottomSheetContentView())
+        }
+    }
+}
+
+extension ContentView {
+    
+    func createBottomSheetContentView() -> AnyView {
+        switch bottomSheetContentType {
+        case .newTag:
+            return AnyView(TagCreationView(isShowingBottomSheet: $isShowingBottomSheet, createTag: { newTag in
+                print(newTag)
+            }, categoriesViewModel: categoriesViewModel))
+        case .newFolder:
+            return AnyView(FolderCreationView())
+        case .folderConfirmationView:
+            return AnyView(FolderConfirmationView(alertType: .confirmationAlert))
+        case .eraseAlertView:
+            return AnyView(FolderConfirmationView(alertType: .eraseAlert))
         }
     }
 }

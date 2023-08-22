@@ -13,6 +13,8 @@ struct Home: View {
     @Binding var bottomSheetContentType: BottomSheetType
     @Binding var isShowingBottomSheet: Bool
     
+    @ObservedObject var categoriesViewModel : CategoriesViewModel
+
     var body: some View {
         NavigationView {
             VStack{
@@ -31,7 +33,7 @@ struct Home: View {
                             .padding(.horizontal, 10)
                         
                         ///Categories View
-                        CategoriesView(selectedCategory: $selectedCategory)
+                        CategoriesView(categoriesViewModel: categoriesViewModel)
                             .padding(10)
                         //                        Spacer(minLength: 2)
                         FoldersHorizontalListView()
@@ -54,8 +56,8 @@ struct Home: View {
     }
 }
 
-struct Home_Previews: PreviewProvider {
-    static var previews: some View {
-        Home(selectedCategory: .constant(categories.first!), bottomSheetContentType: .constant(.newTag), isShowingBottomSheet: .constant(false))
-    }
-}
+//struct Home_Previews: PreviewProvider {
+////    static var previews: some View {
+////        Home(selectedCategory: .constant(categories.first!), bottomSheetContentType: .constant(.newTag), isShowingBottomSheet: .constant(false), categoriesViewModel: .constant(CategoriesViewModel()))
+////    }
+//}

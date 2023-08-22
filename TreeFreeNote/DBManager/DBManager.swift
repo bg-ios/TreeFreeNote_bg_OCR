@@ -12,13 +12,13 @@ class DBManager{
     static let shared = DBManager()
     init(){
         db = openDatabase()
-//        createTable(sql_query: querys().documentTableString)
-//        createTable(sql_query: querys().pagesTableString)
+        //        createTable(sql_query: querys().documentTableString)
+        //        createTable(sql_query: querys().pagesTableString)
     }
-
+    
     let dbPath: String = "TreeFreeNote.sqlite"
     var db:OpaquePointer?
-
+    
     func openDatabase() -> OpaquePointer?{
         let fileURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             .appendingPathComponent(dbPath)
@@ -64,7 +64,44 @@ class DBManager{
         sqlite3_finalize(insertStatement)
     }
     
-//    SELECT MAX(Id) FROM Table
+    func getValues(tableName : String) -> Array<Dictionary<String, Any>> {
+        let queryStatementString = "SELECT * FROM \(tableName);"
+        var queryStatement: OpaquePointer? = nil
+        var values = [Dictionary<String, Any>]()
+        var dict = [Int: [String: Any]]()
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                //                var object: Dictionary<String, Any> = [:]
+                let id = sqlite3_column_int(queryStatement, 0)
+                //                object["id"] = String(id)
+                //                if let cString = sqlite3_column_text(queryStatement, 1) {
+                //                        let value = String(cString: cString)
+                //                    object["text"] = String(value)
+                //                    } else {
+                //                        print("name not found")
+                //                    }
+                //
+                //                values.append(object)
+                
+                if let queryResultCol1 = sqlite3_column_text(queryStatement, 1){
+                    print("Query result is nil.")
+                    let json = String(cString: queryResultCol1)
+                    let data = Data(json.utf8)
+                    do {
+                        if let jsonDict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
+                            dict[Int(id)] = jsonDict
+                        }
+                    } catch let error as NSError {
+                        print(error)
+                    }
+                }
+            }
+        } else {
+            print("SELECT statement could not be prepared")
+        }
+        sqlite3_finalize(queryStatement)
+        return values
+    }
     
     func getMaxRowId(tableName : String) -> String {
         let queryStatementString = "SELECT MAX(Id) FROM \(tableName);"
@@ -98,5 +135,4 @@ class DBManager{
         }
         sqlite3_finalize(deleteStatement)
     }
-    
 }

@@ -8,18 +8,23 @@
 import Foundation
 // Model and Sample Data
 
-struct Category: Identifiable, Equatable, Codable {
-    var id: String = UUID().uuidString
+struct Category: Identifiable, Equatable, Codable, Hashable {
+    var id = UUID()
     var title: String
-}
-
-struct CategoriesModel {
-    private(set) var categories :[Category] = []
+    var isSelected: Bool = false
     
-    mutating func addCategory(_ category: Category){
-        categories.append(category)
+    mutating func updateState(selectedState: Bool) {
+        self.isSelected = selectedState
     }
 }
+
+//struct CategoriesModel {
+//    private(set) var categories :[Category] = []
+//
+//    mutating func addCategory(_ category: Category){
+//        categories.append(category)
+//    }
+//}
 
 var categories = [
     Category(title: "All"),
