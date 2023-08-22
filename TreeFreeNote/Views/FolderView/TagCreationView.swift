@@ -15,7 +15,7 @@ struct TagCreationView: View {
     @State private var keyboardHeight: CGFloat = 0
 
     var createTag: ((String) -> ())?
-    @ObservedObject var categoriesViewModel = CategoriesViewModel()
+    @ObservedObject var categoriesViewModel: CategoriesViewModel
 
     var body: some View {
         VStack {

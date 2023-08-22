@@ -13,20 +13,6 @@ enum BottomSheetType: Int {
     case folderConfirmationView
     case eraseAlertView
     
-    func view() -> AnyView {
-        switch self {
-        case .newTag:
-            return AnyView(TagCreationView(isShowingBottomSheet: .constant(true), createTag: { newTag in
-                print(newTag)
-                }))
-        case .newFolder:
-            return AnyView(FolderCreationView())
-        case .folderConfirmationView:
-            return AnyView(FolderConfirmationView(alertType: .confirmationAlert))
-        case .eraseAlertView:
-            return AnyView(FolderConfirmationView(alertType: .eraseAlert))
-        }
-    }
 }
 
 struct BottomSheet: View {

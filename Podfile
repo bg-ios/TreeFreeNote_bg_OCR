@@ -6,6 +6,8 @@ target 'TreeFreeNote' do
   use_frameworks!
 
 	pod 'QBImagePickerController', '~> 3.4'
+  pod 'GoogleSignIn', '~> 5.0.2'
+  pod 'GoogleAPIClientForREST/Drive'
   # Pods for TreeFreeNote
 
   target 'TreeFreeNoteTests' do

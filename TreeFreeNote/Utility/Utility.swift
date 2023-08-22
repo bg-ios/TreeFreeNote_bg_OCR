@@ -1,10 +1,3 @@
-//
-//  Utility.swift
-//  TreeFreeNote
-//
-//  Created by Vinod Kodavath on 23/07/23.
-//
-
 import Foundation
 
 class Utility{
