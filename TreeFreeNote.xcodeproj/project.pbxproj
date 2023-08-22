@@ -104,6 +104,7 @@
 		095BC8D92A5D0D0B00729692 /* ScannedPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095BC8D82A5D0D0B00729692 /* ScannedPage.swift */; };
 		095BC8DB2A5D0D4900729692 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095BC8DA2A5D0D4900729692 /* Document.swift */; };
 		0988DAF12A93CEC9000F8C35 /* FoldersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0988DAF02A93CEC9000F8C35 /* FoldersListView.swift */; };
+		0988DAF52A950900000F8C35 /* ScannedImagePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0988DAF42A950900000F8C35 /* ScannedImagePreviewView.swift */; };
 		0991B6302A6ED15200E44FB8 /* DocumentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0991B62F2A6ED15200E44FB8 /* DocumentHandler.swift */; };
 		0991B6322A74F54E00E44FB8 /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0991B6312A74F54E00E44FB8 /* ImageButton.swift */; };
 		0991B63A2A7FC0F400E44FB8 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0991B6392A7FC0F400E44FB8 /* Utility.swift */; };
@@ -253,6 +254,7 @@
 		095BC8D82A5D0D0B00729692 /* ScannedPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedPage.swift; sourceTree = "<group>"; };
 		095BC8DA2A5D0D4900729692 /* Document.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
 		0988DAF02A93CEC9000F8C35 /* FoldersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersListView.swift; sourceTree = "<group>"; };
+		0988DAF42A950900000F8C35 /* ScannedImagePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannedImagePreviewView.swift; sourceTree = "<group>"; };
 		0991B62F2A6ED15200E44FB8 /* DocumentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentHandler.swift; sourceTree = "<group>"; };
 		0991B6312A74F54E00E44FB8 /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 		0991B6392A7FC0F400E44FB8 /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				0950CA3F2A260D7F0008E778 /* ContentView.swift */,
 				0950CAA02A2F99DC0008E778 /* RegistrationView.swift */,
 				0950CA732A266DF80008E778 /* DocumentDetailedView.swift */,
+				0988DAF42A950900000F8C35 /* ScannedImagePreviewView.swift */,
 				0924D5FF2A42AB3A00FCF155 /* FolderView */,
 				0950CA8D2A27B55F0008E778 /* Tabbar */,
 				0924D64A2A4FDB7400FCF155 /* QRScan */,
@@ -1065,6 +1068,7 @@
 				0950CA812A2796670008E778 /* CategoryItemView.swift in Sources */,
 				095BC8D92A5D0D0B00729692 /* ScannedPage.swift in Sources */,
 				095BC8BB2A5AA55D00729692 /* CGSize+Utils.swift in Sources */,
+				0988DAF52A950900000F8C35 /* ScannedImagePreviewView.swift in Sources */,
 				0924D6582A50698800FCF155 /* FolderConfirmationView.swift in Sources */,
 				0950CAA12A2F99DC0008E778 /* RegistrationView.swift in Sources */,
 				0991B63A2A7FC0F400E44FB8 /* Utility.swift in Sources */,
