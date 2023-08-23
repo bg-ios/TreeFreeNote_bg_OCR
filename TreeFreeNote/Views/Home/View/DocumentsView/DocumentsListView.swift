@@ -17,9 +17,9 @@ struct DocumentsListView: View {
             LazyVStack(alignment: .leading, spacing: 10, pinnedViews: .sectionHeaders) {
                 ForEach($documentViewModel.documentsList){ $document in
                     NavigationLink {
-//                        if let detailedImage = self.navigateToDetailedView(document: document.title) {
-//                            ScannedImagePreviewView(imageNames: [detailedImage] , isFromScanner: false, documentsViewModel: documentViewModel)
-//                        }
+                        if let detailedImage = self.navigateToDetailedView(document: document.title) {
+                            ScannedImagePreviewView(imageNames: [detailedImage] , isFromScanner: false, documentsViewModel: documentViewModel)
+                        }
                     } label: {
                         DocumentListCell(document: $document)
                             .frame(height: 100)

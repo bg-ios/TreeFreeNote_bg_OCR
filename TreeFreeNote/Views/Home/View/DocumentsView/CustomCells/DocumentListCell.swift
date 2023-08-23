@@ -103,7 +103,7 @@ private extension DocumentListCell {
                 
 //                Text(document.cloudAccount)
                 Text("Device")
-                    .font(.title3)
+                    .font(.subheadline)
                     .multilineTextAlignment(.leading)
                     .foregroundColor(Color.secondaryTextColor)
             }
