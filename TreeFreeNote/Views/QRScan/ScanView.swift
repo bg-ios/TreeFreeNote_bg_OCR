@@ -10,11 +10,14 @@ import SwiftUI
 struct ScanView: View {
     @State var scannedPages: [String]
     @Binding var isTabViewShown: Bool
-    let backAction: () -> Void
     
+    @ObservedObject var documentViewModel : DocumentsViewModel
+
+    let backAction: () -> Void
+
     var body: some View {
         VStack{
-            ImageScannerControllerViewRepresenter(controller: ImageScannerController()) { results in
+            ImageScannerControllerViewRepresenter(documentViewModel: documentViewModel, controller: ImageScannerController(documentViewModel: documentViewModel)) { results in
                 print("Scan resultss -- \(results)")
                 
                 guard let image = results.enhancedScan?.image else { return }
@@ -42,7 +45,7 @@ struct ScanView: View {
 
 struct ScanView_Previews: PreviewProvider {
     static var previews: some View {
-        ScanView(scannedPages: [], isTabViewShown: . constant(false), backAction: {
+        ScanView(scannedPages: [], isTabViewShown: . constant(false), documentViewModel: DocumentsViewModel(), backAction: {
         })
     }
 }

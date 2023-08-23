@@ -9,11 +9,14 @@ import Foundation
 import SwiftUI
 
 struct ScannedImagePreviewView: View {
-    let imageNames : [UIImage]
+    var imageNames = [UIImage]()
+    var isFromScanner: Bool = false
     @State private var currentIndex: Int = 1
     @GestureState private var translation: CGFloat = 0
 
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+    @ObservedObject var documentsViewModel: DocumentsViewModel
 
     var body: some View {
         VStack {
@@ -47,21 +50,24 @@ struct ScannedImagePreviewView: View {
                 CustomLogoButton(imageName: "Back") {
                     self.presentationMode.wrappedValue.dismiss()
                 }
+                
                 Spacer()
                 Text("\(currentIndex) / \(imageNames.count)")
                 Spacer()
-                CustomLogoButton(imageName: "TickIcon") {
-                    self.saveImagesToFileDirectory()
-                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didDismissOnSaving"), object: self, userInfo: nil)
-                    self.presentationMode.wrappedValue.dismiss()
-                    //TODO: Google drive integration
+                if isFromScanner {
+                    CustomLogoButton(imageName: "TickIcon") {
+                        
+                        self.saveImagesToFileDirectory()
+                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didDismissOnSaving"), object: self, userInfo: nil)
+                        self.presentationMode.wrappedValue.dismiss()
+                        //TODO: Google drive integration
+                    }
+                    .foregroundColor(Color.black)
                 }
-                .foregroundColor(Color.black)
-                
             }
             .frame(height: 55)
             .padding()
-            .background(Color.white)
+            .background(Color.clear)
             .cornerRadius(25, corners: [.topLeft,.topRight])
         }
         .onAppear {
@@ -75,8 +81,7 @@ struct ScannedImagePreviewView: View {
         let formatter = DateFormatter()
         formatter.timeStyle = .medium
         let dateString = formatter.string(from: date)
-
-    let documentsViewModel = DocumentsViewModel()
+        
         for image in self.imageNames {
             if let imagePath = documentHandler.saveImageToDocumentDirectory(image: image) {
                 let documentModel = Document(title: imagePath, creationDate: dateString, fileFormat: "Png")

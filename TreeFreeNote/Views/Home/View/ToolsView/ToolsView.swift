@@ -18,12 +18,13 @@ struct ToolsView: View {
                     .padding(4)
                 Spacer()
             }
-            HStack(spacing: 2) {
-                ToolsItemView(title: "Merge PDF")
-                ToolsItemView(title: "Split PDF")
-                ToolsItemView(title: "eSign PDF")
-                ToolsItemView(title: "See all")
+            HStack() {
+                ToolsItemView(title: "Merge PDF", image: "mergePdf")
+                ToolsItemView(title: "Split PDF", image: "splitPdf")
+                ToolsItemView(title: "eSign PDF", image: "esignPdf")
+                ToolsItemView(title: "All Tools", image: "AllTools")
             }
+            .padding(.horizontal, 5)
         }
     }
 }
