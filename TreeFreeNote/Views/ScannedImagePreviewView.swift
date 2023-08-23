@@ -11,6 +11,9 @@ import SwiftUI
 struct ScannedImagePreviewView: View {
     var imageNames = [UIImage]()
     var isFromScanner: Bool = false
+
+    @Binding var isTabViewShown: Bool
+
     @State private var currentIndex: Int = 1
     @GestureState private var translation: CGFloat = 0
 
@@ -47,8 +50,10 @@ struct ScannedImagePreviewView: View {
             }
             .background(Color.clear)
             HStack {
-                CustomLogoButton(imageName: "Back") {
-                    self.presentationMode.wrappedValue.dismiss()
+                if isFromScanner {
+                    CustomLogoButton(imageName: "Back") {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }
                 }
                 
                 Spacer()
@@ -72,6 +77,10 @@ struct ScannedImagePreviewView: View {
         }
         .onAppear {
             UIScrollView.appearance().isPagingEnabled = true
+            isTabViewShown = false
+        }
+        .onDisappear{
+            isTabViewShown.toggle()
         }
     }
     

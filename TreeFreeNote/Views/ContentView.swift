@@ -33,7 +33,7 @@ struct ContentView: View {
             //TabView
             VStack(spacing: 0) {
                 TabView(selection: $selectedTab) {
-                    Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet, categoriesViewModel: categoriesViewModel, documentsViewModel: documentsViewModel)
+                    Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet, isTabViewShown: $isTabViewShown, categoriesViewModel: categoriesViewModel, documentsViewModel: documentsViewModel)
                         .tag("Home")
                     
                     ScanView(scannedPages: [], isTabViewShown: $isTabViewShown, documentViewModel: documentsViewModel) {
