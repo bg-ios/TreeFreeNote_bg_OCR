@@ -19,8 +19,9 @@ struct DocumentListCell: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 80, height: 80)
                         .allowsHitTesting(false)
+                        .padding(2)
                 }
-                .padding(.all, 10)
+//                .padding(.all, 10)
                 .background(Color.gray.opacity(0.5))
                 .padding(.leading, 10)
 //                BadgeView(title: "222", padding: 5, radius: 0, rotation: 0, xOffset: 30, yOffset: -35)

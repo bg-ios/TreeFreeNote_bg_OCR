@@ -37,25 +37,10 @@ class DocumentHandler {
     }
     
     func loadImageFromDocumentDirectory(fileName: String) -> UIImage? {
-        
-        var fileURL = fileName
-        if !(fileName.contains("file://") ) {
-            fileURL = "file://" + (fileName)
-        }
-        if let url = URL(string: fileURL) {
-            if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
-                return image
-            }
-        }
-        if let loaded = UIImage.init(contentsOfFile: fileURL) {
-            return loaded
-        }
-        return nil
+        let dir = getDocumentDirectory()
+        return UIImage(contentsOfFile: URL(fileURLWithPath: dir.absoluteString).appendingPathComponent((fileName as NSString).lastPathComponent).path)
     }
-
 }
-
-
 
 /*
 {
