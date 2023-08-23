@@ -8,20 +8,20 @@
 import SwiftUI
 
 struct DocumentsListView: View {
-    @State private var documentsArray = documentModelSamples
-    
-    @ObservedObject var documentViewModel = DocumentsViewModel()
+    @Binding var isTabViewShown: Bool
 
+    @ObservedObject var documentViewModel = DocumentsViewModel()
     var body: some View {
         
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 10, pinnedViews: .sectionHeaders) {
-                ForEach($documentViewModel.documentsList){ document in
+                ForEach($documentViewModel.documentsList){ $document in
                     NavigationLink {
-                        
-//                        DocumentsDetailedView(documentInfo: document)
+                        if let detailedImage = self.navigateToDetailedView(document: document.title) {
+                            ScannedImagePreviewView(imageNames: [detailedImage] , isFromScanner: false, isTabViewShown: $isTabViewShown, documentsViewModel: documentViewModel)
+                        }
                     } label: {
-                        DocumentListCell(document: document)
+                        DocumentListCell(document: $document)
                             .frame(height: 100)
                     }
                     Divider()
@@ -31,8 +31,10 @@ struct DocumentsListView: View {
         }
     }
     
-    func convertImagePathsToImage() -> [UIImage]? {
-        
+    func navigateToDetailedView(document : String) -> UIImage? {
+        if let image = DocumentHandler().loadImageFromDocumentDirectory(fileName: document) {
+            return image
+        }
         return nil
     }
     
