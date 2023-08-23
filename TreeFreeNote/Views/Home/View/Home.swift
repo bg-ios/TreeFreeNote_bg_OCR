@@ -12,7 +12,7 @@ struct Home: View {
     @Binding var selectedCategory: Category?
     @Binding var bottomSheetContentType: BottomSheetType
     @Binding var isShowingBottomSheet: Bool
-    @Binding var isTabViewShown: Bool
+//    @Binding var isTabViewShown: Bool
 
     @ObservedObject var categoriesViewModel : CategoriesViewModel
 
@@ -46,7 +46,7 @@ struct Home: View {
                         
                         Divider()
                         ///Documents ListView
-                        DocumentsListView(isTabViewShown: $isTabViewShown, documentViewModel: documentsViewModel)
+                        DocumentsListView(documentViewModel: documentsViewModel)
                     })
                     .navigationBarTitleDisplayMode(.inline)
                 }

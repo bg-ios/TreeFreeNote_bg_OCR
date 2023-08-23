@@ -28,6 +28,7 @@ struct CustomTabbar: View {
                 Button {
                     print("tap on camera")
                     self.action()
+                    selectedTab = "Camera"
                 } label: {
                     Image("camera")
                         .resizable()

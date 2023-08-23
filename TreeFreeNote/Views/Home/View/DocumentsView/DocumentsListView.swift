@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DocumentsListView: View {
-    @Binding var isTabViewShown: Bool
+//    @Binding var isTabViewShown: Bool
 
     @ObservedObject var documentViewModel = DocumentsViewModel()
     var body: some View {
@@ -18,7 +18,7 @@ struct DocumentsListView: View {
                 ForEach($documentViewModel.documentsList){ $document in
                     NavigationLink {
                         if let detailedImage = self.navigateToDetailedView(document: document.title) {
-                            ScannedImagePreviewView(imageNames: [detailedImage] , isFromScanner: false, isTabViewShown: $isTabViewShown, documentsViewModel: documentViewModel)
+                            ScannedImagePreviewView(imageNames: [detailedImage] , isFromScanner: false, documentsViewModel: documentViewModel)
                         }
                     } label: {
                         DocumentListCell(document: $document)

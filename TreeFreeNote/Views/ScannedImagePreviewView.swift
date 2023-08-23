@@ -12,7 +12,7 @@ struct ScannedImagePreviewView: View {
     var imageNames = [UIImage]()
     var isFromScanner: Bool = false
 
-    @Binding var isTabViewShown: Bool
+//    @Binding var isTabViewShown: Bool
 
     @State private var currentIndex: Int = 1
     @GestureState private var translation: CGFloat = 0
@@ -77,10 +77,10 @@ struct ScannedImagePreviewView: View {
         }
         .onAppear {
             UIScrollView.appearance().isPagingEnabled = true
-            isTabViewShown = false
+//            isTabViewShown = false
         }
         .onDisappear{
-            isTabViewShown.toggle()
+//            isTabViewShown.toggle()
         }
     }
     
