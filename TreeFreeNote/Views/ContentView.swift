@@ -36,7 +36,7 @@ struct ContentView: View {
                     Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet, categoriesViewModel: categoriesViewModel, documentsViewModel: documentsViewModel)
                         .tag("Home")
                     
-                    Color.white
+                    Text("Coming Soon")
                     .tag("QR Scan")
                     
                     ScanView(scannedPages: [], isTabViewShown: $isTabViewShown, documentViewModel: documentsViewModel) {
@@ -44,10 +44,10 @@ struct ContentView: View {
                     }
                     .tag("Camera")
                     
-                    Color.gray
+                    Text("Coming Soon")
                     .tag("OCR Scan")
                     
-                    Color.gray
+                    Text("Coming Soon")
                         .tag("Import")
                 }
                 
