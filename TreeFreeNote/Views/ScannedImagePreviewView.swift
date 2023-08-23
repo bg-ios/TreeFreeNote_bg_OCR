@@ -76,8 +76,8 @@ struct ScannedImagePreviewView: View {
             .cornerRadius(25, corners: [.topLeft,.topRight])
         }
         .onAppear {
-            isTabViewShown = false
             UIScrollView.appearance().isPagingEnabled = true
+            isTabViewShown = false
         }
         .onDisappear{
             isTabViewShown.toggle()
