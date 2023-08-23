@@ -26,6 +26,7 @@ final class EditScanViewController: UIViewController {
     private lazy var quadView: QuadrilateralView = {
         let quadView = QuadrilateralView()
         quadView.editable = false
+        quadView.strokeColor = UIColor.green.cgColor
         quadView.translatesAutoresizingMaskIntoConstraints = false
         return quadView
     }()
@@ -159,11 +160,11 @@ final class EditScanViewController: UIViewController {
     }
 
     @objc func pushReviewController() {
-        guard let ciImage = CIImage(image: image) else {
-//                if let imageScannerController = navigationController as? ImageScannerController {
-//                    let error = ImageScannerControllerError.ciImageCreation
-//                    imageScannerController.imageScannerDelegate?.imageScannerController(imageScannerController, didFailWithError: error)
-//                }
+        guard let quad = quadView.quad, let ciImage = CIImage(image: image) else {
+                if let imageScannerController = navigationController as? ImageScannerController {
+                    let error = ImageScannerControllerError.ciImageCreation
+                    imageScannerController.imageScannerDelegate?.imageScannerController(imageScannerController, didFailWithError: error)
+                }
                 return
         }
         let cgOrientation = CGImagePropertyOrientation(image.imageOrientation)
@@ -194,6 +195,7 @@ final class EditScanViewController: UIViewController {
             enhancedScan: enhancedScan
         )
 
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didImageCaptured"), object: self, userInfo: ["image" : croppedImage])
         self.navigationController?.popViewController(animated: false)
     }
 

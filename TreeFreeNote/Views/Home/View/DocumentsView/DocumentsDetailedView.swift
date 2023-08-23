@@ -8,15 +8,15 @@
 import SwiftUI
 
 struct DocumentsDetailedView: View {
-    var documentInfo: DocumentModel
+    var documentInfo: Document
     
     var body: some View {
-        Text(documentInfo.name)
+        Text(documentInfo.title)
     }
 }
 
-struct DocumentsDetailedView_Previews: PreviewProvider {
-    static var previews: some View {
-        DocumentsDetailedView(documentInfo: DocumentModel(name: "Document", imageName: "ca", dateCreated: "21635 76", cloudAccount: "", documentFolderName: "", pagesCount: 3))
-    }
-}
+//struct DocumentsDetailedView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DocumentsDetailedView(documentInfo: DocumentModel(name: "Document", imageName: "ca", dateCreated: "21635 76", cloudAccount: "", documentFolderName: "", pagesCount: 3))
+//    }
+//}

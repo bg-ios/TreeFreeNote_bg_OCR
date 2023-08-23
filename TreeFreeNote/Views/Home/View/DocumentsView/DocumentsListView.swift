@@ -10,13 +10,15 @@ import SwiftUI
 struct DocumentsListView: View {
     @State private var documentsArray = documentModelSamples
     
+    @ObservedObject var documentViewModel: DocumentsViewModel
+
     var body: some View {
         
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 10, pinnedViews: .sectionHeaders) {
-                ForEach(documentsArray) { document in
+                ForEach($documentViewModel.documentsList){ document in
                     NavigationLink {
-                        DocumentsDetailedView(documentInfo: document)
+//                        DocumentsDetailedView(documentInfo: document)
                     } label: {
                         DocumentListCell(document: document)
                             .frame(height: 100)
@@ -24,13 +26,18 @@ struct DocumentsListView: View {
                     Divider()
                 }
             }
+            .onChange(of: documentViewModel.documentsList) { newValue in
+                
+                print(newValue)
+            }
+            
         }
     }
     
 }
 
-struct DocumentsListView_Previews: PreviewProvider {
-    static var previews: some View {
-        DocumentsListView()
-    }
-}
+//struct DocumentsListView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DocumentsListView(documentViewModel: <#DocumentsViewModel#>)
+//    }
+//}

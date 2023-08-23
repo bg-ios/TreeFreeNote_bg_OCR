@@ -10,7 +10,6 @@ import Combine
 
 struct TagCreationView: View {
     @State private var tagName: String = ""
-//    @Binding var isShowing: Bool
     @Binding var isShowingBottomSheet: Bool
     @State private var keyboardHeight: CGFloat = 0
 
@@ -23,7 +22,6 @@ struct TagCreationView: View {
                 Spacer()
                 Button {
                     print("close action")
-//                    isShowing.toggle()
                     isShowingBottomSheet.toggle()
                 } label: {
                     Image(systemName: "xmark.circle")
@@ -56,7 +54,6 @@ struct TagCreationView: View {
                         print("Empty tag ALert")
                     } else {
                         self.createTag?(tagName)
-//                        isShowing.toggle()
                         categoriesViewModel.addCategory(Category(title: tagName))
                         isShowingBottomSheet.toggle()
                     }

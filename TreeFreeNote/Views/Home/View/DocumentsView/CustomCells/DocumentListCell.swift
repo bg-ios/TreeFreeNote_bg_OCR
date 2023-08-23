@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct DocumentListCell: View {
-    var document: DocumentModel
+   @Binding var document: Document
     
     var body: some View {
         HStack(spacing: 2, content: {
             ZStack {
                 HStack {
-                    Image("Document")
+                    Image(uiImage: (self.loadImage() ?? UIImage(named: "Document"))!)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 80, height: 80)
@@ -23,9 +23,8 @@ struct DocumentListCell: View {
                 .padding(.all, 10)
                 .background(Color.gray.opacity(0.5))
                 .padding(.leading, 10)
-                BadgeView(title: "222", padding: 5, radius: 0, rotation: 0, xOffset: 30, yOffset: -35)
-                    .frame(width: 50, height: 25)
-
+//                BadgeView(title: "222", padding: 5, radius: 0, rotation: 0, xOffset: 30, yOffset: -35)
+//                    .frame(width: 50, height: 25)
             }
             VStack(spacing: 2) {
                 documentNameRowView
@@ -35,19 +34,23 @@ struct DocumentListCell: View {
         })
         .listRowBackground(Color.clear)
     }
-}
-
-struct DocumentListCell_Previews: PreviewProvider {
-    static var previews: some View {
-        DocumentListCell(document: documentModelSamples.first!)
+    
+    private func loadImage() -> UIImage? {
+        return DocumentHandler().loadImageFromDocumentDirectory(fileName: self.document.title)
     }
 }
+
+//struct DocumentListCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DocumentListCell(document: documentModelSamples.first!)
+//    }
+//}
 
 private extension DocumentListCell {
     
     private var documentNameRowView: some View {
         HStack(alignment: .top) {
-            Text(document.name)
+            Text((document.title as NSString).lastPathComponent)
                 .font(.subheadline)
                 .fontWeight(.medium)
                 .fixedSize(horizontal: false, vertical: true)
@@ -70,14 +73,14 @@ private extension DocumentListCell {
     
     private var dateRowView: some View {
         HStack(alignment: .center) {
-            Text(document.dateCreated)
+            Text(document.creationDate)
                 .font(.subheadline)
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
                 .foregroundColor(Color.descriptionTextColor)
                 .padding(.horizontal, 5)
             Spacer()
-            Text(document.documentFolderName)
+            Text(document.fileFormat)
                 .font(.system(size: 10,weight: .light))
                 .padding(.horizontal, 10)
                 .frame(height: 25)
@@ -91,13 +94,14 @@ private extension DocumentListCell {
     private var cloudAcountRowView: some View {
         HStack(alignment: .center) {
             HStack{
-                Image("driveIcon")
-                    .resizable()
-                    .font(.footnote)
-                    .aspectRatio(CGSize(width: 15, height: 15), contentMode: .fit)
-                    .frame(width: 20, height: 20)
+//                Image("driveIcon")
+//                    .resizable()
+//                    .font(.footnote)
+//                    .aspectRatio(CGSize(width: 15, height: 15), contentMode: .fit)
+//                    .frame(width: 20, height: 20)
                 
-                Text(document.cloudAccount)
+//                Text(document.cloudAccount)
+                Text("Device")
                     .font(.subheadline)
                     .multilineTextAlignment(.leading)
                     .foregroundColor(Color.secondaryTextColor)
