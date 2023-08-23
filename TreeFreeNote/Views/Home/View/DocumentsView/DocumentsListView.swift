@@ -14,20 +14,28 @@ struct DocumentsListView: View {
     var body: some View {
         
         ScrollView {
-            LazyVStack(alignment: .leading, spacing: 10, pinnedViews: .sectionHeaders) {
-                ForEach($documentViewModel.documentsList){ $document in
-                    NavigationLink {
-                        if let detailedImage = self.navigateToDetailedView(document: document.title) {
-                            ScannedImagePreviewView(imageNames: [detailedImage] , isFromScanner: false, documentsViewModel: documentViewModel)
+            if (documentViewModel.documentsList.count > 0) {
+                LazyVStack(alignment: .leading, spacing: 10, pinnedViews: .sectionHeaders) {
+                    ForEach($documentViewModel.documentsList){ $document in
+                        NavigationLink {
+                            if let detailedImage = self.navigateToDetailedView(document: document.title) {
+                                ScannedImagePreviewView(imageNames: [detailedImage] , isFromScanner: false, documentsViewModel: documentViewModel)
+                            }
+                        } label: {
+                            DocumentListCell(document: $document)
+                                .frame(height: 100)
                         }
-                    } label: {
-                        DocumentListCell(document: $document)
-                            .frame(height: 100)
+                        Divider()
                     }
-                    Divider()
+                }
+            } else {
+                HStack(alignment: .center) {
+                    Spacer()
+                    Text("No Data Available")
+                        .multilineTextAlignment(.center)
+                    Spacer()
                 }
             }
-            
         }
     }
     
