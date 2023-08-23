@@ -13,7 +13,8 @@ class DocumentHandler {
         guard let data = image.jpegData(compressionQuality: 1.0) ?? image.pngData() else {
             return nil
         }
-        let fileName = "image_\(UUID().uuidString).png"
+        let dateString = Utility().current_date()
+        let fileName = "image_\(dateString).png"
 
         let fileURL = getDocumentDirectory().appendingPathComponent(fileName)
         
@@ -31,9 +32,20 @@ class DocumentHandler {
     }
     
     func loadImageFromDocumentDirectory(fileName: String) -> UIImage? {
-        let fileURL = getDocumentDirectory().appendingPathComponent(fileName)
-        if let imageData = try? Data(contentsOf: fileURL) {
-            return UIImage(data: imageData)
+        
+        
+        
+        var fileURL = fileName
+        if !(fileName.contains("file://") ) {
+            fileURL = "file://" + (fileName)
+        }
+        if let url = URL(string: fileURL) {
+            if let data = try? Data(contentsOf: url), let image = UIImage(data: data) {
+                return image
+            }
+        }
+        if let loaded = UIImage.init(contentsOfFile: fileURL) {
+            return loaded
         }
         return nil
     }

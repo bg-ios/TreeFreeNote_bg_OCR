@@ -15,6 +15,8 @@ struct Home: View {
     
     @ObservedObject var categoriesViewModel : CategoriesViewModel
 
+    @ObservedObject var documentsViewModel : DocumentsViewModel
+
     var body: some View {
         NavigationView {
             VStack{
@@ -35,13 +37,15 @@ struct Home: View {
                         ///Categories View
                         CategoriesView(categoriesViewModel: categoriesViewModel)
                             .padding(10)
-                        //                        Spacer(minLength: 2)
-                        FoldersHorizontalListView()
-                            .frame(height: 120)
+                        
+                        
+                        //Folder Horizontal View
+//                        FoldersHorizontalListView()
+//                            .frame(height: 120)
                         
                         Divider()
                         ///Documents ListView
-                        DocumentsListView()
+                        DocumentsListView(documentViewModel: documentsViewModel)
                     })
                     .navigationBarTitleDisplayMode(.inline)
                 }

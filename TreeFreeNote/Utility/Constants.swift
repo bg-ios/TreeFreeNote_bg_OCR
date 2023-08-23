@@ -8,3 +8,4 @@
 import Foundation
 
 let categoriesTag = "categoriesTag"
+let sannedImages = "SannedImages"

@@ -9,23 +9,25 @@ import Foundation
 import SwiftUI
 
 struct ScannedImagePreviewView: View {
-    let imageNames : [String]
+    let imageNames : [UIImage]
     @State private var currentIndex: Int = 1
     @GestureState private var translation: CGFloat = 0
+
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     var body: some View {
         VStack {
             GeometryReader { proxy in
                 ScrollView(.horizontal) {
                     HStack(spacing: 0) {
-                        ForEach(imageNames, id: \.self) { imageName in
-                            Image(imageName)
+                        ForEach(imageNames, id: \.self) { image in
+                            Image(uiImage: image)
                                 .resizable()
                                 .scaledToFit()
                                 .frame(height: proxy.size.height)
                                 
                         }
-                        .frame(width: proxy.size.width, height: proxy.size.height - 10)
+                        .frame(width: proxy.size.width, height: proxy.size.height - 2)
                     }
 
                 }
@@ -40,20 +42,47 @@ struct ScannedImagePreviewView: View {
                 )
                 
             }
-            .background(Color.red)
+            .background(Color.clear)
             HStack {
-                Button("Back") {
+                CustomLogoButton(imageName: "Back") {
+                    self.presentationMode.wrappedValue.dismiss()
                 }
                 Spacer()
                 Text("\(currentIndex) / \(imageNames.count)")
                 Spacer()
-                Button("Save") {
+                CustomLogoButton(imageName: "TickIcon") {
+                    self.saveImagesToFileDirectory()
+                    NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didDismissOnSaving"), object: self, userInfo: nil)
+                    self.presentationMode.wrappedValue.dismiss()
+                    //TODO: Google drive integration
                 }
+                .foregroundColor(Color.black)
+                
             }
+            .frame(height: 55)
             .padding()
+            .background(Color.white)
+            .cornerRadius(25, corners: [.topLeft,.topRight])
         }
         .onAppear {
             UIScrollView.appearance().isPagingEnabled = true
         }
+    }
+    
+    private func saveImagesToFileDirectory() {
+        let documentHandler = DocumentHandler()
+        let date = Date()
+        let formatter = DateFormatter()
+        formatter.timeStyle = .medium
+        let dateString = formatter.string(from: date)
+
+    let documentsViewModel = DocumentsViewModel()
+        for image in self.imageNames {
+            if let imagePath = documentHandler.saveImageToDocumentDirectory(image: image) {
+                let documentModel = Document(title: imagePath, creationDate: dateString, fileFormat: "Png")
+                documentsViewModel.addDocument(documentModel)
+            }
+        }
+        
     }
 }

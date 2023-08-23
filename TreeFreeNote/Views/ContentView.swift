@@ -26,13 +26,14 @@ struct ContentView: View {
     @Environment(\.presentationMode) private var presentationMode
     
     @State var categoriesViewModel = CategoriesViewModel()
-    
+    @State var documentsViewModel = DocumentsViewModel()
+
     var body: some View {
         ZStack {
             //TabView
             VStack(spacing: 0) {
                 TabView(selection: $selectedTab) {
-                    Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet, categoriesViewModel: categoriesViewModel)
+                    Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet, categoriesViewModel: categoriesViewModel, documentsViewModel: documentsViewModel)
                         .tag("Home")
                     
                     ScanView(scannedPages: [], isTabViewShown: $isTabViewShown) {

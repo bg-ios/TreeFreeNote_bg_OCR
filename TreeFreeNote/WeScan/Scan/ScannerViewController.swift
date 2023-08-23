@@ -9,6 +9,7 @@
 
 import AVFoundation
 import UIKit
+import SwiftUI
 
 /// Camera functions Array
 enum SacnnerViewButtonType: String, CaseIterable {
@@ -36,6 +37,7 @@ public final class ScannerViewController: UIViewController {
     /// The original bar style that was set by the host app
     private var originalBarStyle: UIBarStyle?
 
+    private var capturedImages: [UIImage]?
     private lazy var shutterButton: ShutterButton = {
         let button = ShutterButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -53,6 +55,26 @@ public final class ScannerViewController: UIViewController {
         return button
     }()
 
+    private lazy var previewImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.clipsToBounds = true
+        imageView.isOpaque = true
+        imageView.backgroundColor = .clear
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    private lazy var saveButton: UIButton = {
+        let image = UIImage(named: "TickIcon")
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(nextAction), for: .touchUpInside)
+        button.tintColor = .white
+        return button
+    }()
+    
     private lazy var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView(style: .medium)
         activityIndicator.hidesWhenStopped = true
@@ -70,6 +92,10 @@ public final class ScannerViewController: UIViewController {
 
     // MARK: - Life Cycle
 
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "didImageCaptured"), object: nil)
+    }
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
 
@@ -85,6 +111,12 @@ public final class ScannerViewController: UIViewController {
         originalBarStyle = navigationController?.navigationBar.barStyle
 
         NotificationCenter.default.addObserver(self, selector: #selector(subjectAreaDidChange), name: Notification.Name.AVCaptureDeviceSubjectAreaDidChange, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didReceivedCapturedImage), name:
+                                                Notification.Name(rawValue: "didImageCaptured"), object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(cancelImageScannerController), name: Notification.Name(rawValue: "didDismissOnSaving"), object: nil)
+        
     }
 
     override public func viewWillAppear(_ animated: Bool) {
@@ -129,6 +161,8 @@ public final class ScannerViewController: UIViewController {
         view.addSubview(shutterButton)
         view.addSubview(activityIndicator)
         view.addSubview(optionsScrollView)
+        view.addSubview(previewImageView)
+        view.addSubview(saveButton)
     }
 
     // MARK: - Tap to Focus
@@ -149,6 +183,20 @@ public final class ScannerViewController: UIViewController {
         CaptureSession.current.removeFocusRectangleIfNeeded(focusRectangle, animated: true)
     }
 
+    @objc private func didReceivedCapturedImage(notifiaction: Notification) {
+        if self.capturedImages == nil {
+            self.capturedImages = [UIImage]()
+        }
+        
+        if let capturedImage = notifiaction.userInfo?["image"] as? UIImage {
+            self.capturedImages?.append(capturedImage)
+            DispatchQueue.main.async {
+                self.previewImageView.image = capturedImage
+            }
+        }
+    }
+    
+    
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
 
@@ -203,7 +251,7 @@ extension ScannerViewController {
         captureSessionManager?.capturePhoto()
     }
     
-    private func cancelImageScannerController() {
+    @objc private func cancelImageScannerController() {
         guard let imageScannerController = navigationController as? ImageScannerController else { return }
         imageScannerController.imageScannerDelegate?.imageScannerControllerDidCancel(imageScannerController)
     }
@@ -243,6 +291,14 @@ extension ScannerViewController {
         } else {
             CaptureSession.current.isAutoScanEnabled = true
             autoScanButton.setImage(UIImage(named: "AutoScan"), for: .normal)
+        }
+    }
+    
+    @objc private func nextAction() {
+        if let capturedImages, !capturedImages.isEmpty {
+            let previewController = ScannedImagePreviewView(imageNames: capturedImages)
+            let controller = UIHostingController(rootView: previewController)
+            self.navigationController?.pushViewController(controller, animated: true)
         }
     }
     
@@ -325,6 +381,8 @@ extension ScannerViewController {
         var shutterButtonConstraints = [NSLayoutConstraint]()
         var activityIndicatorConstraints = [NSLayoutConstraint]()
         var cameraOptionsConstraints = [NSLayoutConstraint]()
+        var previewImageViewConstraints = [NSLayoutConstraint]()
+        var nextButonConstraints = [NSLayoutConstraint]()
         
         quadViewConstraints = [
             quadView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -351,6 +409,20 @@ extension ScannerViewController {
             autoScanButton.trailingAnchor.constraint(equalTo: shutterButton.leadingAnchor, constant: -25),
             autoScanButton.centerYAnchor.constraint(equalTo: shutterButton.centerYAnchor)
         ]
+        
+        previewImageViewConstraints = [
+            previewImageView.widthAnchor.constraint(equalToConstant: 45.0),
+            previewImageView.heightAnchor.constraint(equalToConstant: 45.0),
+            previewImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 25),
+            previewImageView.centerYAnchor.constraint(equalTo: autoScanButton.centerYAnchor)
+        ]
+        
+        nextButonConstraints = [
+            saveButton.widthAnchor.constraint(equalToConstant: 45.0),
+            saveButton.heightAnchor.constraint(equalToConstant: 45.0),
+            saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25),
+            saveButton.centerYAnchor.constraint(equalTo: autoScanButton.centerYAnchor)
+        ]
                         
         cameraOptionsConstraints = [
             optionsScrollView.bottomAnchor.constraint(equalTo: shutterButton.topAnchor),
@@ -359,7 +431,7 @@ extension ScannerViewController {
             optionsScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         ]
         
-        NSLayoutConstraint.activate(quadViewConstraints + shutterButtonConstraints + activityIndicatorConstraints + cameraOptionsConstraints + autoScanButtonConstraints)
+        NSLayoutConstraint.activate(quadViewConstraints + shutterButtonConstraints + activityIndicatorConstraints + cameraOptionsConstraints + autoScanButtonConstraints + previewImageViewConstraints + nextButonConstraints)
     }
 }
 
