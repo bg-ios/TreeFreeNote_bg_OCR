@@ -45,6 +45,8 @@ public final class ImageScannerController: UINavigationController {
     /// The object that acts as the delegate of the `ImageScannerController`.
     public weak var imageScannerDelegate: ImageScannerControllerDelegate?
 
+    public var documentViewModel : DocumentsViewModel?
+
     // MARK: - Life Cycle
 
     /// A black UIView, used to quickly display a black screen when the shutter button is presseed.
@@ -60,8 +62,10 @@ public final class ImageScannerController: UINavigationController {
         return .portrait
     }
 
-    public required init(image: UIImage? = nil, delegate: ImageScannerControllerDelegate? = nil) {
-        super.init(rootViewController: ScannerViewController())
+    public required init(image: UIImage? = nil, documentViewModel: DocumentsViewModel?, delegate: ImageScannerControllerDelegate? = nil) {
+        self.documentViewModel = documentViewModel
+
+        super.init(rootViewController: ScannerViewController(documentViewModel: self.documentViewModel ?? DocumentsViewModel()))
 
         self.imageScannerDelegate = delegate
 
@@ -125,7 +129,7 @@ public final class ImageScannerController: UINavigationController {
     }
 
     public func resetScanner() {
-        setViewControllers([ScannerViewController()], animated: true)
+        setViewControllers([ScannerViewController(documentViewModel: self.documentViewModel ?? DocumentsViewModel())], animated: true)
     }
 
     private func setupConstraints() {

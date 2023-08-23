@@ -8,13 +8,18 @@
 import UIKit
 
 class DocumentHandler {
+    func randomString(length: Int) -> String {
+      let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+      return String((0..<length).map{ _ in letters.randomElement()! })
+    }
     
     func saveImageToDocumentDirectory(image: UIImage) -> String? {
         guard let data = image.jpegData(compressionQuality: 1.0) ?? image.pngData() else {
             return nil
         }
-        let dateString = Utility().current_date()
-        let fileName = "image_\(dateString).png"
+//        let dateString = Utility().current_date()
+        let randomString = self.randomString(length: 10)
+        let fileName = "image_\(randomString).png"
 
         let fileURL = getDocumentDirectory().appendingPathComponent(fileName)
         
@@ -32,8 +37,6 @@ class DocumentHandler {
     }
     
     func loadImageFromDocumentDirectory(fileName: String) -> UIImage? {
-        
-        
         
         var fileURL = fileName
         if !(fileName.contains("file://") ) {

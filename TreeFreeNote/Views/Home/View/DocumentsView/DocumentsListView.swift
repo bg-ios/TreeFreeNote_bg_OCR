@@ -10,7 +10,7 @@ import SwiftUI
 struct DocumentsListView: View {
     @State private var documentsArray = documentModelSamples
     
-    @ObservedObject var documentViewModel: DocumentsViewModel
+    @ObservedObject var documentViewModel = DocumentsViewModel()
 
     var body: some View {
         
@@ -18,6 +18,7 @@ struct DocumentsListView: View {
             LazyVStack(alignment: .leading, spacing: 10, pinnedViews: .sectionHeaders) {
                 ForEach($documentViewModel.documentsList){ document in
                     NavigationLink {
+                        
 //                        DocumentsDetailedView(documentInfo: document)
                     } label: {
                         DocumentListCell(document: document)
@@ -26,12 +27,13 @@ struct DocumentsListView: View {
                     Divider()
                 }
             }
-            .onChange(of: documentViewModel.documentsList) { newValue in
-                
-                print(newValue)
-            }
             
         }
+    }
+    
+    func convertImagePathsToImage() -> [UIImage]? {
+        
+        return nil
     }
     
 }

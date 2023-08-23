@@ -21,6 +21,7 @@ enum SacnnerViewButtonType: String, CaseIterable {
 
 /// The `ScannerViewController` offers an interface to give feedback to the user regarding quadrilaterals that are detected. It also gives the user the opportunity to capture an image with a detected rectangle.
 public final class ScannerViewController: UIViewController {
+    public var documentViewModel : DocumentsViewModel
 
     private var captureSessionManager: CaptureSessionManager?
     private let videoPreviewLayer = AVCaptureVideoPreviewLayer()
@@ -94,6 +95,15 @@ public final class ScannerViewController: UIViewController {
 
     deinit {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "didImageCaptured"), object: nil)
+    }
+    
+    public init(documentViewModel: DocumentsViewModel) {
+        self.documentViewModel = documentViewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override public func viewDidLoad() {
@@ -252,6 +262,10 @@ extension ScannerViewController {
     }
     
     @objc private func cancelImageScannerController() {
+        if self.capturedImages != nil {
+            self.capturedImages = nil
+            self.previewImageView.image = nil
+        }
         guard let imageScannerController = navigationController as? ImageScannerController else { return }
         imageScannerController.imageScannerDelegate?.imageScannerControllerDidCancel(imageScannerController)
     }
@@ -296,7 +310,7 @@ extension ScannerViewController {
     
     @objc private func nextAction() {
         if let capturedImages, !capturedImages.isEmpty {
-            let previewController = ScannedImagePreviewView(imageNames: capturedImages)
+            let previewController = ScannedImagePreviewView(imageNames: capturedImages, isFromScanner: true, documentsViewModel: self.documentViewModel)
             let controller = UIHostingController(rootView: previewController)
             self.navigationController?.pushViewController(controller, animated: true)
         }

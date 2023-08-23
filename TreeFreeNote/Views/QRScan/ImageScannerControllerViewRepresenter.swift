@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct ImageScannerControllerViewRepresenter: UIViewControllerRepresentable{
+    var documentViewModel : DocumentsViewModel
+    
     func makeUIViewController(context: Context) -> ImageScannerController {
         guard let controller=controller as? ImageScannerController else {
-            return ImageScannerController()
+            return ImageScannerController(documentViewModel: documentViewModel)
         }
         controller.imageScannerDelegate = context.coordinator
         return controller

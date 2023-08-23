@@ -34,8 +34,6 @@ struct CategoriesView: View {
                 }
             }
         }
-        
-        
     }
 }
 
