@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import GoogleSignIn
 
 struct ScanView: View {
     @State var scannedPages: [String]

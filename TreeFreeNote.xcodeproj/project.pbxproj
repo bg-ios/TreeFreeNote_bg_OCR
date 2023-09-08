@@ -19,6 +19,8 @@
 		0924D6542A50563700FCF155 /* CreatePinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6532A50563700FCF155 /* CreatePinView.swift */; };
 		0924D6582A50698800FCF155 /* FolderConfirmationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6572A50698800FCF155 /* FolderConfirmationView.swift */; };
 		0924D65A2A510DAF00FCF155 /* DocumentsDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6592A510DAF00FCF155 /* DocumentsDetailedView.swift */; };
+		093714EB2AA62CE9003EC898 /* TagSelectionAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093714EA2AA62CE9003EC898 /* TagSelectionAlertView.swift */; };
+		093715632AAACCFB003EC898 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093715622AAACCFA003EC898 /* KeyboardObserver.swift */; };
 		0950CA3E2A260D7F0008E778 /* TreeFreeNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA3D2A260D7F0008E778 /* TreeFreeNoteApp.swift */; };
 		0950CA402A260D7F0008E778 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA3F2A260D7F0008E778 /* ContentView.swift */; };
 		0950CA422A260D850008E778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0950CA412A260D850008E778 /* Assets.xcassets */; };
@@ -149,6 +151,8 @@
 		0924D6532A50563700FCF155 /* CreatePinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePinView.swift; sourceTree = "<group>"; };
 		0924D6572A50698800FCF155 /* FolderConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderConfirmationView.swift; sourceTree = "<group>"; };
 		0924D6592A510DAF00FCF155 /* DocumentsDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsDetailedView.swift; sourceTree = "<group>"; };
+		093714EA2AA62CE9003EC898 /* TagSelectionAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelectionAlertView.swift; sourceTree = "<group>"; };
+		093715622AAACCFA003EC898 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
 		0950CA3A2A260D7F0008E778 /* TreeFreeNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreeFreeNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0950CA3D2A260D7F0008E778 /* TreeFreeNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeFreeNoteApp.swift; sourceTree = "<group>"; };
 		0950CA3F2A260D7F0008E778 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -394,6 +398,7 @@
 			isa = PBXGroup;
 			children = (
 				0950CA3F2A260D7F0008E778 /* ContentView.swift */,
+				093714EA2AA62CE9003EC898 /* TagSelectionAlertView.swift */,
 				0950CAA02A2F99DC0008E778 /* RegistrationView.swift */,
 				0950CA732A266DF80008E778 /* DocumentDetailedView.swift */,
 				0988DAF42A950900000F8C35 /* ScannedImagePreviewView.swift */,
@@ -520,6 +525,7 @@
 		0950CA992A2E176E0008E778 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				093715622AAACCFA003EC898 /* KeyboardObserver.swift */,
 				0924D6022A43F87F00FCF155 /* FormInputView.swift */,
 				0991B6312A74F54E00E44FB8 /* ImageButton.swift */,
 				0924D6532A50563700FCF155 /* CreatePinView.swift */,
@@ -1052,6 +1058,7 @@
 			files = (
 				095BC8A52A5AA55D00729692 /* ImageScannerController.swift in Sources */,
 				0924D64E2A50434600FCF155 /* RadioButton.swift in Sources */,
+				093715632AAACCFB003EC898 /* KeyboardObserver.swift in Sources */,
 				095BC8D32A5AA55D00729692 /* CaptureSession+Focus.swift in Sources */,
 				095BC8CD2A5AA55D00729692 /* ReviewViewController.swift in Sources */,
 				095BC8BD2A5AA55D00729692 /* CIImage+Utils.swift in Sources */,
@@ -1110,6 +1117,7 @@
 				0950CAA42A2F9BC00008E778 /* SearchView.swift in Sources */,
 				0950CA8C2A27B5590008E778 /* CustomTabbar.swift in Sources */,
 				0950CA402A260D7F0008E778 /* ContentView.swift in Sources */,
+				093714EB2AA62CE9003EC898 /* TagSelectionAlertView.swift in Sources */,
 				095BC8B72A5AA55D00729692 /* FocusRectangleView.swift in Sources */,
 				095BC8CE2A5AA55D00729692 /* CaptureDevice.swift in Sources */,
 				0950CA832A2796F40008E778 /* CategoriesView.swift in Sources */,

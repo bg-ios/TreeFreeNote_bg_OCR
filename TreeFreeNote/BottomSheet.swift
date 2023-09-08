@@ -18,16 +18,19 @@ enum BottomSheetType: Int {
 struct BottomSheet: View {
 
     @Binding var isShowingBottomSheet: Bool
+    @ObservedObject var keyboardObserver = KeyboardObserver()
+
     var content: AnyView
     
     var body: some View {
         ZStack(alignment: .bottom) {
             if (isShowingBottomSheet) {
                 Color.black
-                    .opacity(0.3)
+                    .opacity(isShowingBottomSheet ? 0.3 : 0)
                     .ignoresSafeArea()
                     .onTapGesture {
                         isShowingBottomSheet.toggle()
+                        UIApplication.shared.endEditing()
                     }
                 content
                     .padding(.bottom, 42)
@@ -36,19 +39,31 @@ struct BottomSheet: View {
                         Color(.white)
                     )
                     .cornerRadius(36, corners: [.topLeft, .topRight])
+                    .padding(.bottom, keyboardObserver.keyboardHeight)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
         .ignoresSafeArea()
-        .animation(.easeInOut, value: isShowingBottomSheet)
+        .animation(.spring(), value: isShowingBottomSheet)
+        .onTapGesture {
+            // Dismiss the keyboard when tapping outside the text fields
+            UIApplication.shared.endEditing()
+        }
     }
 }
 
-struct ObservedHolder<T: ObservableObject, Content: View>: View {
-    @ObservedObject var value: T
-    var content: (ObservedObject<T>.Wrapper) -> Content
 
-    var body: some View {
-        content(_value.projectedValue)
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
+
+//struct ObservedHolder<T: ObservableObject, Content: View>: View {
+//    @ObservedObject var value: T
+//    var content: (ObservedObject<T>.Wrapper) -> Content
+//
+//    var body: some View {
+//        content(_value.projectedValue)
+//    }
+//}
