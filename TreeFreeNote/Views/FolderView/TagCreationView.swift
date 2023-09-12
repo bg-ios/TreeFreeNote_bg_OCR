@@ -11,7 +11,6 @@ import Combine
 struct TagCreationView: View {
     @State private var tagName: String = ""
     @Binding var isShowingBottomSheet: Bool
-    @State private var keyboardHeight: CGFloat = 0
 
     var createTag: ((String) -> ())?
     @ObservedObject var categoriesViewModel: CategoriesViewModel
@@ -93,69 +92,3 @@ struct TagCreationView: View {
 ////        TagCreationView(isShowing: )
 //    }
 //}
-
-public struct PlaceholderStyle: ViewModifier {
-    var showPlaceHolder: Bool
-    var placeholder: String
-
-    public func body(content: Content) -> some View {
-        ZStack(alignment: .leading) {
-            if showPlaceHolder {
-                Text(placeholder)
-                .padding(.horizontal, 15)
-                .foregroundColor(Color.gray)
-            }
-            content
-            .foregroundColor(Color.black)
-            .padding(5.0)
-        }
-    }
-}
-
-struct CornerRadiusShape: Shape {
-    var radius = CGFloat.infinity
-    var corners = UIRectCorner.allCorners
-    
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(roundedRect: rect, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        return Path(path.cgPath)
-    }
-}
-
-struct CornerRadiusStyle: ViewModifier {
-    var radius: CGFloat
-    var corners: UIRectCorner
-    
-    func body(content: Content) -> some View {
-        content
-            .clipShape(CornerRadiusShape(radius: radius, corners: corners))
-    }
-}
-
-extension View {
-    func cornerRadius(radius: CGFloat, corners: UIRectCorner) -> some View{
-        ModifiedContent(content: self, modifier: CornerRadiusStyle(radius: radius, corners: corners))
-    }
-}
-
-extension Notification {
-    var keyboardHeight: CGFloat {
-        return (userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect)?.height ?? 0
-    }
-}
-
-extension Publishers {
-    // 1.
-    static var keyboardHeight: AnyPublisher<CGFloat, Never> {
-        // 2.
-        let willShow = NotificationCenter.default.publisher(for: UIApplication.keyboardWillShowNotification)
-            .map { $0.keyboardHeight }
-        
-        let willHide = NotificationCenter.default.publisher(for: UIApplication.keyboardWillHideNotification)
-            .map { _ in CGFloat(0) }
-        
-        // 3.
-        return MergeMany(willShow, willHide)
-            .eraseToAnyPublisher()
-    }
-}

@@ -21,6 +21,10 @@
 		0924D65A2A510DAF00FCF155 /* DocumentsDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0924D6592A510DAF00FCF155 /* DocumentsDetailedView.swift */; };
 		093714EB2AA62CE9003EC898 /* TagSelectionAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093714EA2AA62CE9003EC898 /* TagSelectionAlertView.swift */; };
 		093715632AAACCFB003EC898 /* KeyboardObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093715622AAACCFA003EC898 /* KeyboardObserver.swift */; };
+		093715662AAEEE92003EC898 /* ViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093715652AAEEE92003EC898 /* ViewExtension.swift */; };
+		093715682AAEEEC7003EC898 /* PlaceHolderViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093715672AAEEEC7003EC898 /* PlaceHolderViewModifier.swift */; };
+		0937156A2AAEEF21003EC898 /* CornerRadiusViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093715692AAEEF21003EC898 /* CornerRadiusViewModifier.swift */; };
+		0937156C2AAF04C5003EC898 /* DocumentScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0937156B2AAF04C5003EC898 /* DocumentScannerView.swift */; };
 		0950CA3E2A260D7F0008E778 /* TreeFreeNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA3D2A260D7F0008E778 /* TreeFreeNoteApp.swift */; };
 		0950CA402A260D7F0008E778 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA3F2A260D7F0008E778 /* ContentView.swift */; };
 		0950CA422A260D850008E778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0950CA412A260D850008E778 /* Assets.xcassets */; };
@@ -153,6 +157,10 @@
 		0924D6592A510DAF00FCF155 /* DocumentsDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsDetailedView.swift; sourceTree = "<group>"; };
 		093714EA2AA62CE9003EC898 /* TagSelectionAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSelectionAlertView.swift; sourceTree = "<group>"; };
 		093715622AAACCFA003EC898 /* KeyboardObserver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardObserver.swift; sourceTree = "<group>"; };
+		093715652AAEEE92003EC898 /* ViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtension.swift; sourceTree = "<group>"; };
+		093715672AAEEEC7003EC898 /* PlaceHolderViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceHolderViewModifier.swift; sourceTree = "<group>"; };
+		093715692AAEEF21003EC898 /* CornerRadiusViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CornerRadiusViewModifier.swift; sourceTree = "<group>"; };
+		0937156B2AAF04C5003EC898 /* DocumentScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentScannerView.swift; sourceTree = "<group>"; };
 		0950CA3A2A260D7F0008E778 /* TreeFreeNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreeFreeNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0950CA3D2A260D7F0008E778 /* TreeFreeNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeFreeNoteApp.swift; sourceTree = "<group>"; };
 		0950CA3F2A260D7F0008E778 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -324,9 +332,20 @@
 			isa = PBXGroup;
 			children = (
 				0924D64B2A4FDBB300FCF155 /* ScanView.swift */,
+				0937156B2AAF04C5003EC898 /* DocumentScannerView.swift */,
 				095BC8D42A5C3CB200729692 /* ImageScannerControllerViewRepresenter.swift */,
 			);
 			path = QRScan;
+			sourceTree = "<group>";
+		};
+		093715642AAEEE63003EC898 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				093715652AAEEE92003EC898 /* ViewExtension.swift */,
+				093715672AAEEEC7003EC898 /* PlaceHolderViewModifier.swift */,
+				093715692AAEEF21003EC898 /* CornerRadiusViewModifier.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		0950CA312A260D7F0008E778 = {
@@ -355,6 +374,7 @@
 			isa = PBXGroup;
 			children = (
 				0950CA3D2A260D7F0008E778 /* TreeFreeNoteApp.swift */,
+				093715642AAEEE63003EC898 /* Extensions */,
 				0991B6382A7FC0F400E44FB8 /* Utility */,
 				095BC8552A5AA55D00729692 /* WeScan */,
 				0950CA982A2E122C0008E778 /* CustomViews */,
@@ -1098,16 +1118,19 @@
 				0991B6452A8222D400E44FB8 /* Constants.swift in Sources */,
 				0950CA952A28FCE70008E778 /* DocumentGridCell.swift in Sources */,
 				095BC8C42A5AA55D00729692 /* EditImageViewController.swift in Sources */,
+				0937156A2AAEEF21003EC898 /* CornerRadiusViewModifier.swift in Sources */,
 				095BC8D12A5AA55D00729692 /* CaptureSession+Orientation.swift in Sources */,
 				095BC8D72A5D0CD900729692 /* DocumentManager.swift in Sources */,
 				095BC8B42A5AA55D00729692 /* CaptureSessionManager.swift in Sources */,
 				095BC8C82A5AA55D00729692 /* Error.swift in Sources */,
 				095BC8D22A5AA55D00729692 /* CaptureSession.swift in Sources */,
+				093715662AAEEE92003EC898 /* ViewExtension.swift in Sources */,
 				095BC8DB2A5D0D4900729692 /* Document.swift in Sources */,
 				0991B6322A74F54E00E44FB8 /* ImageButton.swift in Sources */,
 				0950CA7D2A27906E0008E778 /* ToolsView.swift in Sources */,
 				0950CA742A266DF80008E778 /* DocumentDetailedView.swift in Sources */,
 				0950CA702A2648010008E778 /* DocumentModel.swift in Sources */,
+				0937156C2AAF04C5003EC898 /* DocumentScannerView.swift in Sources */,
 				0950CAAB2A2FAB9E0008E778 /* FoldersHorizontalListView.swift in Sources */,
 				0991B63E2A7FC10600E44FB8 /* DBQueries.swift in Sources */,
 				0924D6052A43F87F00FCF155 /* RoundedTextField.swift in Sources */,
@@ -1138,6 +1161,7 @@
 				095BC8B92A5AA55D00729692 /* AVCaptureVideoOrientation+Utils.swift in Sources */,
 				095BC8CA2A5AA55D00729692 /* CIRectangleDetector.swift in Sources */,
 				095BC8CC2A5AA55D00729692 /* Quadrilateral.swift in Sources */,
+				093715682AAEEEC7003EC898 /* PlaceHolderViewModifier.swift in Sources */,
 				095BC8C32A5AA55D00729692 /* UIImage+SFSymbol.swift in Sources */,
 				095BC8BE2A5AA55D00729692 /* CGAffineTransform+Utils.swift in Sources */,
 				0950CA3E2A260D7F0008E778 /* TreeFreeNoteApp.swift in Sources */,
