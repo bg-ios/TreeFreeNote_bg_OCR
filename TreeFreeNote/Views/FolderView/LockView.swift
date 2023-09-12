@@ -9,7 +9,7 @@ import SwiftUI
 
 struct LockView: View {
     
-    @Binding var checked: Bool
+    @Binding var isFolderLockEnabled: Bool
     
     var body: some View {
         
@@ -22,16 +22,16 @@ struct LockView: View {
                     .frame(width: 100, alignment: .leading)
                     .padding(.trailing, 16)
                 HStack {
-                    RadioButton(checked: .constant(checked), radioTitle: "Yes") {
-                        self.checked.toggle()
+                    RadioButton(checked: .constant(isFolderLockEnabled), radioTitle: "Yes") {
+                        self.isFolderLockEnabled.toggle()
                     } onTapToInactive: {
-                        self.checked.toggle()
+                        self.isFolderLockEnabled.toggle()
                     }
                     .padding(.trailing, 16)
-                    RadioButton(checked: .constant(!checked), radioTitle: "No") {
-                        self.checked.toggle()
+                    RadioButton(checked: .constant(!isFolderLockEnabled), radioTitle: "No") {
+                        self.isFolderLockEnabled.toggle()
                     } onTapToInactive: {
-                        self.checked.toggle()
+                        self.isFolderLockEnabled.toggle()
                     }
                     Spacer()
                 }
@@ -40,13 +40,13 @@ struct LockView: View {
             .frame(height: 35)
 
         }
-        .padding(27)
+        .padding(.horizontal, 27)
         .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 
 struct LockView_Previews: PreviewProvider {
     static var previews: some View {
-        LockView(checked: .constant(true))
+        LockView(isFolderLockEnabled: .constant(true))
     }
 }

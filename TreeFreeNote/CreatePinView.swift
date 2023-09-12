@@ -160,7 +160,7 @@ public struct PinSquare: View {
             .overlay(
                 RoundedRectangle(cornerRadius: style.cornerRadius)
                     .stroke(isHighlighted ? style.highlightedColor : style.borderColor, lineWidth: style.borderWidth)
-                    .background((digit == nil || !isHidden) ? Color(.clear) : style.backgroundColor)
+                    .background((digit == nil || !isHidden) ? Color(.clear) : style.backgroundColor.opacity(0.3))
                     .clipShape(RoundedRectangle(cornerRadius: style.cornerRadius))
             )
     }
@@ -283,6 +283,26 @@ struct PasscodeField_Previews: PreviewProvider {
             } else {
                 action(false)
             }
+        }
+    }
+}
+
+struct DotOverlayView: View {
+    var body: some View {
+        VStack {
+            Text("This is your content")
+                .font(.largeTitle)
+                .foregroundColor(.blue)
+                .padding()
+            
+            Circle()
+                .foregroundColor(.red)
+                .frame(width: 20, height: 20)
+                .overlay(
+                    Circle()
+                        .stroke(Color.white, lineWidth: 2)
+                )
+                .padding()
         }
     }
 }

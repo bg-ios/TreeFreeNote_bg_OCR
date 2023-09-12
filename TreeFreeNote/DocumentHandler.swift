@@ -19,7 +19,7 @@ class DocumentHandler {
         }
 //        let dateString = Utility().current_date()
         let randomString = self.randomString(length: 10)
-        let fileName = "image_\(randomString).png"
+        let fileName = "image_\(randomString).jpeg"
 
         let fileURL = getDocumentDirectory().appendingPathComponent(fileName)
         
