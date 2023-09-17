@@ -12,7 +12,9 @@ struct Home: View {
     @Binding var selectedCategory: Category?
     @Binding var bottomSheetContentType: BottomSheetType
     @Binding var isShowingBottomSheet: Bool
-//    @Binding var isTabViewShown: Bool
+    @Binding var isAlertShown: Bool
+
+    @Binding var isDocumentDialogShown: Bool
 
     @ObservedObject var categoriesViewModel : CategoriesViewModel
 
@@ -32,7 +34,7 @@ struct Home: View {
                         Spacer(minLength: 2)
                         
                         ///Search View
-                        HomeScreenSearchContainerView(isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType)
+                        HomeScreenSearchContainerView(isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isAlertShown: $isAlertShown, isDocumentEditShown: $isDocumentDialogShown)
                             .padding(.horizontal, 10)
                         
                         ///Categories View
@@ -46,7 +48,7 @@ struct Home: View {
                         
                         Divider()
                         ///Documents ListView
-                        DocumentsListView(documentViewModel: documentsViewModel)
+                        DocumentsListView(isShowingBottomSheet: $isShowingBottomSheet, isDocumentDialogShown: $isDocumentDialogShown, bottomSheetContentType: $bottomSheetContentType , documentViewModel: documentsViewModel)
                     })
                     .navigationBarTitleDisplayMode(.inline)
                 }

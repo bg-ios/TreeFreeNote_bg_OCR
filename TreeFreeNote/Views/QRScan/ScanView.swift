@@ -55,9 +55,9 @@ struct ScanView: View {
         DocumentScannerView { result in
             switch result {
             case .success(let scannedImages):
-                self.saveImagesToFileDirectory(scannedPages: scannedImages)
-                self.backAction()
-
+//                self.saveImagesToFileDirectory(scannedPages: scannedImages)
+                
+                self.navigateToFoldersListView(scannedPages: scannedImages)
             case .failure(let error):
                 print(error.localizedDescription)
                 self.backAction()
@@ -66,7 +66,14 @@ struct ScanView: View {
             // Dismiss the scanner controller and the sheet.
             self.backAction()
         }
-        
+    }
+    
+    func navigateToFoldersListView(scannedPages: [UIImage]) {
+        NavigationLink(destination: EmptyView()) {
+            HStack {
+                Text("")
+            }
+        }
     }
     
     private func saveImagesToFileDirectory(scannedPages: [UIImage]) {

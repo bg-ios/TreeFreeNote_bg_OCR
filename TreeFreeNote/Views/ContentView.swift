@@ -28,12 +28,19 @@ struct ContentView: View {
     @State var categoriesViewModel = CategoriesViewModel()
     @State var documentsViewModel = DocumentsViewModel()
 
+    @State var isAlertShown: Bool = false
+
+    @State var isDocumentEditPreviewShown: Bool = false
+    @State var documentEditMenuType: PreviewMenuItems = .Details
+    
+//    @StateObject var googleAuth: GoogleAuthModel =  GoogleAuthModel()
+
     var body: some View {
         ZStack {
             //TabView
             VStack(spacing: 0) {
                 TabView(selection: $selectedTab) {
-                    Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet, categoriesViewModel: categoriesViewModel, documentsViewModel: documentsViewModel)
+                    Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet, isAlertShown: $isAlertShown, isDocumentDialogShown: $isDocumentEditPreviewShown, categoriesViewModel: categoriesViewModel, documentsViewModel: documentsViewModel)
                         .tag("Home")
                     
                     Text("Coming Soon")
@@ -47,8 +54,11 @@ struct ContentView: View {
                     Text("Coming Soon")
                     .tag("OCR Scan")
                     
-                    Text("Coming Soon")
-                        .tag("Import")
+                    NavigationView{
+                        CloudIntegrationView()
+                    }
+//                    .environmentObject(googleAuth)
+                    .tag("Import")
                 }
                 
                 // Custom Tab View
@@ -60,7 +70,21 @@ struct ContentView: View {
             }
             .ignoresSafeArea()
             
+            
+            if isAlertShown {
+                CustomAlertView(isActive: $isAlertShown, title: "Alert", message: "Are you sure you want to delete this item?", primaryButtonLabel: "Yes", primaryButtonAction : {
+                    print("YES Action")
+                   
+                }, secondaryButtonLabel: "No", secondaryButtonAction: {
+                    print("NO Action")
+                   
+                },image: Image("DeleteInfoIcon"))
+            }
+
             BottomSheet(isShowingBottomSheet: $isShowingBottomSheet, content: self.createBottomSheetContentView())
+            
+            DocumentPreviewCustomDialogView(isDialogViewShowing: $isDocumentEditPreviewShown, alertType: .Details, content: self.createDocumentEditDialogView())
+            
         }
     }
 }
@@ -74,11 +98,33 @@ extension ContentView {
                 print(newTag)
             }, categoriesViewModel: categoriesViewModel))
         case .newFolder:
-            return AnyView(FolderCreationView())
+            return AnyView(FolderCreationView(isShowingBottomSheet: $isShowingBottomSheet))
         case .folderConfirmationView:
             return AnyView(FolderConfirmationView(alertType: .confirmationAlert))
         case .eraseAlertView:
             return AnyView(FolderConfirmationView(alertType: .eraseAlert))
+        case .documentPreview:
+            return AnyView(DocumentPreviewView(document: .constant(Document(title: "title", creationDate: "kjsdbcbkjscb", fileFormat: "PNG")), isShowingBottomSheet: $isShowingBottomSheet, isDocumentEditShown: $isDocumentEditPreviewShown, documentMenuType: $documentEditMenuType))
+        }
+    }
+}
+
+extension ContentView {
+    
+    func createDocumentEditDialogView() -> AnyView {
+        switch documentEditMenuType {
+        case .Details:
+            return AnyView(DocumentDetailsDialogView())
+        case .Lock:
+            return AnyView(DocumentEditLockView())
+        case .Tags:
+            return AnyView(DocumentsEditTagSelectionView())
+//        case .Delete:
+//            return nil
+        default:
+            return AnyView(TagCreationView(isShowingBottomSheet: $isShowingBottomSheet, createTag: { newTag in
+                print(newTag)
+            }, categoriesViewModel: categoriesViewModel))
         }
     }
 }

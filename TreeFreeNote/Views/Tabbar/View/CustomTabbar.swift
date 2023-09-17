@@ -45,7 +45,7 @@ struct CustomTabbar: View {
                 .tag("Camera")
                 .offset(y: -25)
                 
-                TabbarItem(animation: animation, title: "OCR Scan", image: "ocrScan", tag: 3, selectedTab: $selectedTab)
+                TabbarItem(animation: animation, title: "OCR Scan", image: "OCR", tag: 3, selectedTab: $selectedTab)
                 TabbarItem(animation: animation, title: "Import", image: "Import", tag: 4, selectedTab: $selectedTab)
             }
             .padding(.top)
