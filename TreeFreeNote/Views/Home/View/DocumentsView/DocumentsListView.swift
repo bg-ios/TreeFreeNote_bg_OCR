@@ -9,7 +9,10 @@ import SwiftUI
 
 struct DocumentsListView: View {
 //    @Binding var isTabViewShown: Bool
-
+    @Binding var isShowingBottomSheet: Bool
+    @Binding var isDocumentDialogShown: Bool
+    @Binding var bottomSheetContentType: BottomSheetType
+    
     @ObservedObject var documentViewModel = DocumentsViewModel()
     var body: some View {
         
@@ -22,7 +25,7 @@ struct DocumentsListView: View {
                                 ScannedImagePreviewView(imageNames: [detailedImage] , isFromScanner: false, documentsViewModel: documentViewModel)
                             }
                         } label: {
-                            DocumentListCell(document: $document)
+                            DocumentListCell(document: $document, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isDocumentDialogShown: $isDocumentDialogShown)
                                 .frame(height: 100)
                         }
                         Divider()

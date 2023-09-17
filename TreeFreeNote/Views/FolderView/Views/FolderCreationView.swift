@@ -11,13 +11,15 @@ struct FolderCreationView: View {
     
     @State var isFolderLockEnabled: Bool = false
     @State private var enableFaceId = false
+    @Binding var isShowingBottomSheet: Bool
+    var createFolder: ((String) -> ())?
 
     var body: some View {
         VStack {
             HStack {
                 Spacer()
                 Button {
-                    
+                    isShowingBottomSheet.toggle()
                 } label: {
                     Image(systemName: "xmark.circle")
                         .aspectRatio(contentMode: .fit)
@@ -64,6 +66,7 @@ struct FolderCreationView: View {
                         }
                         .frame(height: 75)
                         
+                        /*
                         HStack {
                             Text("Enable face Id")
                                 .font(.title3)
@@ -75,6 +78,8 @@ struct FolderCreationView: View {
                                 .toggleStyle(SwitchToggleStyle(tint: .green))
                         }
                         .padding(.top, 8)
+                         */
+                        
                     }
                     .padding(.horizontal, 27)
                 }
@@ -91,12 +96,13 @@ struct FolderCreationView: View {
                 .padding(.top, 30)
             }
         }
+        .padding(.bottom, 42)
         .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 
 struct FolderCreationView_Previews: PreviewProvider {
     static var previews: some View {
-        FolderCreationView()
+        FolderCreationView( isShowingBottomSheet: .constant(true))
     }
 }

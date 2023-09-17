@@ -9,6 +9,10 @@ import SwiftUI
 
 struct DocumentListCell: View {
    @Binding var document: Document
+    var isFromPreview: Bool = false
+    @Binding var isShowingBottomSheet: Bool
+    @Binding var bottomSheetContentType: BottomSheetType
+    @Binding var isDocumentDialogShown: Bool
     
     var body: some View {
         HStack(spacing: 2, content: {
@@ -61,9 +65,12 @@ private extension DocumentListCell {
                 .padding(.horizontal, 5)
             
             Spacer()
-            
-            CustomLogoButton(imageName: "share") {
+            CustomLogoButton(imageName: isFromPreview ? "Close" : "share") {
                 print("share action")
+                if isFromPreview {
+                    isShowingBottomSheet.toggle()
+                }
+                
             }
             .onTapGesture {
                 print("share action")
@@ -126,11 +133,17 @@ private extension DocumentListCell {
                 .onTapGesture {
                     print("starred action")
                 }
-                CustomLogoButton(imageName: "moreIcon") {
-                    print("more action")
-                }
-                .onTapGesture {
-                    print("more action")
+                if !isFromPreview {
+                    CustomLogoButton(imageName: "moreIcon") {
+                        print("more action")
+                        bottomSheetContentType = .documentPreview
+                        isShowingBottomSheet.toggle() // bottom Sheet
+                    }
+                    .onTapGesture {
+                        print("more action")
+                        bottomSheetContentType = .documentPreview
+                        isShowingBottomSheet.toggle() // bottom Sheet
+                    }
                 }
             }
         }

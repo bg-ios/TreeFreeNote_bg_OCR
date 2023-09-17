@@ -110,10 +110,11 @@ struct FolderConfirmationView: View {
                         .padding (.horizontal, 50)
                 }
                 .background(confirmButtonGradient)
-                .cornerRadius(36, corners: [.topRight,.topLeft, .bottomLeft, .bottomRight])
+                .cornerRadius(36, corners: .allCorners)
             }
         }
         .padding(.vertical,8)
+        .padding(.bottom, 34)
         .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }

@@ -28,7 +28,7 @@ struct Category: Identifiable, Equatable, Codable, Hashable {
 
 var categories = [
     Category(title: "All"),
-    Category(title: "Started"),
+    Category(title: "Starred"),
     Category(title: "Most Viewed"),
     Category(title: "College Documents"),
     Category(title: "Business Cards"),

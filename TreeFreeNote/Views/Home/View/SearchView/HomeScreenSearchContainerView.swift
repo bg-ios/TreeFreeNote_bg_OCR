@@ -13,7 +13,9 @@ struct HomeScreenSearchContainerView: View {
     @Binding var isShowingBottomSheet: Bool
     
     @Binding var bottomSheetContentType: BottomSheetType
-    
+    @Binding var isAlertShown: Bool
+    @Binding var isDocumentEditShown: Bool
+
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
@@ -45,6 +47,9 @@ struct HomeScreenSearchContainerView: View {
                     
                     CustomLogoButton(imageName: "selectIcon") {
                         print("selection button clicked")
+//                        bottomSheetContentType = .documentPreview
+//                        isShowingBottomSheet.toggle() // bottom Sheet
+                        isAlertShown.toggle() /// Custom ALert
                     }
                     CustomLogoButton(imageName: "tagIcon") {
                         print("Tag button clicked")
@@ -71,6 +76,6 @@ struct HomeScreenSearchContainerView: View {
 
 struct HomeScreenSearchContainerView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeScreenSearchContainerView(isShowingBottomSheet: .constant(false), bottomSheetContentType: .constant(.newTag))
+        HomeScreenSearchContainerView(isShowingBottomSheet: .constant(false), bottomSheetContentType: .constant(.newTag), isAlertShown: .constant(false), isDocumentEditShown: .constant(false))
     }
 }

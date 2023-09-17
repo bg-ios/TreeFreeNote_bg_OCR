@@ -81,8 +81,8 @@ struct TagCreationView: View {
                 )
             .padding(.horizontal, 30)
             .frame(height: 40)
-            
         }
+        .padding(.bottom, 42)
         .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }

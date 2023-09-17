@@ -12,7 +12,7 @@ enum BottomSheetType: Int {
     case newFolder
     case folderConfirmationView
     case eraseAlertView
-    
+    case documentPreview
 }
 
 struct BottomSheet: View {
@@ -33,7 +33,6 @@ struct BottomSheet: View {
                         UIApplication.shared.endEditing()
                     }
                 content
-                    .padding(.bottom, 42)
                     .transition(.move(edge: .bottom))
                     .background(
                         Color(.white)

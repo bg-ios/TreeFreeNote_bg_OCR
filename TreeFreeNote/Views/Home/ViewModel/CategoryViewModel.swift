@@ -21,7 +21,7 @@ class CategoriesViewModel: ObservableObject {
         } else {
             let defultCategories = [
                 Category(title: "All"),
-                Category(title: "Started"),
+                Category(title: "Starred"),
                 Category(title: "Most Viewed")]
             
             for (index, category) in defultCategories.enumerated() {
