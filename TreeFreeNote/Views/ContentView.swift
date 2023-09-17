@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import GoogleSignIn
 
 struct ContentView: View {
     
@@ -33,7 +34,7 @@ struct ContentView: View {
     @State var isDocumentEditPreviewShown: Bool = false
     @State var documentEditMenuType: PreviewMenuItems = .Details
     
-//    @StateObject var googleAuth: GoogleAuthModel =  GoogleAuthModel()
+    @StateObject var googleAuth: GoogleAuthModel =  GoogleAuthModel()
 
     var body: some View {
         ZStack {
@@ -57,7 +58,7 @@ struct ContentView: View {
                     NavigationView{
                         CloudIntegrationView()
                     }
-//                    .environmentObject(googleAuth)
+                    .environmentObject(googleAuth)
                     .tag("Import")
                 }
                 

@@ -10,7 +10,7 @@ import GoogleSignIn
 import GoogleAPIClientForREST
 import SwiftUI
 
-/*
+
 class GoogleAuthModel: ObservableObject {
     
     @Published var givenName: String = ""
@@ -24,8 +24,8 @@ class GoogleAuthModel: ObservableObject {
     }
     
     func checkStatus(){
-        if(GIDSignIn.sharedInstance().currentUser != nil){
-            let user = GIDSignIn.sharedInstance().currentUser
+        if(GIDSignIn.sharedInstance.currentUser != nil){
+            let user = GIDSignIn.sharedInstance.currentUser
             guard let user = user else { return }
             let givenName = user.profile?.givenName
             let profilePicUrl = user.profile!.imageURL(withDimension: 100)!.absoluteString
@@ -40,7 +40,7 @@ class GoogleAuthModel: ObservableObject {
     }
     
     func check(){
-        GIDSignIn.sharedInstance().restorePreviousSignIn{ user, error in
+        GIDSignIn.sharedInstance.restorePreviousSignIn{ user, error in
             if let error = error {
                 self.errorMessage = "error: \(error.localizedDescription)"
             }
@@ -68,9 +68,9 @@ class GoogleAuthModel: ObservableObject {
         guard let rootViewController = windowScene.windows.first?.rootViewController else { return }
         // 5
           let gIdConfiguration = GIDConfiguration(clientID: "550523887039-kaa44usncpn0d1o9fjrk6mgv9r65s85h.apps.googleusercontent.com", serverClientID: "550523887039-kaa44usncpn0d1o9fjrk6mgv9r65s85h.apps.googleusercontent.com")
-        GIDSignIn.sharedInstance().configuration = gIdConfiguration
+        GIDSignIn.sharedInstance.configuration = gIdConfiguration
           rootViewController.modalPresentationStyle = .fullScreen
-          GIDSignIn.sharedInstance().signIn(withPresenting: rootViewController) { result, error in
+          GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController) { result, error in
               if let user = result?.user{
                   print(user)
               }else{
@@ -82,7 +82,7 @@ class GoogleAuthModel: ObservableObject {
       }
     
     func signOut(){
-        GIDSignIn.sharedInstance().signOut()
+        GIDSignIn.sharedInstance.signOut()
         self.checkStatus()
     }
 }
@@ -131,4 +131,4 @@ class GoogleAuthModel: ObservableObject {
 //
 //}
 
-*/
+

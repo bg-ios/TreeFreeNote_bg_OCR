@@ -9,10 +9,10 @@ import SwiftUI
 import GoogleSignIn
 
 struct CloudIntegrationView: View {
-//    @EnvironmentObject var googleAuth : GoogleAuthModel
+    @EnvironmentObject var googleAuth : GoogleAuthModel
     var body: some View {
         Button(action: {
-//            googleAuth.signIn()
+            googleAuth.signIn()
         }, label: {
             Text("google sign")
         })
