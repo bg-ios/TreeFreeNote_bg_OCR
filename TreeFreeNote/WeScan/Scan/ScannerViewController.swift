@@ -310,9 +310,9 @@ extension ScannerViewController {
     
     @objc private func nextAction() {
         if let capturedImages, !capturedImages.isEmpty {
-            let previewController = ScannedImagePreviewView(imageNames: capturedImages, isFromScanner: true, documentsViewModel: self.documentViewModel)
-            let controller = UIHostingController(rootView: previewController)
-            self.navigationController?.pushViewController(controller, animated: true)
+//            let previewController = ScannedImagePreviewView(imageNames: capturedImages, isFromScanner: true, isTabViewShown: $istab, documentsViewModel: self.documentViewModel)
+//            let controller = UIHostingController(rootView: previewController)
+//            self.navigationController?.pushViewController(controller, animated: true)
         }
     }
     

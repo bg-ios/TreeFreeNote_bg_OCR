@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RoundedTextField: View {
-    @State private var inputText: String = ""
+    @Binding var inputText: String //= ""
     var placeHolder: String
 
     var body: some View {
@@ -23,8 +23,8 @@ struct RoundedTextField: View {
     }
 }
 
-struct RoundedTextField_Previews: PreviewProvider {
-    static var previews: some View {
-        RoundedTextField(placeHolder: "Enter Name")
-    }
-}
+//struct RoundedTextField_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RoundedTextField(placeHolder: "Enter Name")
+//    }
+//}

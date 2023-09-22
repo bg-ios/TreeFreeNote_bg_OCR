@@ -43,8 +43,8 @@ struct Home: View {
                         
                         
                         //Folder Horizontal View
-//                        FoldersHorizontalListView()
-//                            .frame(height: 120)
+                        FoldersHorizontalListView()
+                            .frame(height: 120)
                         
                         Divider()
                         ///Documents ListView

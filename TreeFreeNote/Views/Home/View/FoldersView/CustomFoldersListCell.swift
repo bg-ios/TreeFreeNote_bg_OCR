@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct CustomFoldersListCell: View {
-    @Binding var filesCount: String
+//    @Binding var filesCount: String
+    
+    @Binding var folderInfo: Dictionary<String, Any>
     
     var body: some View {
         VStack {
@@ -17,22 +19,28 @@ struct CustomFoldersListCell: View {
                     folderPropertiesView
                         .padding(.trailing, -10)
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("Folder Name")
-                            .foregroundColor(Color.priaryTextColor)
-                            .font(.system(size: 14, weight: .medium))
-                            .frame(height: 20)
+                        if let folderName = folderInfo["folder_name"] {
+                            Text("folderName")
+                                .foregroundColor(Color.priaryTextColor)
+                                .font(.system(size: 14, weight: .medium))
+                                .frame(height: 20)
+                        }
                         HStack(spacing: 10) {
-                            Text("cloud mail details")
-                                .foregroundColor(Color.descriptionTextColor)
-                                .font(.system(size: 12, weight: .thin))
-                                .fontWeight(.medium)
+                            if let cloudMail = folderInfo["cloud_storage_id"] {
+                                Text("cloud mail details")
+                                    .foregroundColor(Color.descriptionTextColor)
+                                    .font(.system(size: 12, weight: .thin))
+                                    .fontWeight(.medium)
+                            }
                             Spacer()
                                 .background(Color.red)
-                            Image("driveIcon")
-                                .resizable()
-                                .renderingMode(.original)
-                                .frame(width: 20, height: 20)
-                                .padding(.trailing, 10)
+                            if let cloudMail = folderInfo["cloud_storage_id"] {
+                                Image("driveIcon")
+                                    .resizable()
+                                    .renderingMode(.original)
+                                    .frame(width: 20, height: 20)
+                                    .padding(.trailing, 10)
+                            }
                         }
                         .frame(height: 25)
                     }
@@ -83,8 +91,8 @@ extension CustomFoldersListCell {
     }
     
 }
-struct CustomFoldersListCell_Previews: PreviewProvider {
-    static var previews: some View {
-        CustomFoldersListCell(filesCount: .constant(""))
-    }
-}
+//struct CustomFoldersListCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        CustomFoldersListCell(filesCount: .constant(""))
+//    }
+//}

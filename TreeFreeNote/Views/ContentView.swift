@@ -47,7 +47,7 @@ struct ContentView: View {
                     Text("Coming Soon")
                     .tag("QR Scan")
                     
-                    ScanView(scannedPages: [], isTabViewShown: $isTabViewShown, documentViewModel: documentsViewModel) {
+                    ScanView(scannedPages: [], isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, documentViewModel: documentsViewModel) {
                         self.selectedTab = "Home"
                     }
                     .tag("Camera")
