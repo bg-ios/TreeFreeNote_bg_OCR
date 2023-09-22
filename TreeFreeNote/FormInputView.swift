@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FormInputView: View {
-    @State private var formInputText: String = ""
+    @Binding var formInputText: String //= ""
     var fieldName: String
     var fieldPlaceholder: String
     
@@ -21,7 +21,7 @@ struct FormInputView: View {
                     .foregroundColor(Color.black)
                     .frame(width: 100, alignment: .leading)
                     .padding(.trailing, 16)
-                RoundedTextField(placeHolder: fieldPlaceholder)
+                RoundedTextField(inputText: $formInputText, placeHolder: fieldPlaceholder)
                 //git test
                 
             }
@@ -33,6 +33,6 @@ struct FormInputView: View {
 
 struct FormInputView_Previews: PreviewProvider {
     static var previews: some View {
-        FormInputView(fieldName: "Name", fieldPlaceholder: "EnterName")
+        FormInputView(formInputText: .constant("Text"), fieldName: "Name", fieldPlaceholder: "EnterName")
     }
 }

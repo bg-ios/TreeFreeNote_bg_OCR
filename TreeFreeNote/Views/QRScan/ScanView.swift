@@ -11,28 +11,32 @@ import GoogleSignIn
 struct ScanView: View {
     @State var scannedPages: [String]
     @Binding var isTabViewShown: Bool
+    @Binding var isShowingBottomSheet: Bool
+    @Binding var bottomSheetContentType: BottomSheetType
+//    @Binding var selectedTab: String
     
     @ObservedObject var documentViewModel : DocumentsViewModel
 
     let backAction: () -> Void
 
     var body: some View {
-        VStack{
-            self.makeScannerView()
+        NavigationView {
+            VStack{
+                self.makeScannerView()
+            }
+            .onAppear{
+                isTabViewShown = false
+            }
+            .onDisappear{
+                isTabViewShown.toggle()
+                // Dismiss the document scanner view
+                // It will remove scanned images from the scannedImages array
+                // Clear previous images
+                self.scannedPages.removeAll()
+            }
+            .navigationBarHidden(true)
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .onAppear{
-            isTabViewShown = false
-        }
-        .onDisappear{
-            isTabViewShown.toggle()
-            // Dismiss the document scanner view
-            // It will remove scanned images from the scannedImages array
-            // Clear previous images
-            self.scannedPages.removeAll()
-        }
-        .background(Color.gray)
-        .navigationBarTitle("")
-        .navigationBarHidden(true)
     }
     
     private func makeImageControllerScanner()-> ImageScannerControllerViewRepresenter {
@@ -40,7 +44,7 @@ struct ScanView: View {
             print("Scan resultss -- \(results)")
             
             guard let image = results.enhancedScan?.image else { return }
-            if let imagePath = DocumentHandler().saveImageToDocumentDirectory(image: image) {
+            if let imagePath = DocumentHandler().saveImageToDocumentDirectory(selectedFolder:"", image: image) {
                 self.scannedPages.append(imagePath)
             }
             
@@ -52,12 +56,12 @@ struct ScanView: View {
     }
     
     private func makeScannerView()-> DocumentScannerView {
-        DocumentScannerView { result in
+        DocumentScannerView(documentViewModel: documentViewModel, isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType) { result in
             switch result {
-            case .success(let scannedImages):
+            case .success(let scannedImages): break
 //                self.saveImagesToFileDirectory(scannedPages: scannedImages)
                 
-                self.navigateToFoldersListView(scannedPages: scannedImages)
+//                self.navigateToFoldersListView(scannedPages: scannedImages)
             case .failure(let error):
                 print(error.localizedDescription)
                 self.backAction()
@@ -84,7 +88,7 @@ struct ScanView: View {
         let dateString = formatter.string(from: date)
         
         for image in scannedPages {
-            if let imagePath = documentHandler.saveImageToDocumentDirectory(image: image) {
+            if let imagePath = documentHandler.saveImageToDocumentDirectory(selectedFolder: "", image: image) {
                 let documentModel = Document(title: imagePath, creationDate: dateString, fileFormat: "Png")
                 documentViewModel.addDocument(documentModel)
             }
@@ -95,9 +99,22 @@ struct ScanView: View {
     
 }
 
-struct ScanView_Previews: PreviewProvider {
-    static var previews: some View {
-        ScanView(scannedPages: [], isTabViewShown: . constant(false), documentViewModel: DocumentsViewModel(), backAction: {
-        })
+//struct ScanView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ScanView(scannedPages: [], isTabViewShown: . constant(false), documentViewModel: DocumentsViewModel(), backAction: {
+//        })
+//    }
+//}
+
+extension UIView {
+    var parentViewController: UIViewController? {
+        var parentResponder: UIResponder? = self
+        while parentResponder != nil {
+            parentResponder = parentResponder?.next
+            if let viewController = parentResponder as? UIViewController {
+                return viewController
+            }
+        }
+        return nil
     }
 }

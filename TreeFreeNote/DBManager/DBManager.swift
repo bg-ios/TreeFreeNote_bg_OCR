@@ -12,11 +12,9 @@ class DBManager{
     static let shared = DBManager()
     init(){
         db = openDatabase()
-        //        createTable(sql_query: querys().documentTableString)
-        //        createTable(sql_query: querys().pagesTableString)
     }
     
-    let dbPath: String = "TreeFreeNote.sqlite"
+    let dbPath: String = "re_note.sqlite"
     var db:OpaquePointer?
     
     func openDatabase() -> OpaquePointer?{
@@ -67,42 +65,118 @@ class DBManager{
     func getValues(tableName : String) -> Array<Dictionary<String, Any>> {
         let queryStatementString = "SELECT * FROM \(tableName);"
         var queryStatement: OpaquePointer? = nil
-        var values = [Dictionary<String, Any>]()
-        var dict = [Int: [String: Any]]()
+
+        var foldersList = [Dictionary<String, Any>]()
+        
         if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
             while sqlite3_step(queryStatement) == SQLITE_ROW {
-                //                var object: Dictionary<String, Any> = [:]
-                let id = sqlite3_column_int(queryStatement, 0)
-                //                object["id"] = String(id)
-                //                if let cString = sqlite3_column_text(queryStatement, 1) {
-                //                        let value = String(cString: cString)
-                //                    object["text"] = String(value)
-                //                    } else {
-                //                        print("name not found")
-                //                    }
-                //
-                //                values.append(object)
+                let columnCount = sqlite3_column_count(queryStatement)
                 
-                if let queryResultCol1 = sqlite3_column_text(queryStatement, 1){
-                    print("Query result is nil.")
-                    let json = String(cString: queryResultCol1)
-                    let data = Data(json.utf8)
-                    do {
-                        if let jsonDict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
-                            dict[Int(id)] = jsonDict
+                var rowInfo = Dictionary<String, Any>()
+                for val in 0..<columnCount{
+                    
+                    let columnKey  = String(cString: sqlite3_column_name(queryStatement, val))
+                    var columnValue : Any
+                    
+                    if sqlite3_column_text(queryStatement, val) != nil {
+                        columnValue = String(cString: sqlite3_column_text(queryStatement, val))
+                    }else{
+                        if (sqlite3_column_int(queryStatement, val) != 0){
+                            columnValue  = sqlite3_column_int(queryStatement, val)
+                        } else {
+                            columnValue = ""
                         }
-                    } catch let error as NSError {
-                        print(error)
                     }
+                    print("columnKey--- \(columnKey)")
+
+                    print(columnValue)
+                    rowInfo[columnKey] = columnValue
                 }
+                print("***************************************")
+                foldersList.append(rowInfo)
             }
         } else {
             print("SELECT statement could not be prepared")
         }
         sqlite3_finalize(queryStatement)
-        return values
+        return foldersList
     }
     
+    func getQueryDetails(query: String) -> Array<Dictionary<String, Any>> {
+        let queryStatementString = query
+        var queryStatement: OpaquePointer? = nil
+
+        var queryList = [Dictionary<String, Any>]()
+        
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                let columnCount = sqlite3_column_count(queryStatement)
+                
+                var rowInfo = Dictionary<String, Any>()
+                for val in 0..<columnCount{
+                    
+                    let columnKey  = String(cString: sqlite3_column_name(queryStatement, val))
+                    var columnValue : Any
+                    
+                    if sqlite3_column_text(queryStatement, val) != nil {
+                        columnValue = String(cString: sqlite3_column_text(queryStatement, val))
+                    }else{
+                        if (sqlite3_column_int(queryStatement, val) != 0){
+                            columnValue  = sqlite3_column_int(queryStatement, val)
+                        } else {
+                            columnValue = ""
+                        }
+                    }
+                    print("columnKey--- \(columnKey)")
+
+                    print(columnValue)
+                    rowInfo[columnKey] = columnValue
+                }
+                print("***************************************")
+                queryList.append(rowInfo)
+            }
+        } else {
+            print("SELECT statement could not be prepared")
+        }
+        sqlite3_finalize(queryStatement)
+        return queryList
+    }
+    
+    func getValuesExitsOrNot(folder_name: String) -> Bool {
+        let queryStatementString = "SELECT * FROM folders WHERE folder_name == \(folder_name);"
+        print(queryStatementString)
+        var status : Bool = false
+        var queryStatement: OpaquePointer? = nil
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            if (sqlite3_step(queryStatement) == SQLITE_ROW){
+                print("value exits")
+                status = true
+            }else{
+                print("value not exits")
+                status = false
+            }
+        }
+        sqlite3_finalize(queryStatement)
+        return status
+    }
+    
+    func get_row_id_of_exting_folder(tableName : String, folder_name: String) -> String {
+        let queryStatementString = "SELECT Id FROM \(tableName) WHERE folder_name == \(folder_name);"
+        var queryStatement: OpaquePointer? = nil
+        var row_id: String = ""
+        if sqlite3_prepare_v2(db, queryStatementString, -1, &queryStatement, nil) == SQLITE_OK {
+            while sqlite3_step(queryStatement) == SQLITE_ROW {
+                let id = sqlite3_column_int(queryStatement, 0)
+                print("Query Result: \(id)")
+                row_id = String(id)
+            }
+        } else {
+            print("SELECT statement could not be prepared")
+        }
+        sqlite3_finalize(queryStatement)
+        return row_id
+    }
+
     func getMaxRowId(tableName : String) -> String {
         let queryStatementString = "SELECT MAX(Id) FROM \(tableName);"
         var queryStatement: OpaquePointer? = nil

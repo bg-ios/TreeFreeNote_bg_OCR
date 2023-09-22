@@ -10,6 +10,11 @@ import Vision
 import VisionKit
 
 struct DocumentScannerView: UIViewControllerRepresentable {
+    var documentViewModel : DocumentsViewModel
+    @Binding var isTabViewShown : Bool
+    @Binding var isShowingBottomSheet: Bool
+    @Binding var bottomSheetContentType: BottomSheetType
+
     var didFinishScanning: ((_ result: Result<[UIImage], Error>) -> Void)
     var didCancelScanning: () -> Void
     
@@ -22,14 +27,22 @@ struct DocumentScannerView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: VNDocumentCameraViewController, context: Context) { }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(with: self)
+        Coordinator(with: self, documentModel: documentViewModel, isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType)
     }
     
     class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
-        let scannerView: DocumentScannerView
-        
-        init(with scannerView: DocumentScannerView) {
+        var scannerView: DocumentScannerView
+        var documentViewModel : DocumentsViewModel
+        @Binding var isTabViewShown : Bool
+        @Binding var isShowingBottomSheet: Bool
+        @Binding var bottomSheetContentType: BottomSheetType
+
+        init(with scannerView: DocumentScannerView, documentModel: DocumentsViewModel, isTabViewShown: Binding<Bool>, isShowingBottomSheet: Binding<Bool>, bottomSheetContentType: Binding<BottomSheetType>) {
             self.scannerView = scannerView
+            self.documentViewModel = documentModel
+            self._isTabViewShown = isTabViewShown
+            self._isShowingBottomSheet = isShowingBottomSheet
+            self._bottomSheetContentType = bottomSheetContentType
         }
         
         // MARK: - VNDocumentCameraViewControllerDelegate
@@ -42,7 +55,14 @@ struct DocumentScannerView: UIViewControllerRepresentable {
             }
             
             scannerView.didFinishScanning(.success(scannedPages))
-            controller.dismiss(animated: true, completion: nil)
+//            controller.dismiss(animated: true, completion: nil)
+            
+            let previewView = ScannedImagePreviewView(imageNames: scannedPages, isFromScanner: true, isShowingBottomSheet: $isTabViewShown, bottomSheetContentType: $bottomSheetContentType, isTabViewShown: $isShowingBottomSheet, documentsViewModel: self.documentViewModel)
+            
+//            let previewController = FoldersListView(foldersArray: ["Personal", "Business"], isTabViewShown: .constant(true))
+            let previewHostingController = UIHostingController(rootView: previewView)
+            
+            controller.parent?.navigationController?.pushViewController(previewHostingController, animated: true)
 
         }
         

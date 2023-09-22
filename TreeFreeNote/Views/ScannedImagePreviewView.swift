@@ -12,7 +12,13 @@ struct ScannedImagePreviewView: View {
     var imageNames = [UIImage]()
     var isFromScanner: Bool = false
 
-//    @Binding var isTabViewShown: Bool
+    @Binding var isShowingBottomSheet: Bool
+    @Binding var bottomSheetContentType: BottomSheetType
+
+    
+    @Binding var isTabViewShown: Bool
+
+    @State private var documentName: String = ""
 
     @State private var currentIndex: Int = 1
     @GestureState private var translation: CGFloat = 0
@@ -23,6 +29,15 @@ struct ScannedImagePreviewView: View {
 
     var body: some View {
         VStack {
+            if isFromScanner {
+                VStack {
+                    TextField("Enter Document Name", text: $documentName)
+                        .padding(12)
+                        .padding (.leading, -10)
+                        .padding(.leading, -3)
+                }
+            }
+            
             GeometryReader { proxy in
                 ScrollView(.horizontal) {
                     HStack(spacing: 0) {
@@ -51,23 +66,35 @@ struct ScannedImagePreviewView: View {
             .background(Color.clear)
             HStack {
                 if isFromScanner {
-                    CustomLogoButton(imageName: "Back") {
-                        self.presentationMode.wrappedValue.dismiss()
-                    }
+//                    CustomLogoButton(imageName: "Back") {
+//                        self.presentationMode.wrappedValue.dismiss()
+//                    }
                 }
                 
                 Spacer()
                 Text("\(currentIndex) / \(imageNames.count)")
                 Spacer()
+                
+                
                 if isFromScanner {
-                    CustomLogoButton(imageName: "TickIcon") {
-                        
-                        self.saveImagesToFileDirectory()
-                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didDismissOnSaving"), object: self, userInfo: nil)
-                        self.presentationMode.wrappedValue.dismiss()
-                        //TODO: Google drive integration
+                    
+                    NavigationLink {
+                        FoldersListView(imageNames: imageNames, foldersArray: [], isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, selectedFolderName: "")
+                    } label: {
+                        Text("Next")
+                            .foregroundColor(Color.black)
+                            .fontWeight(.medium)
                     }
-                    .foregroundColor(Color.black)
+                    
+
+//                    CustomLogoButton(imageName: "TickIcon") {
+//
+//                        self.saveImagesToFileDirectory()
+//                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didDismissOnSaving"), object: self, userInfo: nil)
+//                        self.presentationMode.wrappedValue.dismiss()
+//                        //TODO: Google drive integration
+//                    }
+//                    .foregroundColor(Color.black)
                 }
             }
             .frame(height: 55)
@@ -77,10 +104,10 @@ struct ScannedImagePreviewView: View {
         }
         .onAppear {
             UIScrollView.appearance().isPagingEnabled = true
-//            isTabViewShown = false
+            isTabViewShown = true
         }
         .onDisappear{
-//            isTabViewShown.toggle()
+            isTabViewShown.toggle()
         }
     }
     
@@ -92,7 +119,7 @@ struct ScannedImagePreviewView: View {
         let dateString = formatter.string(from: date)
         
         for image in self.imageNames {
-            if let imagePath = documentHandler.saveImageToDocumentDirectory(image: image) {
+            if let imagePath = documentHandler.saveImageToDocumentDirectory(selectedFolder: "", image: image) {
                 let documentModel = Document(title: imagePath, creationDate: dateString, fileFormat: "Png")
                 documentsViewModel.addDocument(documentModel)
             }

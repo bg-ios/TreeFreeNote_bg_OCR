@@ -13,19 +13,23 @@ class DocumentHandler {
       return String((0..<length).map{ _ in letters.randomElement()! })
     }
     
-    func saveImageToDocumentDirectory(image: UIImage) -> String? {
+    func saveImageToDocumentDirectory(selectedFolder: String, image: UIImage) -> String? {
         guard let data = image.jpegData(compressionQuality: 1.0) ?? image.pngData() else {
             return nil
         }
 //        let dateString = Utility().current_date()
         let randomString = self.randomString(length: 10)
         let fileName = "image_\(randomString).jpeg"
-
-        let fileURL = getDocumentDirectory().appendingPathComponent(fileName)
+        var directoryUrl = getDocumentDirectory()
+        if !selectedFolder.isEmpty {
+            directoryUrl = directoryUrl.appendingPathExtension(selectedFolder)
+        }
+        
+        directoryUrl = directoryUrl.appendingPathComponent(fileName)
         
         do {
-            try data.write(to: fileURL)
-            return fileURL.path
+            try data.write(to: directoryUrl)
+            return directoryUrl.path
         } catch {
             print("Error saving image: \(error.localizedDescription)")
             return nil

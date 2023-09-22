@@ -22,7 +22,7 @@ struct DocumentsListView: View {
                     ForEach($documentViewModel.documentsList){ $document in
                         NavigationLink {
                             if let detailedImage = self.navigateToDetailedView(document: document.title) {
-                                ScannedImagePreviewView(imageNames: [detailedImage] , isFromScanner: false, documentsViewModel: documentViewModel)
+                                ScannedImagePreviewView(imageNames: [detailedImage] , isFromScanner: false, isShowingBottomSheet: .constant(true), bottomSheetContentType: $bottomSheetContentType, isTabViewShown: $isShowingBottomSheet, documentsViewModel: documentViewModel)
                             }
                         } label: {
                             DocumentListCell(document: $document, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isDocumentDialogShown: $isDocumentDialogShown)
@@ -39,6 +39,11 @@ struct DocumentsListView: View {
                     Spacer()
                 }
             }
+        }
+        .onAppear {
+            
+            let homePageDetails = querys().getHomePageInfo()
+            print(homePageDetails)
         }
     }
     
