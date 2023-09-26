@@ -20,6 +20,9 @@ struct RoundedTextField: View {
                 ForEach(dropDownList, id: \.self){ client in
                     Button(client) {
                         self.value = client
+                        if client == "GoogleDrive" {
+                            FolderCreationObserver.shared.isStorageTypeModified = client
+                        }
                     }
 
                 }

@@ -15,16 +15,19 @@ struct DocumentsListView: View {
     @Binding var selectedTab: String
 
     @ObservedObject var documentViewModel = DocumentsViewModel()
+    @ObservedObject var documentsObserver = DocumentsObserver.shared
+        
+    var selectedFolderId: String?
     
     var body: some View {
         
         ScrollView {
-            if (documentViewModel.documentsList.count > 0) {
+            if (!documentViewModel.documentsList.isEmpty) {
                 LazyVStack(alignment: .leading, spacing: 10, pinnedViews: .sectionHeaders) {
                     ForEach(documentViewModel.documentsList){ document in
                         NavigationLink {
-                            if let detailedImage = self.navigateToDetailedView(document: document.imageName) {
-                                ScannedImagePreviewView(imageNames: [detailedImage] , isFromScanner: false, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigated: .constant(false), selectedTab: $selectedTab, isTabViewShown: $isShowingBottomSheet, documentsViewModel: documentViewModel)
+                            if let detailedImage = self.getDocumentDetails(documentId: document.id) {
+                                ScannedImagePreviewView(imageNames: detailedImage , isFromScanner: false, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigated: .constant(false), selectedTab: $selectedTab, isTabViewShown: $isShowingBottomSheet, documentsViewModel: documentViewModel)
                             }
                         } label: {
                             DocumentListCell(document: document, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isDocumentDialogShown: $isDocumentDialogShown)
@@ -46,11 +49,19 @@ struct DocumentsListView: View {
                 }
             }
         }
-//        .onChange(of: TestObservers.shared.$isScannedDocUpdated, perform: {newValue in
-//            documentViewModel.getDocumentsFromDB()
-//            TestObservers.shared.isScannedDocUpdated = false
-//        })
+        .onChange(of: documentsObserver.isDocumentsSaved, perform: {newValue in
+            getDocumentsData()
+            DocumentsObserver.shared.isDocumentsSaved = false
+        })
         .onAppear {
+            getDocumentsData()
+        }
+    }
+    
+    func getDocumentsData() {
+        if let selectedFolderId = selectedFolderId {
+            documentViewModel.getDocumentsList(with: selectedFolderId)
+        } else {
             documentViewModel.getDocumentsFromDB()
         }
     }
@@ -62,6 +73,18 @@ struct DocumentsListView: View {
         return nil
     }
     
+    func getDocumentDetails(documentId: String) -> [UIImage] {
+        let documentDetails = querys().getDocumentsHomePageInfo(documentId: documentId)
+        var imagesArray = [UIImage]()
+        for pageInfo in documentDetails {
+            if let imagePath = pageInfo["file_path"] as? String {
+                imagesArray.append((self.navigateToDetailedView(document: imagePath) ?? UIImage(named: "logo"))!)
+            }
+        }
+        
+        return imagesArray
+    }
+    
 }
 
 //struct DocumentsListView_Previews: PreviewProvider {
@@ -69,3 +92,9 @@ struct DocumentsListView: View {
 //        DocumentsListView(documentViewModel: <#DocumentsViewModel#>)
 //    }
 //}
+
+
+class DocumentsObserver: ObservableObject {
+    static var shared = DocumentsObserver()
+    @Published var isDocumentsSaved: Bool = false
+}

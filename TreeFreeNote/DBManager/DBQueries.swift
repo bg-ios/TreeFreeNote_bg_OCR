@@ -35,6 +35,10 @@ class querys {
 
     let documents_home_page_query = "select d.*,fp.file_path,f.folder_name as parent_folder,sub.folder_name as sub_folder_name  from documents as d  left join folders as sub on sub.id=d.folder_id left join (select s.id,ls.folder_name from folders as s left join folders as ls on ls.id=s.parent_folder group by ls.id) as f on f.id=d.folder_id inner join  pages as fp on (fp.document_id=d.id and fp.page_number=1) group by d.id"
     
+    let documentsDetailsQuery = "select * from pages where document_id ="
+    
+    let folderDetailsQuery = "select d.*,fp.file_path, f.storage_type from documents as d inner join folders as f on f.id = d.folder_id inner join  pages as fp on (fp.document_id=d.id and fp.page_number=1) where d.folder_id = '%@' group by d.id"
+    
     func create_tables(){
         dbManager.createTable(sql_query: folderTableString)
         dbManager.createTable(sql_query: documentTableString)
@@ -123,6 +127,16 @@ class querys {
     func getDocumentsHomePageInfo() -> Array<Dictionary<String, Any>> {
         return dbManager.getQueryDetails(query: documents_home_page_query)
     }
+
+    func getDocumentsHomePageInfo(documentId: String) -> Array<Dictionary<String, Any>> {
+        return dbManager.getQueryDetails(query: documentsDetailsQuery + documentId)
+    }
+
+    func getDocumentsListWith(folderId: String) -> Array<Dictionary<String, Any>> {
+        let query = "select d.*,fp.file_path, f.storage_type from documents as d inner join folders as f on f.id = d.folder_id inner join  pages as fp on (fp.document_id=d.id and fp.page_number=1) where d.folder_id = '\(folderId)' group by d.id"
+        return dbManager.getQueryDetails(query: query)
+    }
+
     
     func checkDefaultTagsInfo() {
         let values = self.get_value_of_tabel(tableName: DBTableName.tags.rawValue)

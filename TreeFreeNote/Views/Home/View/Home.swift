@@ -51,7 +51,7 @@ struct Home: View {
  */
                         //Folder Horizontal View
                         if let foldersList = folderViewModel.foldersArray, !foldersList.isEmpty {
-                            FoldersHorizontalListView(foldersArray: foldersList)
+                            FoldersHorizontalListView(foldersArray: foldersList, isShowingBottomSheet: $isShowingBottomSheet, isDocumentDialogShown: $isDocumentDialogShown, bottomSheetContentType: $bottomSheetContentType, selectedTab: .constant("Home"), documentsViewModel: documentsViewModel) 
                                 .frame(height: 120)
                         }
                         
@@ -103,5 +103,6 @@ class TestObservers: ObservableObject {
     
     @Published var isDocumentSaved: Bool = false
     
+    @Published var isScannedDocUpdated: Bool = false
     
 }

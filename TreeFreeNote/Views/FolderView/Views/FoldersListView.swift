@@ -18,6 +18,7 @@ struct FoldersListView : View {
     @Binding var bottomSheetContentType: BottomSheetType
     @Binding var isNavigate: Bool
     
+    @Binding var documentName: String
     @State var selectedFolderName: String = ""
     @Binding var selectedTab: String
     @ObservedObject var foldersObserver = FoldersObserver.shared
@@ -131,8 +132,15 @@ struct FoldersListView : View {
         let documentHandler = DocumentHandler()
         let queries = querys()
         let folderId = queries.get_folder_id(folder_name: selectedFolderName)
-        let folderInfo =
-        queries.insertDocuments(title: "Maths", documentType: "jpeg", linkedTagId: "", security: "", storage_type: "Device", folderId: folderId)
+        let foldersInfo = queries.get_value_of_tabel(tableName: DBTableName.folders.rawValue)
+        
+        let folderInfo = foldersInfo.first(where: { $0["folder_name"] as? String == selectedFolderName })
+        var storageType: String = ""
+        if let storage = folderInfo?["storage_type"] as? String {
+            storageType = storage
+        }
+        
+        queries.insertDocuments(title: documentName, documentType: "jpeg", linkedTagId: "", security: "", storage_type: storageType, folderId: folderId)
         
         let documentId = queries.get_max_id_table(table_name: DBTableName.documents.rawValue)
         
@@ -143,11 +151,16 @@ struct FoldersListView : View {
             }
         }
         queries.insertPages(documentId: documentId, filesPathArray: imageDirectoryPaths)
+        DocumentsObserver.shared.isDocumentsSaved = true
         
-        if let userArray = AppPersistenceUtility.getObjectFromUserDefaults(key: "GoogleDriveUsers") as? Dictionary<String, Any>, let userInfo = userArray["treefreenote3@gmail.com"] as? GIDGoogleUser {
-            ColudSyncModel().uploadScannedImagesToGoogleDrive(user: userInfo, imagePaths: imageDirectoryPaths, folderName: "Education")
+//        if let storageType = folderInfo?["storage_type"] as? String, storageType == "GoogleDrive", alet email = folderInfo?["cloud_storage_id"] as? String {
             
+        if let email = folderInfo?["cloud_storage_id"] as? String {
+            if let userArray = AppPersistenceUtility.getObjectFromUserDefaults(key: "GoogleDriveUsers") as? Dictionary<String, Any>, let userInfo = userArray[email] as? GIDGoogleUser {
+                ColudSyncModel().uploadScannedImagesToGoogleDrive(user: userInfo, imagePaths: imageDirectoryPaths, folderName: "")
+            }
         }
+        
 
     }
     

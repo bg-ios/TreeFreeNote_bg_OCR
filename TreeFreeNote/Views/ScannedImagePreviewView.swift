@@ -12,6 +12,8 @@ struct ScannedImagePreviewView: View {
     var imageNames = [UIImage]()
     var isFromScanner: Bool = false
 
+    @State private var isToasterVisible = false
+
     @Binding var isShowingBottomSheet: Bool
     @Binding var bottomSheetContentType: BottomSheetType
     @Binding var isNavigated: Bool
@@ -27,15 +29,13 @@ struct ScannedImagePreviewView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @ObservedObject var documentsViewModel: DocumentsViewModel
-
+    
     var body: some View {
         VStack {
             if isFromScanner {
                 VStack {
-                    TextField("Enter Document Name", text: $documentName)
-                        .padding(12)
-                        .padding (.leading, -10)
-                        .padding(.leading, -3)
+                    RoundedTextField(inputText: $documentName, placeHolder: "Enter Document Name", isDropDown: false, dropDownList: [])
+                        .padding(20)
                 }
             }
             
@@ -79,16 +79,24 @@ struct ScannedImagePreviewView: View {
                 
                 if isFromScanner {
                     
-                    NavigationLink {
-                        FoldersListView(imageNames: imageNames, foldersArray: [], isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigate: $isNavigated, selectedFolderName: "", selectedTab: $selectedTab)
-                    } label: {
-                        Text("Next")
-                            .foregroundColor(Color.black)
-                            .fontWeight(.medium)
-                    }
-                    .isDetailLink(false)
+//                    if !documentName.isEmpty {
+                       
+                        NavigationLink {
+                            if !documentName.isEmpty {
+                                FoldersListView(imageNames: imageNames, foldersArray: [], isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigate: $isNavigated, documentName: $documentName, selectedFolderName: "", selectedTab: $selectedTab)
+                            }
+                        } label: {
+                            Text("Next")
+                                .foregroundColor(Color.black)
+                                .fontWeight(.medium)
+                                
+                        }
+                        .onTapGesture {
+                            showToast()
+                        }
+                        
+//                    }
                     
-
 //                    CustomLogoButton(imageName: "TickIcon") {
 //
 //                        self.saveImagesToFileDirectory()
@@ -103,6 +111,22 @@ struct ScannedImagePreviewView: View {
             .padding()
             .background(Color.clear)
             .cornerRadius(25, corners: [.topLeft,.topRight])
+            
+            if isToasterVisible {
+                Text("Please enter document Name")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color.blue)
+                    .cornerRadius(10)
+                    .transition(.move(edge: .top))
+                    .animation(.easeIn)
+                    .onAppear {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                            hideToast()
+                        }
+                    }
+            }
         }
         .onAppear {
             UIScrollView.appearance().isPagingEnabled = true
@@ -131,4 +155,14 @@ struct ScannedImagePreviewView: View {
         
     }
      */
+    
+    private func showToast() {
+        if documentName.isEmpty {
+            isToasterVisible = true
+        }
+    }
+    
+    private func hideToast() {
+        isToasterVisible = false
+    }
 }

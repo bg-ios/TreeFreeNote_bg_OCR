@@ -9,13 +9,20 @@ import SwiftUI
 
 struct FoldersHorizontalListView: View {
     var foldersArray: [FolderModel] //= [] // State to hold fetched data
+    @Binding var isShowingBottomSheet: Bool
+    @Binding var isDocumentDialogShown: Bool
+    @Binding var bottomSheetContentType: BottomSheetType
+    @Binding var selectedTab: String
+
+    @ObservedObject var documentsViewModel : DocumentsViewModel
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top, spacing: 10) {
                 ForEach(0..<foldersArray.count, id: \.self) { index in
                     NavigationLink {
-//                        DocumentsDetailedView(documentInfo: foldersArray[index])
+                        DocumentsListView(isShowingBottomSheet: $isShowingBottomSheet, isDocumentDialogShown: $isDocumentDialogShown, bottomSheetContentType: $bottomSheetContentType, selectedTab: .constant("Home") , documentViewModel: documentsViewModel, selectedFolderId: foldersArray[index].id)
+
                     } label: {
                         CustomFoldersListCell(folderInfo: foldersArray[index])
                             .frame(width: 200, height: 120)

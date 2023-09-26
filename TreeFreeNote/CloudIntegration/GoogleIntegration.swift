@@ -14,6 +14,7 @@ import SwiftUI
 class GoogleAuthModel: ObservableObject {
     
     @Published var givenName: String = ""
+    @Published var email: String = ""
     @Published var profilePicUrl: String = ""
     @Published var isLoggedIn: Bool = false
     @Published var errorMessage: String = ""
@@ -76,23 +77,24 @@ class GoogleAuthModel: ObservableObject {
         GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController, hint: "google login", additionalScopes: [kGTLRAuthScopeDrive]) { result, error in
             
             if let user = result?.user {
-                  print(user)
-                  var gDriveUsers = NSMutableDictionary()
-
-                  if let userArray = AppPersistenceUtility.getObjectFromUserDefaults(key: "GoogleDriveUsers") as? Dictionary<String, Any> {
-                      
-                      gDriveUsers = NSMutableDictionary(dictionary: userArray)
-                      
-                  }
-                  
-                  guard let userEmail = user.profile?.email else {
-                      //TODO: Show Alert as invalid user
-                      return
-                  }
-                  gDriveUsers.setValue(user, forKey: userEmail.lowercased())
-                  AppPersistenceUtility.setObjectToUserDefaults(key: "GoogleDriveUsers", dataToBeSaved: gDriveUsers)
-                  
-              }else{
+                print(user)
+                var gDriveUsers = NSMutableDictionary()
+                
+                if let userArray = AppPersistenceUtility.getObjectFromUserDefaults(key: "GoogleDriveUsers") as? Dictionary<String, Any> {
+                    
+                    gDriveUsers = NSMutableDictionary(dictionary: userArray)
+                    
+                }
+                
+                guard let userEmail = user.profile?.email else {
+                    //TODO: Show Alert as invalid user
+                    return
+                }
+                gDriveUsers.setValue(user, forKey: userEmail.lowercased())
+                self.email = userEmail
+                AppPersistenceUtility.setObjectToUserDefaults(key: "GoogleDriveUsers", dataToBeSaved: gDriveUsers)
+                
+            }else{
                   print(error as Any)
               }
              

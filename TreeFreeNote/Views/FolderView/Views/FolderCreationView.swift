@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import GoogleSignIn
+import GoogleAPIClientForREST
 
 struct FolderCreationView: View {
     
@@ -14,11 +16,19 @@ struct FolderCreationView: View {
     @Binding var isShowingBottomSheet: Bool
     
     @State private var folderName: String = ""
-    @State private var saveAccount: String = "Device"
+    @Binding var saveAccount: String //= "Device"
     @State private var email: String = ""
     
+    @State private var selectedStorageType: String = ""
+
+    @State private var gDriveUsers: [String] = [String]()
+    
+    @EnvironmentObject var googleAuth : GoogleAuthModel
+
     var createFolder: ((String) -> ())?
 
+    @ObservedObject var folderCreationObserver = FolderCreationObserver.shared
+    
     var body: some View {
         VStack {
             HStack {
@@ -49,7 +59,7 @@ struct FolderCreationView: View {
             VStack(spacing: 15) {
             
                 FormInputView(formInputText: $folderName, fieldName: "Name", fieldPlaceholder: "Enter Name")
-                FormInputView(formInputText: $saveAccount, fieldName: "Save/Share", fieldPlaceholder: "Select Account", isDropDown: true, dropDownList: ["Device", "GoogleDrive", "OneNote"])
+                FormInputView(formInputText: $saveAccount, fieldName: "Save/Share", fieldPlaceholder: "Select Account", isDropDown: true, dropDownList: ["Device", "GoogleDrive"])
                 FormInputView(formInputText: $email, fieldName: "Email/Phone", fieldPlaceholder: "test@gmail.com")
                 
                 /*
@@ -112,6 +122,18 @@ struct FolderCreationView: View {
         }
         .padding(.bottom, 42)
         .ignoresSafeArea(.keyboard, edges: .bottom)
+        .onChange(of: folderCreationObserver.isStorageTypeModified) { newValue in
+            selectedStorageType = newValue
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                googleAuth.signIn()
+            }
+            folderCreationObserver.isStorageTypeModified = ""
+        }
+        .onChange(of: googleAuth.email) { newValue in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                email = googleAuth.email
+            }
+        }
     }
     
     private func createFolderWithInfo() {
@@ -123,17 +145,32 @@ struct FolderCreationView: View {
 //            folder_id = query.get_folder_id(folder_name: self.folderName)
                 
         } else {
-            query.insertFolder(folder_name: self.folderName, parent_folder: "", cloud_storage_id: self.email, storage_type: self.saveAccount)
+            query.insertFolder(folder_name: self.folderName, parent_folder: "", cloud_storage_id: self.email, storage_type: self.selectedStorageType)
             
             //TODO: Show Folder creation success alert
 //            folder_id = query.get_max_id_table(table_name: DBTableName.folders.rawValue)
         }
         
     }
+    
+//    private func getGoogleDriveUsersFromDefaults() {
+//
+//        if let userArray = AppPersistenceUtility.getObjectFromUserDefaults(key: "GoogleDriveUsers") as? Dictionary<String, Any> {
+//            if let gmailId = userArray.keys.first {
+//                email = gmailId
+//            }
+//        }
+//    }
 }
 
-struct FolderCreationView_Previews: PreviewProvider {
-    static var previews: some View {
-        FolderCreationView( isShowingBottomSheet: .constant(true))
-    }
+
+//struct FolderCreationView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        FolderCreationView( isShowingBottomSheet: .constant(true))
+//    }
+//}
+
+class FolderCreationObserver: ObservableObject {
+    static var shared = FolderCreationObserver()
+    @Published var isStorageTypeModified: String = ""
 }
