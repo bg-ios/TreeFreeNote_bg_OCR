@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct Home: View {
     //Selected Category..
@@ -16,9 +17,16 @@ struct Home: View {
 
     @Binding var isDocumentDialogShown: Bool
 
-    @ObservedObject var categoriesViewModel : CategoriesViewModel
+//    @ObservedObject var categoriesViewModel : CategoriesViewModel
 
     @ObservedObject var documentsViewModel : DocumentsViewModel
+    
+    @State var folderViewModel = FoldersViewModel()
+    
+    @ObservedObject var testObservable = TestObservers.shared
+
+    let onFolderUpdate = NotificationCenter.default
+        .publisher(for: .onFolderCreation)
 
     var body: some View {
         NavigationView {
@@ -28,7 +36,7 @@ struct Home: View {
                 Spacer(minLength: 1)
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 10, content: {
-                        
+     /*
                         ///ToolsView..
                         ToolsView()
                         Spacer(minLength: 2)
@@ -38,29 +46,48 @@ struct Home: View {
                             .padding(.horizontal, 10)
                         
                         ///Categories View
-                        CategoriesView(categoriesViewModel: categoriesViewModel)
+                        CategoriesView()
                             .padding(10)
-                        
-                        
+ */
                         //Folder Horizontal View
-                        FoldersHorizontalListView()
-                            .frame(height: 120)
+                        if let foldersList = folderViewModel.foldersArray, !foldersList.isEmpty {
+                            FoldersHorizontalListView(foldersArray: foldersList)
+                                .frame(height: 120)
+                        }
                         
                         Divider()
                         ///Documents ListView
-                        DocumentsListView(isShowingBottomSheet: $isShowingBottomSheet, isDocumentDialogShown: $isDocumentDialogShown, bottomSheetContentType: $bottomSheetContentType , documentViewModel: documentsViewModel)
+                        DocumentsListView(isShowingBottomSheet: $isShowingBottomSheet, isDocumentDialogShown: $isDocumentDialogShown, bottomSheetContentType: $bottomSheetContentType, selectedTab: .constant("Home") , documentViewModel: documentsViewModel)
                     })
                     .navigationBarTitleDisplayMode(.inline)
                 }
             }
             .navigationBarHidden(true)
             .navigationBarTitle(Text("Home"))
-//            .edgesIgnoringSafeArea([.top, .bottom])
-
+            //            .edgesIgnoringSafeArea([.top, .bottom])
+            
             //Light BG Color..
             .background(Color.white.ignoresSafeArea())
         }
+//        .onReceive(onFolderUpdate) { _ in
+//            folderViewModel.refreshFoldersInfo()
+//        }
+        .onChange(of: testObservable.isDocumentSaved, perform: { newValue in
+            folderViewModel.getFoldersInfo()
+            TestObservers.shared.isDocumentSaved = false
+        })
+        .onAppear{
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                folderViewModel.getFoldersInfo()
+            }
+        }
     }
+    
+//    func refreshFoldersInfo() {
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+//            self.foldersArray = querys().getHomePageInfo() // Update the @State property with fetched data
+//        }
+//    }
 }
 
 //struct Home_Previews: PreviewProvider {
@@ -68,3 +95,13 @@ struct Home: View {
 ////        Home(selectedCategory: .constant(categories.first!), bottomSheetContentType: .constant(.newTag), isShowingBottomSheet: .constant(false), categoriesViewModel: .constant(CategoriesViewModel()))
 ////    }
 //}
+
+
+class TestObservers: ObservableObject {
+
+    static var shared = TestObservers()
+    
+    @Published var isDocumentSaved: Bool = false
+    
+    
+}

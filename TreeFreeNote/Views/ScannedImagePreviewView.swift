@@ -14,8 +14,9 @@ struct ScannedImagePreviewView: View {
 
     @Binding var isShowingBottomSheet: Bool
     @Binding var bottomSheetContentType: BottomSheetType
+    @Binding var isNavigated: Bool
+    @Binding var selectedTab: String
 
-    
     @Binding var isTabViewShown: Bool
 
     @State private var documentName: String = ""
@@ -79,12 +80,13 @@ struct ScannedImagePreviewView: View {
                 if isFromScanner {
                     
                     NavigationLink {
-                        FoldersListView(imageNames: imageNames, foldersArray: [], isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, selectedFolderName: "")
+                        FoldersListView(imageNames: imageNames, foldersArray: [], isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigate: $isNavigated, selectedFolderName: "", selectedTab: $selectedTab)
                     } label: {
                         Text("Next")
                             .foregroundColor(Color.black)
                             .fontWeight(.medium)
                     }
+                    .isDetailLink(false)
                     
 
 //                    CustomLogoButton(imageName: "TickIcon") {
@@ -104,13 +106,15 @@ struct ScannedImagePreviewView: View {
         }
         .onAppear {
             UIScrollView.appearance().isPagingEnabled = true
-            isTabViewShown = true
+            isTabViewShown = false
         }
         .onDisappear{
-            isTabViewShown.toggle()
+            if !isFromScanner {
+                isTabViewShown = true//.toggle()
+            }
         }
     }
-    
+    /*
     private func saveImagesToFileDirectory() {
         let documentHandler = DocumentHandler()
         let date = Date()
@@ -126,4 +130,5 @@ struct ScannedImagePreviewView: View {
         }
         
     }
+     */
 }

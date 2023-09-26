@@ -47,12 +47,14 @@ struct FolderCreationView: View {
             .padding(.bottom, 10)
             
             VStack(spacing: 15) {
+            
                 FormInputView(formInputText: $folderName, fieldName: "Name", fieldPlaceholder: "Enter Name")
-                FormInputView(formInputText: $saveAccount, fieldName: "Save/Share", fieldPlaceholder: "Select Account")
+                FormInputView(formInputText: $saveAccount, fieldName: "Save/Share", fieldPlaceholder: "Select Account", isDropDown: true, dropDownList: ["Device", "GoogleDrive", "OneNote"])
                 FormInputView(formInputText: $email, fieldName: "Email/Phone", fieldPlaceholder: "test@gmail.com")
-                LockView(isFolderLockEnabled: $isFolderLockEnabled)
                 
                 /*
+                 LockView(isFolderLockEnabled: $isFolderLockEnabled)
+
                 if isFolderLockEnabled {
                     VStack {
                         HStack(alignment: .top) {
@@ -93,6 +95,8 @@ struct FolderCreationView: View {
                 Button (action: {
                     self.createFolderWithInfo()
                     isShowingBottomSheet.toggle()
+                    self.createFolder?(folderName)
+                    FoldersObserver.shared.isFolderCreated = true
 
                 }) {
                     Text("Create")

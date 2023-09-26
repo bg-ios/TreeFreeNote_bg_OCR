@@ -33,14 +33,14 @@ struct DocumentPreviewView: View {
         GridItem(.flexible())
     ]
     
-    @Binding var document: Document
+    var document: DocumentModel
     @Binding var isShowingBottomSheet: Bool
     @Binding var isDocumentEditShown: Bool
     @Binding var documentMenuType: PreviewMenuItems
     
     var body: some View {
         VStack {
-            DocumentListCell(document: $document, isFromPreview: true, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: .constant(.documentPreview), isDocumentDialogShown: $isDocumentEditShown)
+            DocumentListCell(document: document, isFromPreview: true, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: .constant(.documentPreview), isDocumentDialogShown: $isDocumentEditShown)
 //            DocumentListCell(document: $document, isFromPreview: true, isShowingBottomSheet: $isShowingBottomSheet)
                 .frame(height: 80)
                 .padding(10)

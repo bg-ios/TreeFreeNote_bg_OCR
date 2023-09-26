@@ -21,6 +21,7 @@ class DocumentHandler {
         let randomString = self.randomString(length: 10)
         let fileName = "image_\(randomString).jpeg"
         var directoryUrl = getDocumentDirectory()
+        directoryUrl = directoryUrl.appendingPathExtension("ReNote/")
         if !selectedFolder.isEmpty {
             directoryUrl = directoryUrl.appendingPathExtension(selectedFolder)
         }
@@ -41,7 +42,7 @@ class DocumentHandler {
     }
     
     func loadImageFromDocumentDirectory(fileName: String) -> UIImage? {
-        let dir = getDocumentDirectory()
+        let dir = getDocumentDirectory().appendingPathExtension("ReNote/")
         return UIImage(contentsOfFile: URL(fileURLWithPath: dir.absoluteString).appendingPathComponent((fileName as NSString).lastPathComponent).path)
     }
 }

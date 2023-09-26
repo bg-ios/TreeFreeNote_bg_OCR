@@ -36,11 +36,11 @@ struct DocumentGridCell: View {
 }
 
 
-struct DocumentGridCell_Previews: PreviewProvider {
-    static var previews: some View {
-        DocumentGridCell(document: documentModelSamples.first!)
-    }
-}
+//struct DocumentGridCell_Previews: PreviewProvider {
+//    static var previews: some View {
+//        DocumentGridCell(document: documentModelSamples.first!)
+//    }
+//}
 
 //
 private extension DocumentGridCell {

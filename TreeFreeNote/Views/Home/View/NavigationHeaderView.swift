@@ -19,7 +19,7 @@ struct NavigationHeaderView: View {
                     .cornerRadius(8)
             }
             Spacer()
-            
+            /*
             CustomLogoButton(imageName: "syncLogoIcon") {
                 print("Sync Icon Clicked")
             }
@@ -31,6 +31,7 @@ struct NavigationHeaderView: View {
             CustomLogoButton(imageName: "profile") {
                 print("profile Icon Clicked")
             }
+             */
         }
     }
 }

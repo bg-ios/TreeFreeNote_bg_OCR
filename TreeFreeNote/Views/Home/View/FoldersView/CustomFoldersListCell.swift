@@ -7,10 +7,52 @@
 
 import SwiftUI
 
-struct CustomFoldersListCell: View {
-//    @Binding var filesCount: String
+enum StorageType: String, CaseIterable, Identifiable {
+    var id: Self { return self }
     
-    @Binding var folderInfo: Dictionary<String, Any>
+    case Device = "Device"
+    case GoogleDrive = "GoogleDrive"
+    case OneNote = "OneNote"
+    
+    static let allValues = [Device, GoogleDrive, OneNote]
+
+    var storageTypeImage: String {
+        switch self {
+        case .Device:
+            return "Device"
+        case .GoogleDrive:
+            return "driveIcon"
+        case .OneNote:
+            return "Device"
+        }
+    }
+    
+    var folderStorageBg: String {
+        switch self {
+        case .Device:
+            return "DeviceStorageBgIcon"
+        case .GoogleDrive:
+            return "DriveBgIcon"
+        case .OneNote:
+            return "DeviceStorageBgIcon"
+        }
+    }
+    
+    var folderStorageIcon: String {
+        switch self {
+        case .Device:
+            return "FilesIcon"
+        case .GoogleDrive:
+            return "driveIcon"
+        case .OneNote:
+            return "FilesIcon"
+        }
+    }
+}
+
+struct CustomFoldersListCell: View {
+    
+    var folderInfo: FolderModel
     
     var body: some View {
         VStack {
@@ -19,30 +61,33 @@ struct CustomFoldersListCell: View {
                     folderPropertiesView
                         .padding(.trailing, -10)
                     VStack(alignment: .leading, spacing: 2) {
-                        if let folderName = folderInfo["folder_name"] {
-                            Text("folderName")
+                        if let folderName = folderInfo.folderName {
+                            Text(folderName)
                                 .foregroundColor(Color.priaryTextColor)
                                 .font(.system(size: 14, weight: .medium))
                                 .frame(height: 20)
                         }
                         HStack(spacing: 10) {
-                            if let cloudMail = folderInfo["cloud_storage_id"] {
-                                Text("cloud mail details")
+                            if let cloudMail = folderInfo.cloudStoreId {
+                                Text(cloudMail)
                                     .foregroundColor(Color.descriptionTextColor)
                                     .font(.system(size: 12, weight: .thin))
                                     .fontWeight(.medium)
                             }
                             Spacer()
                                 .background(Color.red)
-                            if let cloudMail = folderInfo["cloud_storage_id"] {
-                                Image("driveIcon")
+                            if let storageType = folderInfo.storageType {
+//                                , let storageTypeIcon = StorageType(rawValue: storageType)?.storageTypeImage {
+                                
+                                Image(StorageType.GoogleDrive.folderStorageIcon)
                                     .resizable()
                                     .renderingMode(.original)
-                                    .frame(width: 20, height: 20)
-                                    .padding(.trailing, 10)
+                                    .frame(width: 18, height: 18)
                             }
                         }
                         .frame(height: 25)
+                        .padding(.trailing, 10)
+
                     }
                 }
                 .padding(10)
@@ -51,15 +96,18 @@ struct CustomFoldersListCell: View {
                 .offset(y: 15)
                 
                 ZStack {
-                    Image("FolderBgIcon")
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 35, height: 35)
-                        .foregroundColor(Color.green)
-                    Image("driveIcon")
-                        .resizable()
-                        .renderingMode(.original)
-                        .frame(width: 15, height: 15)
+                    if let storageType = folderInfo.storageType {
+                        //, let bgIcon = StorageType(rawValue: storageType)?.folderStorageBg, let storageIcon = StorageType(rawValue: storageType)?.folderStorageIcon {
+                        Image(StorageType.Device.folderStorageBg) //bgIcon
+                            .resizable()
+                            .renderingMode(.template)
+                            .frame(width: 35, height: 35)
+                            .foregroundColor(Color.green)
+                        Image(StorageType.Device.folderStorageIcon) //storageIcon
+                            .resizable()
+                            .renderingMode(.original)
+                            .frame(width: 15, height: 15)
+                    }
                 }
                 .frame(width: 35, height: 35)
                 .offset(x:-70, y: -35)
@@ -74,15 +122,18 @@ extension CustomFoldersListCell {
     var folderPropertiesView: some View {
         HStack(spacing: 5) {
             Spacer()
-            Text("2")
-                .foregroundColor(Color.secondaryTextColor)
-                .font(.title3)
-                .frame(height: 30)
-            CustomLogoButton(imageName: "tagIcon") {
-                print("pin Icon clicked")
+            if let documentCount = folderInfo.documentCount, Int(documentCount) ?? 0 > 0 {
+                Text("\(documentCount)")
+                    .foregroundColor(Color.secondaryTextColor)
+                    .font(.subheadline)
+                    .frame(height: 30)
             }
-            .frame(width: 30, height: 30)
-            
+            if let isPinned = folderInfo.pinStatus as? String, Int(isPinned) == 1 {
+                CustomLogoButton(imageName: "Pin") {
+                    print("pin Icon clicked")
+                }
+                .frame(width: 30, height: 30)
+            }
             CustomLogoButton(imageName: "moreIcon") {
                 print("more Icon clicked")
             }

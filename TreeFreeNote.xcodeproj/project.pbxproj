@@ -33,6 +33,10 @@
 		0945B00A2AB71EF400AEC6D6 /* DocumentDetailsDialogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0945B0092AB71EF400AEC6D6 /* DocumentDetailsDialogView.swift */; };
 		0945B00C2AB729F200AEC6D6 /* DocumentEditLockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0945B00B2AB729F200AEC6D6 /* DocumentEditLockView.swift */; };
 		0945B00E2AB72B7000AEC6D6 /* DocumentsEditTagSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0945B00D2AB72B7000AEC6D6 /* DocumentsEditTagSelectionView.swift */; };
+		0945B0102ABED36A00AEC6D6 /* ColudSyncModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0945B00F2ABED36A00AEC6D6 /* ColudSyncModel.swift */; };
+		0945B0122ABEDB7100AEC6D6 /* credentials.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0945B0112ABEDB7100AEC6D6 /* credentials.plist */; };
+		0945B0502ABFDE9100AEC6D6 /* FoldersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0945B04F2ABFDE9100AEC6D6 /* FoldersViewModel.swift */; };
+		0945B0572AC15A0300AEC6D6 /* FoldersModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0945B0562AC15A0300AEC6D6 /* FoldersModel.swift */; };
 		0950CA3E2A260D7F0008E778 /* TreeFreeNoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA3D2A260D7F0008E778 /* TreeFreeNoteApp.swift */; };
 		0950CA402A260D7F0008E778 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0950CA3F2A260D7F0008E778 /* ContentView.swift */; };
 		0950CA422A260D850008E778 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0950CA412A260D850008E778 /* Assets.xcassets */; };
@@ -180,6 +184,10 @@
 		0945B0092AB71EF400AEC6D6 /* DocumentDetailsDialogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentDetailsDialogView.swift; sourceTree = "<group>"; };
 		0945B00B2AB729F200AEC6D6 /* DocumentEditLockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentEditLockView.swift; sourceTree = "<group>"; };
 		0945B00D2AB72B7000AEC6D6 /* DocumentsEditTagSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsEditTagSelectionView.swift; sourceTree = "<group>"; };
+		0945B00F2ABED36A00AEC6D6 /* ColudSyncModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColudSyncModel.swift; sourceTree = "<group>"; };
+		0945B0112ABEDB7100AEC6D6 /* credentials.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = credentials.plist; sourceTree = "<group>"; };
+		0945B04F2ABFDE9100AEC6D6 /* FoldersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersViewModel.swift; sourceTree = "<group>"; };
+		0945B0562AC15A0300AEC6D6 /* FoldersModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldersModel.swift; sourceTree = "<group>"; };
 		0950CA3A2A260D7F0008E778 /* TreeFreeNote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TreeFreeNote.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0950CA3D2A260D7F0008E778 /* TreeFreeNoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeFreeNoteApp.swift; sourceTree = "<group>"; };
 		0950CA3F2A260D7F0008E778 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -369,6 +377,7 @@
 			children = (
 				0937156E2AB03960003EC898 /* GoogleIntegration.swift */,
 				093715702AB03974003EC898 /* CloudIntegrationView.swift */,
+				0945B00F2ABED36A00AEC6D6 /* ColudSyncModel.swift */,
 			);
 			path = CloudIntegration;
 			sourceTree = "<group>";
@@ -410,6 +419,7 @@
 			isa = PBXGroup;
 			children = (
 				093715722AB03A5F003EC898 /* Info.plist */,
+				0945B0112ABEDB7100AEC6D6 /* credentials.plist */,
 				0950CA3D2A260D7F0008E778 /* TreeFreeNoteApp.swift */,
 				0937156D2AB03942003EC898 /* CloudIntegration */,
 				093715642AAEEE63003EC898 /* Extensions */,
@@ -782,6 +792,8 @@
 			isa = PBXGroup;
 			children = (
 				0991B6422A820DAE00E44FB8 /* CategoryViewModel.swift */,
+				0945B04F2ABFDE9100AEC6D6 /* FoldersViewModel.swift */,
+				0945B0562AC15A0300AEC6D6 /* FoldersModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -963,6 +975,7 @@
 				095BC8A82A5AA55D00729692 /* rotate@3x.png in Resources */,
 				095BC8A62A5AA55D00729692 /* Localizable.strings in Resources */,
 				0950CAAD2A34AFD30008E778 /* DocumentDBStructure in Resources */,
+				0945B0122ABEDB7100AEC6D6 /* credentials.plist in Resources */,
 				095BC8AD2A5AA55D00729692 /* flashUnavailable.png in Resources */,
 				095BC8AF2A5AA55D00729692 /* flash@3x.png in Resources */,
 				0950CA452A260D850008E778 /* Preview Assets.xcassets in Resources */,
@@ -1116,11 +1129,13 @@
 				095BC8C72A5AA55D00729692 /* EditScanCornerView.swift in Sources */,
 				095BC8B62A5AA55D00729692 /* CameraScannerViewController.swift in Sources */,
 				0924D6092A480FCD00FCF155 /* SegmentHeaderView.swift in Sources */,
+				0945B0502ABFDE9100AEC6D6 /* FoldersViewModel.swift in Sources */,
 				0988DAF72A95D539000F8C35 /* DocumentsViewModel.swift in Sources */,
 				0991B63D2A7FC10600E44FB8 /* DBManager.swift in Sources */,
 				095BC8C12A5AA55D00729692 /* UIImage+Orientation.swift in Sources */,
 				0945B00C2AB729F200AEC6D6 /* DocumentEditLockView.swift in Sources */,
 				0924D6012A42ABA800FCF155 /* BottomSheet.swift in Sources */,
+				0945B0572AC15A0300AEC6D6 /* FoldersModel.swift in Sources */,
 				0991B6302A6ED15200E44FB8 /* DocumentHandler.swift in Sources */,
 				0950CA7B2A278FF60008E778 /* NavigationHeaderView.swift in Sources */,
 				0950CA812A2796670008E778 /* CategoryItemView.swift in Sources */,
@@ -1189,6 +1204,7 @@
 				095BC8C02A5AA55D00729692 /* Array+Utils.swift in Sources */,
 				0950CAA82A2FA2680008E778 /* CustomFoldersListCell.swift in Sources */,
 				0924D6042A43F87F00FCF155 /* FormInputView.swift in Sources */,
+				0945B0102ABED36A00AEC6D6 /* ColudSyncModel.swift in Sources */,
 				095BC8C22A5AA55D00729692 /* UIImage+Utils.swift in Sources */,
 				095BC8B92A5AA55D00729692 /* AVCaptureVideoOrientation+Utils.swift in Sources */,
 				095BC8CA2A5AA55D00729692 /* CIRectangleDetector.swift in Sources */,
@@ -1402,7 +1418,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TreeFreeNote/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Treefree requires access to your phone’s camera.";
+				INFOPLIST_KEY_CFBundleDisplayName = ReNote;
+				INFOPLIST_KEY_NSCameraUsageDescription = "ReNote requires access to your phone’s camera.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1414,7 +1431,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.necun.TreeFreeNote;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ReNote.AI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -1435,7 +1452,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TreeFreeNote/Info.plist;
-				INFOPLIST_KEY_NSCameraUsageDescription = "Treefree requires access to your phone’s camera.";
+				INFOPLIST_KEY_CFBundleDisplayName = ReNote;
+				INFOPLIST_KEY_NSCameraUsageDescription = "ReNote requires access to your phone’s camera.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1447,7 +1465,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.necun.TreeFreeNote;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ReNote.AI;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DocumentListCell: View {
-   @Binding var document: Document
+    var document: DocumentModel
     var isFromPreview: Bool = false
     @Binding var isShowingBottomSheet: Bool
     @Binding var bottomSheetContentType: BottomSheetType
@@ -41,7 +41,7 @@ struct DocumentListCell: View {
     }
     
     private func loadImage() -> UIImage? {
-        return DocumentHandler().loadImageFromDocumentDirectory(fileName: self.document.title)
+        return DocumentHandler().loadImageFromDocumentDirectory(fileName: self.document.imageName)
     }
 }
 
@@ -55,7 +55,7 @@ private extension DocumentListCell {
     
     private var documentNameRowView: some View {
         HStack(alignment: .top) {
-            Text((document.title as NSString).lastPathComponent)
+            Text((document.name as NSString).lastPathComponent)
                 .font(.subheadline)
                 .fontWeight(.medium)
                 .fixedSize(horizontal: false, vertical: true)
@@ -81,14 +81,14 @@ private extension DocumentListCell {
     
     private var dateRowView: some View {
         HStack(alignment: .center) {
-            Text(document.creationDate)
+            Text(document.dateCreated)
                 .font(.subheadline)
                 .lineLimit(2)
                 .multilineTextAlignment(.leading)
                 .foregroundColor(Color.descriptionTextColor)
                 .padding(.horizontal, 5)
             Spacer()
-            Text(document.fileFormat)
+            Text(document.documentType)
                 .font(.system(size: 10,weight: .light))
                 .padding(.horizontal, 10)
                 .frame(height: 25)

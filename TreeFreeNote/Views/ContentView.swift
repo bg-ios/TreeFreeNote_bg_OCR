@@ -9,6 +9,24 @@ import SwiftUI
 import Combine
 import GoogleSignIn
 
+extension View {
+    func onReceive(
+        _ name: Notification.Name,
+        center: NotificationCenter = .default,
+        object: AnyObject? = nil,
+        perform action: @escaping (Notification) -> Void
+    ) -> some View {
+        onReceive(
+            center.publisher(for: name, object: object),
+            perform: action
+        )
+    }
+}
+
+extension NSNotification.Name {
+    static let onFolderCreation = Notification.Name("onFolderCreation")
+}
+
 struct ContentView: View {
     
     init() {
@@ -35,19 +53,21 @@ struct ContentView: View {
     @State var documentEditMenuType: PreviewMenuItems = .Details
     
     @StateObject var googleAuth: GoogleAuthModel =  GoogleAuthModel()
+    @ObservedObject var folderViewModel = FoldersViewModel()
 
+    
     var body: some View {
         ZStack {
             //TabView
             VStack(spacing: 0) {
                 TabView(selection: $selectedTab) {
-                    Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet, isAlertShown: $isAlertShown, isDocumentDialogShown: $isDocumentEditPreviewShown, categoriesViewModel: categoriesViewModel, documentsViewModel: documentsViewModel)
+                    Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet, isAlertShown: $isAlertShown, isDocumentDialogShown: $isDocumentEditPreviewShown, documentsViewModel: documentsViewModel, folderViewModel: folderViewModel)
                         .tag("Home")
                     
                     Text("Coming Soon")
                     .tag("QR Scan")
                     
-                    ScanView(scannedPages: [], isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, documentViewModel: documentsViewModel) {
+                    ScanView(scannedPages: [], isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, selectedTab: $selectedTab, documentViewModel: documentsViewModel) {
                         self.selectedTab = "Home"
                     }
                     .tag("Camera")
@@ -99,13 +119,15 @@ extension ContentView {
                 print(newTag)
             }, categoriesViewModel: categoriesViewModel))
         case .newFolder:
-            return AnyView(FolderCreationView(isShowingBottomSheet: $isShowingBottomSheet))
+            return AnyView(FolderCreationView(isShowingBottomSheet: $isShowingBottomSheet, createFolder: { folderName in
+                NotificationCenter.default.post(name: .onFolderCreation, object: nil)
+            }))
         case .folderConfirmationView:
             return AnyView(FolderConfirmationView(alertType: .confirmationAlert))
         case .eraseAlertView:
             return AnyView(FolderConfirmationView(alertType: .eraseAlert))
         case .documentPreview:
-            return AnyView(DocumentPreviewView(document: .constant(Document(title: "title", creationDate: "kjsdbcbkjscb", fileFormat: "PNG")), isShowingBottomSheet: $isShowingBottomSheet, isDocumentEditShown: $isDocumentEditPreviewShown, documentMenuType: $documentEditMenuType))
+            return AnyView(DocumentPreviewView(document: DocumentModel(), isShowingBottomSheet: $isShowingBottomSheet, isDocumentEditShown: $isDocumentEditPreviewShown, documentMenuType: $documentEditMenuType))
         }
     }
 }
