@@ -13,8 +13,9 @@ struct ScanView: View {
     @Binding var isTabViewShown: Bool
     @Binding var isShowingBottomSheet: Bool
     @Binding var bottomSheetContentType: BottomSheetType
-//    @Binding var selectedTab: String
+    @Binding var selectedTab: String
     
+    @State var isNavigated: Bool = false
     @ObservedObject var documentViewModel : DocumentsViewModel
 
     let backAction: () -> Void
@@ -26,6 +27,7 @@ struct ScanView: View {
             }
             .onAppear{
                 isTabViewShown = false
+                isNavigated.toggle()
             }
             .onDisappear{
                 isTabViewShown.toggle()
@@ -56,7 +58,7 @@ struct ScanView: View {
     }
     
     private func makeScannerView()-> DocumentScannerView {
-        DocumentScannerView(documentViewModel: documentViewModel, isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType) { result in
+        DocumentScannerView(documentViewModel: documentViewModel, isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, isNavigated: $isNavigated, bottomSheetContentType: $bottomSheetContentType, selectedTab: $selectedTab) { result in
             switch result {
             case .success(let scannedImages): break
 //                self.saveImagesToFileDirectory(scannedPages: scannedImages)
@@ -79,7 +81,7 @@ struct ScanView: View {
             }
         }
     }
-    
+    /*
     private func saveImagesToFileDirectory(scannedPages: [UIImage]) {
         let documentHandler = DocumentHandler()
         let date = Date()
@@ -95,6 +97,7 @@ struct ScanView: View {
         }
         
     }
+     */
     
     
 }

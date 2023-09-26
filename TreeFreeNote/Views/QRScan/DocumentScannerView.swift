@@ -13,7 +13,9 @@ struct DocumentScannerView: UIViewControllerRepresentable {
     var documentViewModel : DocumentsViewModel
     @Binding var isTabViewShown : Bool
     @Binding var isShowingBottomSheet: Bool
+    @Binding var isNavigated: Bool
     @Binding var bottomSheetContentType: BottomSheetType
+    @Binding var selectedTab: String
 
     var didFinishScanning: ((_ result: Result<[UIImage], Error>) -> Void)
     var didCancelScanning: () -> Void
@@ -27,7 +29,7 @@ struct DocumentScannerView: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: VNDocumentCameraViewController, context: Context) { }
     
     func makeCoordinator() -> Coordinator {
-        Coordinator(with: self, documentModel: documentViewModel, isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType)
+        Coordinator(with: self, documentModel: documentViewModel, isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigated: $isNavigated, selectedTab: $selectedTab)
     }
     
     class Coordinator: NSObject, VNDocumentCameraViewControllerDelegate {
@@ -35,14 +37,18 @@ struct DocumentScannerView: UIViewControllerRepresentable {
         var documentViewModel : DocumentsViewModel
         @Binding var isTabViewShown : Bool
         @Binding var isShowingBottomSheet: Bool
+        @Binding var isNavigated: Bool
         @Binding var bottomSheetContentType: BottomSheetType
+        @Binding var selectedTab: String
 
-        init(with scannerView: DocumentScannerView, documentModel: DocumentsViewModel, isTabViewShown: Binding<Bool>, isShowingBottomSheet: Binding<Bool>, bottomSheetContentType: Binding<BottomSheetType>) {
+        init(with scannerView: DocumentScannerView, documentModel: DocumentsViewModel, isTabViewShown: Binding<Bool>, isShowingBottomSheet: Binding<Bool>, bottomSheetContentType: Binding<BottomSheetType>, isNavigated: Binding<Bool>, selectedTab: Binding<String>) {
             self.scannerView = scannerView
             self.documentViewModel = documentModel
             self._isTabViewShown = isTabViewShown
             self._isShowingBottomSheet = isShowingBottomSheet
             self._bottomSheetContentType = bottomSheetContentType
+            self._isNavigated = isNavigated
+            self._selectedTab = selectedTab
         }
         
         // MARK: - VNDocumentCameraViewControllerDelegate
@@ -55,11 +61,11 @@ struct DocumentScannerView: UIViewControllerRepresentable {
             }
             
             scannerView.didFinishScanning(.success(scannedPages))
-//            controller.dismiss(animated: true, completion: nil)
+            controller.dismiss(animated: true, completion: nil)
             
-            let previewView = ScannedImagePreviewView(imageNames: scannedPages, isFromScanner: true, isShowingBottomSheet: $isTabViewShown, bottomSheetContentType: $bottomSheetContentType, isTabViewShown: $isShowingBottomSheet, documentsViewModel: self.documentViewModel)
+            let previewView = ScannedImagePreviewView(imageNames: scannedPages, isFromScanner: true, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigated: $isNavigated, selectedTab: $selectedTab, isTabViewShown: $isTabViewShown, documentsViewModel: self.documentViewModel)
+                
             
-//            let previewController = FoldersListView(foldersArray: ["Personal", "Business"], isTabViewShown: .constant(true))
             let previewHostingController = UIHostingController(rootView: previewView)
             
             controller.parent?.navigationController?.pushViewController(previewHostingController, animated: true)

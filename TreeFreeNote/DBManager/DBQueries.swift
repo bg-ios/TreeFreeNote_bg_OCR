@@ -20,7 +20,7 @@ class querys {
 //    }
     let dbManager = DBManager.shared
     //creating Tables
-    let folderTableString = "CREATE TABLE IF NOT EXISTS folders(Id INTEGER PRIMARY KEY,created_date TEXT, folder_name TEXT, parent_folder TEXT, storage_type INTEGER, cloud_storage_id TEXT, pin_status TEXT NOT NULL DEFAULT '0');"
+    let folderTableString = "CREATE TABLE IF NOT EXISTS folders(Id INTEGER PRIMARY KEY,created_date TEXT, folder_name TEXT, parent_folder TEXT, storage_type TEXT, cloud_storage_id TEXT, pin_status TEXT NOT NULL DEFAULT '0');"
     
     let documentTableString = "CREATE TABLE IF NOT EXISTS documents(Id INTEGER PRIMARY KEY,document_name TEXT,created_date TEXT, document_type TEXT, linked_tag_id TEXT, security TEXT, folder_id INTEGER, sync INTEGER NOT NULL DEFAULT '0', pin_status INTEGER NOT NULL DEFAULT '0');"
     
@@ -31,8 +31,9 @@ class querys {
     let tagTableString = "CREATE TABLE IF NOT EXISTS tags(Id INTEGER PRIMARY KEY, tag_name TEXT);"
     
     
-    let home_page_folder_query = "select f.*,count(d.id) as documentCount , SUM(CASE WHEN d.sync=1 THEN 1 ELSE 0 END) as syncStatusCount from folders as f inner join documents as d on f.id=d.folder_id group by f.id"
+    let home_page_folder_query = "select f.*,count(d.id) as documentCount , SUM(CASE WHEN d.sync=1 THEN 1 ELSE 0 END) as syncStatusCount from folders as f left join documents as d on f.id=d.folder_id group by f.id"
 
+    let documents_home_page_query = "select d.*,fp.file_path,f.folder_name as parent_folder,sub.folder_name as sub_folder_name  from documents as d  left join folders as sub on sub.id=d.folder_id left join (select s.id,ls.folder_name from folders as s left join folders as ls on ls.id=s.parent_folder group by ls.id) as f on f.id=d.folder_id inner join  pages as fp on (fp.document_id=d.id and fp.page_number=1) group by d.id"
     
     func create_tables(){
         dbManager.createTable(sql_query: folderTableString)
@@ -40,6 +41,7 @@ class querys {
         dbManager.createTable(sql_query: pagesTableString)
         dbManager.createTable(sql_query: securityTableString)
         dbManager.createTable(sql_query: tagTableString)
+        self.checkDefaultTagsInfo()
     }
     
     func insertFolder(folder_name: String, parent_folder: String, cloud_storage_id: String, storage_type: String){
@@ -116,6 +118,23 @@ class querys {
     
     func getHomePageInfo() -> Array<Dictionary<String, Any>> {
         return dbManager.getQueryDetails(query: home_page_folder_query)
+    }
+    
+    func getDocumentsHomePageInfo() -> Array<Dictionary<String, Any>> {
+        return dbManager.getQueryDetails(query: documents_home_page_query)
+    }
+    
+    func checkDefaultTagsInfo() {
+        let values = self.get_value_of_tabel(tableName: DBTableName.tags.rawValue)
+        if values.isEmpty {
+            self.insertDefaultDefaultTagsInfo()
+        }
+    }
+    
+    func insertDefaultDefaultTagsInfo() {
+        self.insertTags(tag_name: "All")
+        self.insertTags(tag_name: "Starred")
+        self.insertTags(tag_name: "MostViewed")
     }
     
 }

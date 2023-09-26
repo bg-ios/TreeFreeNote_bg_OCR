@@ -71,6 +71,11 @@ import UIKit
         UserDefaults.standard.set(dataToBeSaved, forKey: key)
     }
     
+    class func setDataToSave(key: String, dataToBeSaved: Any) {
+        UserDefaults.standard.set(dataToBeSaved, forKey: key)
+    }
+    
+    
     class func getStringArrayFromUserDefaults(key: String) -> [String]? {
         if let storedData = UserDefaults.standard.stringArray(forKey: key) {
             return storedData

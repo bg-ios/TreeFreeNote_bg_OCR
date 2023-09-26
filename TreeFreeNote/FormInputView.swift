@@ -11,17 +11,19 @@ struct FormInputView: View {
     @Binding var formInputText: String //= ""
     var fieldName: String
     var fieldPlaceholder: String
-    
+    var isDropDown: Bool = false
+    var dropDownList: [String] = []
+
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
                 Text(fieldName)
-                    .font(.title3)
+                    .font(.subheadline)
                     .fontWeight(.regular)
                     .foregroundColor(Color.black)
                     .frame(width: 100, alignment: .leading)
                     .padding(.trailing, 16)
-                RoundedTextField(inputText: $formInputText, placeHolder: fieldPlaceholder)
+                RoundedTextField(inputText: $formInputText, placeHolder: fieldPlaceholder, isDropDown: isDropDown, dropDownList: dropDownList)
                 //git test
                 
             }

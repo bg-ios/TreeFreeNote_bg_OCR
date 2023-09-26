@@ -61,18 +61,37 @@ class GoogleAuthModel: ObservableObject {
 
         // 3
         
-        // let configuration = GIDConfiguration(clientID: "550523887039-kaa44usncpn0d1o9fjrk6mgv9r65s85h.apps.googleusercontent.com")
+        // let configuration = GIDConfiguration(clientID: "313339963339-tkkv35so06n2qp8cuconso0rp2bagurd.apps.googleusercontent.com")
 
         // 4
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
         guard let rootViewController = windowScene.windows.first?.rootViewController else { return }
         // 5
-          let gIdConfiguration = GIDConfiguration(clientID: "550523887039-kaa44usncpn0d1o9fjrk6mgv9r65s85h.apps.googleusercontent.com", serverClientID: "550523887039-kaa44usncpn0d1o9fjrk6mgv9r65s85h.apps.googleusercontent.com")
+          let gIdConfiguration = GIDConfiguration(clientID: "313339963339-tkkv35so06n2qp8cuconso0rp2bagurd.apps.googleusercontent.com", serverClientID: "313339963339-tkkv35so06n2qp8cuconso0rp2bagurd.apps.googleusercontent.com")
         GIDSignIn.sharedInstance.configuration = gIdConfiguration
+        GIDSignIn.sharedInstance.currentUser?.addScopes([kGTLRAuthScopeDrive], presenting: rootViewController)
+
           rootViewController.modalPresentationStyle = .fullScreen
-          GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController) { result, error in
-              if let user = result?.user{
+
+        GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController, hint: "google login", additionalScopes: [kGTLRAuthScopeDrive]) { result, error in
+            
+            if let user = result?.user {
                   print(user)
+                  var gDriveUsers = NSMutableDictionary()
+
+                  if let userArray = AppPersistenceUtility.getObjectFromUserDefaults(key: "GoogleDriveUsers") as? Dictionary<String, Any> {
+                      
+                      gDriveUsers = NSMutableDictionary(dictionary: userArray)
+                      
+                  }
+                  
+                  guard let userEmail = user.profile?.email else {
+                      //TODO: Show Alert as invalid user
+                      return
+                  }
+                  gDriveUsers.setValue(user, forKey: userEmail.lowercased())
+                  AppPersistenceUtility.setObjectToUserDefaults(key: "GoogleDriveUsers", dataToBeSaved: gDriveUsers)
+                  
               }else{
                   print(error as Any)
               }

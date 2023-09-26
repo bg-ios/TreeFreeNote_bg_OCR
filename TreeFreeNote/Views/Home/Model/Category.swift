@@ -6,31 +6,18 @@
 //
 
 import Foundation
-// Model and Sample Data
 
-struct Category: Identifiable, Equatable, Codable, Hashable {
-    var id = UUID()
-    var title: String
+struct Category: Identifiable, Equatable, Hashable {
+    
+    var id : Int = 0
+    var title: String = ""
     var isSelected: Bool = false
+    
+    static func == (lhs: Category, rhs: Category) -> Bool {
+        return lhs.title == rhs.title
+    }
     
     mutating func updateState(selectedState: Bool) {
         self.isSelected = selectedState
     }
 }
-
-//struct CategoriesModel {
-//    private(set) var categories :[Category] = []
-//
-//    mutating func addCategory(_ category: Category){
-//        categories.append(category)
-//    }
-//}
-
-var categories = [
-    Category(title: "All"),
-    Category(title: "Starred"),
-    Category(title: "Most Viewed"),
-    Category(title: "College Documents"),
-    Category(title: "Business Cards"),
-    Category(title: "ID Proofs")
-]

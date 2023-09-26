@@ -7,10 +7,10 @@
 
 import Foundation
 
-final class DocumentListModel: ObservableObject {
-    @Published var documents: [DocumentModel]
- 
-    init(documents: [DocumentModel]) {
-        self.documents = documentModelSamples
-    }
-}
+//final class DocumentListModel: ObservableObject {
+//    @Published var documents: [DocumentModel]
+// 
+//    init(documents: [DocumentModel]) {
+//        self.documents = documentModelSamples
+//    }
+//}

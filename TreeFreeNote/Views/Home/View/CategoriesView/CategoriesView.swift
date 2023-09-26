@@ -9,14 +9,15 @@ import SwiftUI
 
 struct CategoriesView: View {
     
-    @ObservedObject var categoriesViewModel = CategoriesViewModel()
+//    @ObservedObject
+    var categoriesViewModel = CategoriesViewModel()
     @Namespace var animation
 
     var body: some View {
         ScrollViewReader {scrollView in
             ScrollView(.horizontal, showsIndicators: false,content: {
                 HStack(spacing: 10) {
-                    ForEach(categoriesViewModel.categories){ category in
+                    ForEach(categoriesViewModel.categories, id: \.self){ category in
                         Button {
                             withAnimation(.spring()) {
                                 self.categoriesViewModel.updateStateForCategory(category: category)
@@ -32,6 +33,9 @@ struct CategoriesView: View {
                 if let selectedCategory = categoriesViewModel.categories.first(where: { $0.isSelected }) {
                     scrollView.scrollTo(selectedCategory, anchor: .center)
                 }
+            }
+            .onAppear{
+                self.categoriesViewModel.getCategoriesFromDB()
             }
         }
     }
