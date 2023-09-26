@@ -76,10 +76,9 @@ struct CustomFoldersListCell: View {
                             }
                             Spacer()
                                 .background(Color.red)
-                            if let storageType = folderInfo.storageType {
-//                                , let storageTypeIcon = StorageType(rawValue: storageType)?.storageTypeImage {
+                            if let storageType = folderInfo.storageType, let storageTypeIcon = StorageType(rawValue: storageType)?.storageTypeImage {
                                 
-                                Image(StorageType.GoogleDrive.folderStorageIcon)
+                                Image(storageTypeIcon)
                                     .resizable()
                                     .renderingMode(.original)
                                     .frame(width: 18, height: 18)
@@ -96,14 +95,13 @@ struct CustomFoldersListCell: View {
                 .offset(y: 15)
                 
                 ZStack {
-                    if let storageType = folderInfo.storageType {
-                        //, let bgIcon = StorageType(rawValue: storageType)?.folderStorageBg, let storageIcon = StorageType(rawValue: storageType)?.folderStorageIcon {
-                        Image(StorageType.Device.folderStorageBg) //bgIcon
+                    if let storageType = folderInfo.storageType, let bgIcon = StorageType(rawValue: storageType)?.folderStorageBg, let storageIcon = StorageType(rawValue: storageType)?.folderStorageIcon {
+                        Image(bgIcon)
                             .resizable()
                             .renderingMode(.template)
                             .frame(width: 35, height: 35)
                             .foregroundColor(Color.green)
-                        Image(StorageType.Device.folderStorageIcon) //storageIcon
+                        Image(storageIcon)
                             .resizable()
                             .renderingMode(.original)
                             .frame(width: 15, height: 15)
