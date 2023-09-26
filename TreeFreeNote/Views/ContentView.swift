@@ -75,10 +75,11 @@ struct ContentView: View {
                     Text("Coming Soon")
                     .tag("OCR Scan")
                     
-                    NavigationView{
-                        CloudIntegrationView()
-                    }
-                    .environmentObject(googleAuth)
+//                    NavigationView{
+//                        CloudIntegrationView()
+//                    }
+//                    .environmentObject(googleAuth)
+                    Text("Coming Soon")
                     .tag("Import")
                 }
                 
@@ -119,9 +120,11 @@ extension ContentView {
                 print(newTag)
             }, categoriesViewModel: categoriesViewModel))
         case .newFolder:
-            return AnyView(FolderCreationView(isShowingBottomSheet: $isShowingBottomSheet, createFolder: { folderName in
+            return AnyView(FolderCreationView(isShowingBottomSheet: $isShowingBottomSheet, saveAccount: .constant(""), createFolder: { folderName in
                 NotificationCenter.default.post(name: .onFolderCreation, object: nil)
-            }))
+            })
+                .environmentObject(googleAuth)
+            )
         case .folderConfirmationView:
             return AnyView(FolderConfirmationView(alertType: .confirmationAlert))
         case .eraseAlertView:

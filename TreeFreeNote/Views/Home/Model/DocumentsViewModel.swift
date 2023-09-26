@@ -16,10 +16,19 @@ public class DocumentsViewModel : ObservableObject {
 
     func getDocumentsFromDB() {
         let documentsArray = querys().getDocumentsHomePageInfo()
-        
         self.documentsList.removeAll()
-        
-        print("refresh documentsArray-- %@", documentsArray)
+        self.parseDocumentsDetails(documentsArray: documentsArray)
+    }
+    
+    
+    func getDocumentsList(with folderId: String) {
+        let documentsArray = querys().getDocumentsListWith(folderId: folderId)
+        self.documentsList.removeAll()
+        self.parseDocumentsDetails(documentsArray: documentsArray)
+
+    }
+    
+    func parseDocumentsDetails(documentsArray: Array<Dictionary<String, Any>>) {
         
         for folderDetails in documentsArray {
             var documentModel = DocumentModel()
@@ -57,6 +66,5 @@ public class DocumentsViewModel : ObservableObject {
             
         }
     }
-    
 }
 
