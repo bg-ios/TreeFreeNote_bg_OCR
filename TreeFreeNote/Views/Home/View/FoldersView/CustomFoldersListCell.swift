@@ -67,11 +67,12 @@ struct CustomFoldersListCell: View {
                             .frame(height: 20)
                         
                         HStack(spacing: 10) {
-                            Text(folderInfo.cloudStoreId)
-                                .foregroundColor(Color.descriptionTextColor)
-                                .font(.system(size: 12, weight: .thin))
-                                .fontWeight(.medium)
-                            
+                            if !folderInfo.storageType.isEmpty {
+                                Text(folderInfo.storageType)
+                                    .foregroundColor(Color.descriptionTextColor)
+                                    .font(.system(size: 12, weight: .thin))
+                                    .fontWeight(.medium)
+                            }
                             Spacer()
                                 .background(Color.red)
                             if let storageTypeIcon = StorageType(rawValue: folderInfo.storageType)?.storageTypeImage {

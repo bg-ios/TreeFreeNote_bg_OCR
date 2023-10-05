@@ -22,9 +22,10 @@ class DocumentHandler {
         let fileName = "image_\(randomString).jpeg"
         var directoryUrl = getDocumentDirectory()
         directoryUrl = directoryUrl.appendingPathExtension("ReNote/")
-        if !selectedFolder.isEmpty {
-            directoryUrl = directoryUrl.appendingPathExtension(selectedFolder)
-        }
+        
+//        if !selectedFolder.isEmpty {
+//            directoryUrl = directoryUrl.appendingPathExtension(selectedFolder)
+//        }
         
         directoryUrl = directoryUrl.appendingPathComponent(fileName)
         
