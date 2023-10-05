@@ -75,14 +75,12 @@ struct FoldersListView : View {
                     
                     
                     Button (action: {
-                        if !selectedFolderName.isEmpty {
+//                        if !selectedFolderName.isEmpty {
                             self.saveImageToDocumentDictory()
                             TestObservers.shared.isDocumentSaved = true
-
-                        }
+//                        }
                         //TODO: Navigate to home tab after saving
                         self.isNavigate = false
-//                        TestObservers.shared.isScannedDocUpdated = true
                         selectedTab = "Home"
 
                     }) {
@@ -130,16 +128,19 @@ struct FoldersListView : View {
     
     func saveImageToDocumentDictory() {
         let documentHandler = DocumentHandler()
+        var storageType: String = "Device"
+        var folderId : String = ""
         let queries = querys()
-        let folderId = queries.get_folder_id(folder_name: selectedFolderName)
-        let foldersInfo = queries.get_value_of_tabel(tableName: DBTableName.folders.rawValue)
-        
-        let folderInfo = foldersInfo.first(where: { $0["folder_name"] as? String == selectedFolderName })
-        var storageType: String = ""
-        if let storage = folderInfo?["storage_type"] as? String {
-            storageType = storage
+        var folderInfo: Dictionary<String, Any> = [:]
+        if !selectedFolderName.isEmpty {
+            folderId = queries.get_folder_id(folder_name: selectedFolderName)
+            let foldersInfo = queries.get_value_of_tabel(tableName: DBTableName.folders.rawValue)
+            
+            folderInfo = foldersInfo.first(where: { $0["folder_name"] as? String == selectedFolderName }) ?? [:]
+            if let storage = folderInfo["storage_type"] as? String {
+                storageType = storage
+            }
         }
-        
         queries.insertDocuments(title: documentName, documentType: "jpeg", linkedTagId: "", security: "", storage_type: storageType, folderId: folderId)
         
         let documentId = queries.get_max_id_table(table_name: DBTableName.documents.rawValue)
@@ -155,9 +156,9 @@ struct FoldersListView : View {
         
 //        if let storageType = folderInfo?["storage_type"] as? String, storageType == "GoogleDrive", alet email = folderInfo?["cloud_storage_id"] as? String {
             
-        if let email = folderInfo?["cloud_storage_id"] as? String {
+        if !folderInfo.isEmpty, let email = folderInfo["cloud_storage_id"] as? String {
             if let userArray = AppPersistenceUtility.getObjectFromUserDefaults(key: "GoogleDriveUsers") as? Dictionary<String, Any>, let userInfo = userArray[email] as? GIDGoogleUser {
-                ColudSyncModel().uploadScannedImagesToGoogleDrive(user: userInfo, imagePaths: imageDirectoryPaths, folderName: "")
+                ColudSyncModel().uploadScannedImagesToGoogleDrive(user: userInfo, imagePaths: imageDirectoryPaths, folderName: selectedFolderName)
             }
         }
         

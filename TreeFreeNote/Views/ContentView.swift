@@ -116,9 +116,10 @@ extension ContentView {
     func createBottomSheetContentView() -> AnyView {
         switch bottomSheetContentType {
         case .newTag:
-            return AnyView(TagCreationView(isShowingBottomSheet: $isShowingBottomSheet, createTag: { newTag in
-                print(newTag)
-            }, categoriesViewModel: categoriesViewModel))
+//            return AnyView(TagCreationView(isShowingBottomSheet: $isShowingBottomSheet, createTag: { newTag in
+//                print(newTag)
+//            }, categoriesViewModel: categoriesViewModel))
+            return AnyView(EmptyView())
         case .newFolder:
             return AnyView(FolderCreationView(isShowingBottomSheet: $isShowingBottomSheet, saveAccount: .constant(""), createFolder: { folderName in
                 NotificationCenter.default.post(name: .onFolderCreation, object: nil)
@@ -126,9 +127,11 @@ extension ContentView {
                 .environmentObject(googleAuth)
             )
         case .folderConfirmationView:
-            return AnyView(FolderConfirmationView(alertType: .confirmationAlert))
+            return AnyView(EmptyView())
+//            return AnyView(FolderConfirmationView(alertType: .confirmationAlert))
         case .eraseAlertView:
-            return AnyView(FolderConfirmationView(alertType: .eraseAlert))
+            return AnyView(EmptyView()) 
+//            return AnyView(FolderConfirmationView(alertType: .eraseAlert))
         case .documentPreview:
             return AnyView(DocumentPreviewView(document: DocumentModel(), isShowingBottomSheet: $isShowingBottomSheet, isDocumentEditShown: $isDocumentEditPreviewShown, documentMenuType: $documentEditMenuType))
         }
