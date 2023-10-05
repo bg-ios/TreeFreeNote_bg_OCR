@@ -61,22 +61,20 @@ struct CustomFoldersListCell: View {
                     folderPropertiesView
                         .padding(.trailing, -10)
                     VStack(alignment: .leading, spacing: 2) {
-                        if let folderName = folderInfo.folderName {
-                            Text(folderName)
-                                .foregroundColor(Color.priaryTextColor)
-                                .font(.system(size: 14, weight: .medium))
-                                .frame(height: 20)
-                        }
+                        Text(folderInfo.folderName)
+                            .foregroundColor(Color.priaryTextColor)
+                            .font(.system(size: 14, weight: .medium))
+                            .frame(height: 20)
+                        
                         HStack(spacing: 10) {
-                            if let cloudMail = folderInfo.cloudStoreId {
-                                Text(cloudMail)
-                                    .foregroundColor(Color.descriptionTextColor)
-                                    .font(.system(size: 12, weight: .thin))
-                                    .fontWeight(.medium)
-                            }
+                            Text(folderInfo.cloudStoreId)
+                                .foregroundColor(Color.descriptionTextColor)
+                                .font(.system(size: 12, weight: .thin))
+                                .fontWeight(.medium)
+                            
                             Spacer()
                                 .background(Color.red)
-                            if let storageType = folderInfo.storageType, let storageTypeIcon = StorageType(rawValue: storageType)?.storageTypeImage {
+                            if let storageTypeIcon = StorageType(rawValue: folderInfo.storageType)?.storageTypeImage {
                                 
                                 Image(storageTypeIcon)
                                     .resizable()
@@ -95,7 +93,7 @@ struct CustomFoldersListCell: View {
                 .offset(y: 15)
                 
                 ZStack {
-                    if let storageType = folderInfo.storageType, let bgIcon = StorageType(rawValue: storageType)?.folderStorageBg, let storageIcon = StorageType(rawValue: storageType)?.folderStorageIcon {
+                    if let bgIcon = StorageType(rawValue: folderInfo.storageType)?.folderStorageBg, let storageIcon = StorageType(rawValue: folderInfo.storageType)?.folderStorageIcon {
                         Image(bgIcon)
                             .resizable()
                             .renderingMode(.template)
@@ -120,8 +118,8 @@ extension CustomFoldersListCell {
     var folderPropertiesView: some View {
         HStack(spacing: 5) {
             Spacer()
-            if let documentCount = folderInfo.documentCount, Int(documentCount) ?? 0 > 0 {
-                Text("\(documentCount)")
+            if Int(folderInfo.documentCount) ?? 0 > 0 {
+                Text("\(folderInfo.documentCount)")
                     .foregroundColor(Color.secondaryTextColor)
                     .font(.subheadline)
                     .frame(height: 30)

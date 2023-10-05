@@ -50,8 +50,8 @@ struct Home: View {
                             .padding(10)
  */
                         //Folder Horizontal View
-                        if let foldersList = folderViewModel.foldersArray, !foldersList.isEmpty {
-                            FoldersHorizontalListView(foldersArray: foldersList, isShowingBottomSheet: $isShowingBottomSheet, isDocumentDialogShown: $isDocumentDialogShown, bottomSheetContentType: $bottomSheetContentType, selectedTab: .constant("Home"), documentsViewModel: documentsViewModel) 
+                        if !folderViewModel.foldersArray.isEmpty {
+                            FoldersHorizontalListView(foldersArray: folderViewModel.foldersArray, isShowingBottomSheet: $isShowingBottomSheet, isDocumentDialogShown: $isDocumentDialogShown, bottomSheetContentType: $bottomSheetContentType, selectedTab: .constant("Home"), documentsViewModel: documentsViewModel) 
                                 .frame(height: 120)
                         }
                         

@@ -35,11 +35,10 @@ struct DocumentPreviewCustomDialogView: View {
                                 .scaledToFit()
                                 .frame(width: 25, height: 25)
                         }
-                        if let title = title {
-                            Text(title)
-                                .font(.headline)
-                                .multilineTextAlignment(.center)
-                        }
+                        Text(title)
+                            .font(.headline)
+                            .multilineTextAlignment(.center)
+                        
                         if let image = rightHeaderImage {
                             image
                                 .resizable()
