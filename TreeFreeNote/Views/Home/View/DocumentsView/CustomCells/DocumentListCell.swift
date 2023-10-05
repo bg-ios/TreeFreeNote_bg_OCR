@@ -65,6 +65,7 @@ private extension DocumentListCell {
                 .padding(.horizontal, 5)
             
             Spacer()
+            /*
             CustomLogoButton(imageName: isFromPreview ? "Close" : "share") {
                 print("share action")
                 if isFromPreview {
@@ -76,6 +77,7 @@ private extension DocumentListCell {
                 print("share action")
             }
             .padding(.horizontal,5)
+             */
         }
     }
     
@@ -133,6 +135,7 @@ private extension DocumentListCell {
                 .onTapGesture {
                     print("starred action")
                 }
+                /*
                 if !isFromPreview {
                     CustomLogoButton(imageName: "moreIcon") {
                         print("more action")
@@ -145,6 +148,7 @@ private extension DocumentListCell {
                         isShowingBottomSheet.toggle() // bottom Sheet
                     }
                 }
+                 */
             }
         }
     }

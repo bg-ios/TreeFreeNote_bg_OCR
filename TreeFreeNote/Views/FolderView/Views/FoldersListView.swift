@@ -75,6 +75,9 @@ struct FoldersListView : View {
                     
                     
                     Button (action: {
+//                        if selectedFolderName.isEmpty {
+//                            selectedFolderName = "ReNote"
+//                        }
 //                        if !selectedFolderName.isEmpty {
                             self.saveImageToDocumentDictory()
                             TestObservers.shared.isDocumentSaved = true
@@ -132,15 +135,19 @@ struct FoldersListView : View {
         var folderId : String = ""
         let queries = querys()
         var folderInfo: Dictionary<String, Any> = [:]
-        if !selectedFolderName.isEmpty {
-            folderId = queries.get_folder_id(folder_name: selectedFolderName)
-            let foldersInfo = queries.get_value_of_tabel(tableName: DBTableName.folders.rawValue)
-            
-            folderInfo = foldersInfo.first(where: { $0["folder_name"] as? String == selectedFolderName }) ?? [:]
-            if let storage = folderInfo["storage_type"] as? String {
-                storageType = storage
-            }
+        if selectedFolderName.isEmpty {
+            selectedFolderName = "ReNote_AI"
+            self.createDefaultFolder()
         }
+        
+        folderId = queries.get_folder_id(folder_name: selectedFolderName)
+        let foldersInfo = queries.get_value_of_tabel(tableName: DBTableName.folders.rawValue)
+        
+        folderInfo = foldersInfo.first(where: { $0["folder_name"] as? String == selectedFolderName }) ?? [:]
+        if let storage = folderInfo["storage_type"] as? String {
+            storageType = storage
+        }
+        
         queries.insertDocuments(title: documentName, documentType: "jpeg", linkedTagId: "", security: "", storage_type: storageType, folderId: folderId)
         
         let documentId = queries.get_max_id_table(table_name: DBTableName.documents.rawValue)
@@ -154,18 +161,26 @@ struct FoldersListView : View {
         queries.insertPages(documentId: documentId, filesPathArray: imageDirectoryPaths)
         DocumentsObserver.shared.isDocumentsSaved = true
         
-//        if let storageType = folderInfo?["storage_type"] as? String, storageType == "GoogleDrive", alet email = folderInfo?["cloud_storage_id"] as? String {
-            
+        //        if let storageType = folderInfo?["storage_type"] as? String, storageType == "GoogleDrive", alet email = folderInfo?["cloud_storage_id"] as? String {
+        
         if !folderInfo.isEmpty, let email = folderInfo["cloud_storage_id"] as? String {
             if let userArray = AppPersistenceUtility.getObjectFromUserDefaults(key: "GoogleDriveUsers") as? Dictionary<String, Any>, let userInfo = userArray[email] as? GIDGoogleUser {
                 ColudSyncModel().uploadScannedImagesToGoogleDrive(user: userInfo, imagePaths: imageDirectoryPaths, folderName: selectedFolderName)
             }
         }
         
-
     }
     
-    
+    private func createDefaultFolder() {
+        let query = querys()
+        let is_exits = query.value_exits(folder_name: self.selectedFolderName)
+//        var folder_id = ""
+        if !is_exits {
+            query.insertFolder(folder_name: self.selectedFolderName, parent_folder: "", cloud_storage_id: "", storage_type: "Device")
+            //TODO: Show Folder creation success alert
+        }
+        
+    }
     
 }
 

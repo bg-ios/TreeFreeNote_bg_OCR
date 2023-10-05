@@ -64,7 +64,7 @@ struct ContentView: View {
                     Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet, isAlertShown: $isAlertShown, isDocumentDialogShown: $isDocumentEditPreviewShown, documentsViewModel: documentsViewModel, folderViewModel: folderViewModel)
                         .tag("Home")
                     
-                    Text("Coming Soon")
+                    QRCodeScannerView(isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, selectedTab: $selectedTab)
                     .tag("QR Scan")
                     
                     ScanView(scannedPages: [], isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, selectedTab: $selectedTab, documentViewModel: documentsViewModel) {
@@ -79,7 +79,7 @@ struct ContentView: View {
 //                        CloudIntegrationView()
 //                    }
 //                    .environmentObject(googleAuth)
-                    Text("Coming Soon")
+                    ImportView(isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, selectedTab: $selectedTab, bottomSheetContentType: $bottomSheetContentType, documentViewModel: documentsViewModel)
                     .tag("Import")
                 }
                 
