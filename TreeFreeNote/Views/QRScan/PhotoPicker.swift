@@ -8,6 +8,7 @@
 import SwiftUI
 import PhotosUI
 
+/*
 struct PhotoPickerView: UIViewControllerRepresentable {
     @Binding var selectedImages: [UIImage]
     var didFinishImportingImages: () -> Void
@@ -39,20 +40,24 @@ struct PhotoPickerView: UIViewControllerRepresentable {
         }
 
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            for result in results {
-                if result.itemProvider.canLoadObject(ofClass: UIImage.self) {
-                    result.itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
-                        if let image = image as? UIImage {
-                            DispatchQueue.main.async {
-                                self.parent.selectedImages.append(image)
-                            }
-                        }
-                    }
+            parent.selectedImages.removeAll()
+            
+            for image in results {
+              if image.itemProvider.canLoadObject(ofClass: UIImage.self) {
+                image.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] newImage, error in
+                  if let error = error {
+                    print("Can't load image \(error.localizedDescription)")
+                  } else if let image = newImage as? UIImage {
+                    self?.parent.selectedImages.append(image)
+                  }
                 }
+              } else {
+                print("Can't load asset")
+              }
             }
-
-            picker.dismiss(animated: true, completion: nil)
+            
             parent.didFinishImportingImages()
-        }
+          }
     }
 }
+*/

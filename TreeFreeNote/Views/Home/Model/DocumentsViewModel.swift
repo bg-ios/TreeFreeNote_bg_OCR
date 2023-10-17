@@ -8,7 +8,7 @@
 import Foundation
 
 public class DocumentsViewModel : ObservableObject {
-    var documentsList: [DocumentModel] = []
+    @Published var documentsList: [DocumentModel] = []
 
     init() {
         self.getDocumentsFromDB()

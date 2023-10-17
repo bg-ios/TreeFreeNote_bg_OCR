@@ -21,7 +21,7 @@ struct TagCreationView: View {
                 Spacer()
                 Button {
                     print("close action")
-                    isShowingBottomSheet.toggle()
+                    isShowingBottomSheet = false //.toggle()
                 } label: {
                     Image(systemName: "xmark.circle")
                         .aspectRatio(contentMode: .fit)
@@ -54,7 +54,7 @@ struct TagCreationView: View {
                     } else {
                         self.createTag?(tagName)
                         categoriesViewModel.addCategory(Category(title: tagName))
-                        isShowingBottomSheet.toggle()
+                        isShowingBottomSheet = false//.toggle()
                     }
                 } label: {
                     HStack {

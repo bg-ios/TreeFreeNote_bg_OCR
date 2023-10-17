@@ -45,28 +45,28 @@ struct HomeScreenSearchContainerView: View {
                             .stroke(.gray, lineWidth: 1))
                     }
                     
-                    CustomLogoButton(imageName: "selectIcon") {
-                        print("selection button clicked")
-//                        bottomSheetContentType = .documentPreview
-//                        isShowingBottomSheet.toggle() // bottom Sheet
-                        isAlertShown.toggle() /// Custom ALert
-                    }
+//                    CustomLogoButton(imageName: "selectIcon") {
+//                        print("selection button clicked")
+////                        bottomSheetContentType = .documentPreview
+////                        isShowingBottomSheet.toggle() // bottom Sheet
+//                        isAlertShown.toggle() /// Custom ALert
+//                    }
                     CustomLogoButton(imageName: "tagIcon") {
                         print("Tag button clicked")
                         bottomSheetContentType = .newTag
-                        isShowingBottomSheet.toggle()
+                        isShowingBottomSheet = true//.toggle()
                         
                     }
                     CustomLogoButton(imageName: "addFolder") {
                         print("Folder button clicked")
                         bottomSheetContentType = .newFolder
-                        isShowingBottomSheet.toggle()
+                        isShowingBottomSheet = true//.toggle()
                     }
-                    CustomLogoButton(imageName: "moreIcon") {
-                        print("More button clicked")
-                        bottomSheetContentType = .eraseAlertView
-                        isShowingBottomSheet.toggle()
-                    }
+//                    CustomLogoButton(imageName: "moreIcon") {
+//                        print("More button clicked")
+//                        bottomSheetContentType = .eraseAlertView
+//                        isShowingBottomSheet = true//.toggle()
+//                    }
                 }
             }
 

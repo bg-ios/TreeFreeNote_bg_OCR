@@ -86,6 +86,7 @@ struct ContentView: View {
                 // Custom Tab View
                 if isTabViewShown {
                     CustomTabbar(selectedTab: $selectedTab, action: {
+                        isShowingBottomSheet = false
                         // Optional: Perform any additional actions when a tab is selected
                     })
                 }
@@ -103,10 +104,14 @@ struct ContentView: View {
                 },image: Image("DeleteInfoIcon"))
             }
 
-            BottomSheet(isShowingBottomSheet: $isShowingBottomSheet, content: self.createBottomSheetContentView())
+            if isShowingBottomSheet {
+                BottomSheet(isShowingBottomSheet: $isShowingBottomSheet, content: self.createBottomSheetContentView())
+            }
+//            DocumentPreviewCustomDialogView(isDialogViewShowing: $isDocumentEditPreviewShown, alertType: .Details, content: self.createDocumentEditDialogView())
             
-            DocumentPreviewCustomDialogView(isDialogViewShowing: $isDocumentEditPreviewShown, alertType: .Details, content: self.createDocumentEditDialogView())
-            
+        }
+        .onAppear{
+            isShowingBottomSheet = false
         }
     }
 }
@@ -116,10 +121,9 @@ extension ContentView {
     func createBottomSheetContentView() -> AnyView {
         switch bottomSheetContentType {
         case .newTag:
-//            return AnyView(TagCreationView(isShowingBottomSheet: $isShowingBottomSheet, createTag: { newTag in
-//                print(newTag)
-//            }, categoriesViewModel: categoriesViewModel))
-            return AnyView(EmptyView())
+            return AnyView(TagCreationView(isShowingBottomSheet: $isShowingBottomSheet, createTag: { newTag in
+                print(newTag)
+            }, categoriesViewModel: categoriesViewModel))
         case .newFolder:
             return AnyView(FolderCreationView(isShowingBottomSheet: $isShowingBottomSheet, saveAccount: .constant(""), createFolder: { folderName in
                 NotificationCenter.default.post(name: .onFolderCreation, object: nil)

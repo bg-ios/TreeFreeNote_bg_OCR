@@ -34,7 +34,7 @@ struct FolderCreationView: View {
             HStack {
                 Spacer()
                 Button {
-                    isShowingBottomSheet.toggle()
+                    isShowingBottomSheet = false //.toggle()
                 } label: {
                     Image(systemName: "xmark.circle")
                         .aspectRatio(contentMode: .fit)
@@ -104,7 +104,7 @@ struct FolderCreationView: View {
                 */
                 Button (action: {
                     self.createFolderWithInfo()
-                    isShowingBottomSheet.toggle()
+                    isShowingBottomSheet = false//.toggle()
                     self.createFolder?(folderName)
                     FoldersObserver.shared.isFolderCreated = true
 

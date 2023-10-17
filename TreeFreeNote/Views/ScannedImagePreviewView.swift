@@ -82,9 +82,9 @@ struct ScannedImagePreviewView: View {
 //                    if !documentName.isEmpty {
                        
                         NavigationLink {
-                            if !documentName.isEmpty {
+//                            if !documentName.isEmpty {
                                 FoldersListView(imageNames: imageNames, foldersArray: [], isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigate: $isNavigated, documentName: $documentName, selectedFolderName: "", selectedTab: $selectedTab)
-                            }
+//                            }
                         } label: {
                             Text("Next")
                                 .foregroundColor(Color.black)
@@ -122,7 +122,7 @@ struct ScannedImagePreviewView: View {
                     .transition(.move(edge: .top))
                     .animation(.easeIn)
                     .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             hideToast()
                         }
                     }
@@ -136,6 +136,7 @@ struct ScannedImagePreviewView: View {
             if !isFromScanner {
                 isTabViewShown = true//.toggle()
             }
+            isShowingBottomSheet = false
         }
     }
     /*

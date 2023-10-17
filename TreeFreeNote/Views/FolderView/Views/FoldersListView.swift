@@ -58,7 +58,7 @@ struct FoldersListView : View {
                     
                     Button (action: {
                         bottomSheetContentType = .newFolder
-                        isShowingBottomSheet.toggle()
+                        isShowingBottomSheet = true //.toggle()
                         
                         //TODO: create Folder and get folderId
                     }) {
@@ -104,7 +104,7 @@ struct FoldersListView : View {
             }
         }
         .onChange(of: foldersObserver.isFolderCreated, perform: { newValue in
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { // 1
                 getFoldersData()
                 foldersObserver.isFolderCreated = false
             }
@@ -147,7 +147,9 @@ struct FoldersListView : View {
         if let storage = folderInfo["storage_type"] as? String {
             storageType = storage
         }
-        
+        if documentName.isEmpty {
+            documentName = "Document_\(Utility().current_date())"
+        }
         queries.insertDocuments(title: documentName, documentType: "jpeg", linkedTagId: "", security: "", storage_type: storageType, folderId: folderId)
         
         let documentId = queries.get_max_id_table(table_name: DBTableName.documents.rawValue)
