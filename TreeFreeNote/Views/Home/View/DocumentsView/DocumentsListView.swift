@@ -24,7 +24,7 @@ struct DocumentsListView: View {
         ScrollView {
             if (!documentViewModel.documentsList.isEmpty) {
                 LazyVStack(alignment: .leading, spacing: 10, pinnedViews: .sectionHeaders) {
-                    ForEach(documentViewModel.documentsList){ document in
+                    ForEach(documentViewModel.documentsList.reversed()){ document in
                         NavigationLink {
                             ScannedImagePreviewView(imageNames: self.getDocumentDetails(documentId: document.id) , isFromScanner: false, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigated: .constant(false), selectedTab: $selectedTab, isTabViewShown: $isShowingBottomSheet, documentsViewModel: documentViewModel)
                             

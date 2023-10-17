@@ -40,15 +40,15 @@ struct Home: View {
                         ///ToolsView..
                         ToolsView()
                         Spacer(minLength: 2)
-                        
+      */
                         ///Search View
                         HomeScreenSearchContainerView(isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isAlertShown: $isAlertShown, isDocumentEditShown: $isDocumentDialogShown)
-                            .padding(.horizontal, 10)
+                            .padding(10)
                         
                         ///Categories View
                         CategoriesView()
                             .padding(10)
- */
+ 
                         //Folder Horizontal View
                         if !folderViewModel.foldersArray.isEmpty {
                             FoldersHorizontalListView(foldersArray: folderViewModel.foldersArray, isShowingBottomSheet: $isShowingBottomSheet, isDocumentDialogShown: $isDocumentDialogShown, bottomSheetContentType: $bottomSheetContentType, selectedTab: .constant("Home"), documentsViewModel: documentsViewModel) 

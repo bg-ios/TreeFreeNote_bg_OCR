@@ -29,7 +29,7 @@ struct BottomSheet: View {
                     .opacity(isShowingBottomSheet ? 0.3 : 0)
                     .ignoresSafeArea()
                     .onTapGesture {
-                        isShowingBottomSheet.toggle()
+                        isShowingBottomSheet = false //.toggle()
                         UIApplication.shared.endEditing()
                     }
                 content
