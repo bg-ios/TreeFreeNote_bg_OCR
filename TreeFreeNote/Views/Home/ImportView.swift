@@ -40,7 +40,7 @@ struct ImportView: View {
             .edgesIgnoringSafeArea(.bottom)
 //            .navigationBarTitle(Text("Imported Images in Current Session"))
             .navigationBarItems(leading: 
-                                    NavigationLink(destination: ScannedImagePreviewView(imageNames: selectedImportImages, isFromScanner: true, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigated: .constant(false), selectedTab: $selectedTab, isTabViewShown: $isShowingBottomSheet, documentsViewModel: documentViewModel), isActive: $isSelectedImages) {
+                                    NavigationLink(destination: ScannedImagePreviewView(imageNames: selectedImportImages, isFromScanner: true, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigated: .constant(false), selectedTab: $selectedTab, isTabViewShown: $isTabViewShown, documentsViewModel: documentViewModel, ocrText: ""), isActive: $isSelectedImages) {
                                         Text("Save")
                                     }
                                     .disabled(selectedImportImages.isEmpty),

@@ -115,7 +115,7 @@ struct FoldersListView : View {
             
         }
         .onDisappear{
-            isTabViewShown.toggle()
+            isTabViewShown = true //.toggle()
         }
     }
     

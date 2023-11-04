@@ -61,7 +61,7 @@ struct ContentView: View {
             //TabView
             VStack(spacing: 0) {
                 TabView(selection: $selectedTab) {
-                    Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet, isAlertShown: $isAlertShown, isDocumentDialogShown: $isDocumentEditPreviewShown, documentsViewModel: documentsViewModel, folderViewModel: folderViewModel)
+                    Home(selectedCategory: $selectedItem, bottomSheetContentType: $bottomSheetContentType, isShowingBottomSheet: $isShowingBottomSheet, isAlertShown: $isAlertShown, isTabViewShown: $isTabViewShown, isDocumentDialogShown: $isDocumentEditPreviewShown, documentsViewModel: documentsViewModel, folderViewModel: folderViewModel)
                         .tag("Home")
                     
                     QRCodeScannerView(isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, selectedTab: $selectedTab)
@@ -72,13 +72,11 @@ struct ContentView: View {
                     }
                     .tag("Camera")
                     
-                    Text("Coming Soon")
+                    ScanView(scannedPages: [], isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, selectedTab: $selectedTab, documentViewModel: documentsViewModel) {
+                        self.selectedTab = "Home"
+                    }
                     .tag("OCR Scan")
                     
-//                    NavigationView{
-//                        CloudIntegrationView()
-//                    }
-//                    .environmentObject(googleAuth)
                     ImportView(isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, selectedTab: $selectedTab, bottomSheetContentType: $bottomSheetContentType, documentViewModel: documentsViewModel)
                     .tag("Import")
                 }

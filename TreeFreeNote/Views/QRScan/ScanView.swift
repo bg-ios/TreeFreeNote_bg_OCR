@@ -30,7 +30,7 @@ struct ScanView: View {
                 isNavigated.toggle()
             }
             .onDisappear{
-                isTabViewShown.toggle()
+                isTabViewShown = true//.toggle()
                 // Dismiss the document scanner view
                 // It will remove scanned images from the scannedImages array
                 // Clear previous images

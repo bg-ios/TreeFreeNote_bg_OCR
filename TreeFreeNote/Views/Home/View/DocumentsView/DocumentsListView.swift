@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct DocumentsListView: View {
-//    @Binding var isTabViewShown: Bool
+    @Binding var isTabViewShown: Bool
     @Binding var isShowingBottomSheet: Bool
     @Binding var isDocumentDialogShown: Bool
     @Binding var bottomSheetContentType: BottomSheetType
@@ -26,7 +26,7 @@ struct DocumentsListView: View {
                 LazyVStack(alignment: .leading, spacing: 10, pinnedViews: .sectionHeaders) {
                     ForEach(documentViewModel.documentsList.reversed()){ document in
                         NavigationLink {
-                            ScannedImagePreviewView(imageNames: self.getDocumentDetails(documentId: document.id) , isFromScanner: false, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigated: .constant(false), selectedTab: $selectedTab, isTabViewShown: $isShowingBottomSheet, documentsViewModel: documentViewModel)
+                            ScannedImagePreviewView(imageNames: self.getDocumentDetails(documentId: document.id) , isFromScanner: false, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigated: .constant(false), selectedTab: $selectedTab, isTabViewShown: $isTabViewShown, documentsViewModel: documentViewModel, ocrText: "")
                             
                         } label: {
                             DocumentListCell(document: document, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isDocumentDialogShown: $isDocumentDialogShown)
@@ -54,6 +54,9 @@ struct DocumentsListView: View {
         })
         .onAppear {
             getDocumentsData()
+        }
+        .onDisappear {
+            print("Disappear")
         }
     }
     

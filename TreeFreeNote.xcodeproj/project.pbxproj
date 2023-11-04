@@ -136,6 +136,8 @@
 		0991B6402A81071000E44FB8 /* UserDefaultsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0991B63F2A81071000E44FB8 /* UserDefaultsManager.swift */; };
 		0991B6432A820DAE00E44FB8 /* CategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0991B6422A820DAE00E44FB8 /* CategoryViewModel.swift */; };
 		0991B6452A8222D400E44FB8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0991B6442A8222D400E44FB8 /* Constants.swift */; };
+		09CAEC2F2AF64A2B00AA9780 /* TextRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CAEC2E2AF64A2B00AA9780 /* TextRecognizer.swift */; };
+		09CAEC312AF653E600AA9780 /* SnapCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CAEC302AF653E600AA9780 /* SnapCarousel.swift */; };
 		92E1BCB8CD481F17A54820F5 /* Pods_TreeFreeNote_TreeFreeNoteUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DBA8DE0A890F314327107ED1 /* Pods_TreeFreeNote_TreeFreeNoteUITests.framework */; };
 		98EAF35B76910A649E9222BB /* Pods_TreeFreeNoteTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3309E32C689B8AB4F4A18C93 /* Pods_TreeFreeNoteTests.framework */; };
 		AF3BF74A05D3E1DBBDCBAEDD /* Pods_TreeFreeNote.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 586C465648991DADA0AC58E1 /* Pods_TreeFreeNote.framework */; };
@@ -310,6 +312,8 @@
 		0991B63F2A81071000E44FB8 /* UserDefaultsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsManager.swift; sourceTree = "<group>"; };
 		0991B6422A820DAE00E44FB8 /* CategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewModel.swift; sourceTree = "<group>"; };
 		0991B6442A8222D400E44FB8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		09CAEC2E2AF64A2B00AA9780 /* TextRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRecognizer.swift; sourceTree = "<group>"; };
+		09CAEC302AF653E600AA9780 /* SnapCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SnapCarousel.swift; path = DocumentDetailsView/SnapCarousel.swift; sourceTree = "<group>"; };
 		16D354E6713B5F2502DB9596 /* Pods-TreeFreeNote.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TreeFreeNote.debug.xcconfig"; path = "Target Support Files/Pods-TreeFreeNote/Pods-TreeFreeNote.debug.xcconfig"; sourceTree = "<group>"; };
 		3309E32C689B8AB4F4A18C93 /* Pods_TreeFreeNoteTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TreeFreeNoteTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		36B177AAA7498BC3D3427A23 /* Pods-TreeFreeNoteTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TreeFreeNoteTests.release.xcconfig"; path = "Target Support Files/Pods-TreeFreeNoteTests/Pods-TreeFreeNoteTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -478,11 +482,13 @@
 				0950CAA02A2F99DC0008E778 /* RegistrationView.swift */,
 				0950CA732A266DF80008E778 /* DocumentDetailedView.swift */,
 				0988DAF42A950900000F8C35 /* ScannedImagePreviewView.swift */,
+				09CAEC302AF653E600AA9780 /* SnapCarousel.swift */,
 				0945B0082AB71ED700AEC6D6 /* DocumentDetailsView */,
 				0924D5FF2A42AB3A00FCF155 /* FolderView */,
 				0950CA8D2A27B55F0008E778 /* Tabbar */,
 				0924D64A2A4FDB7400FCF155 /* QRScan */,
 				0950CA6D2A2647DF0008E778 /* Home */,
+				09CAEC2E2AF64A2B00AA9780 /* TextRecognizer.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1139,6 +1145,7 @@
 				095BC8B62A5AA55D00729692 /* CameraScannerViewController.swift in Sources */,
 				0924D6092A480FCD00FCF155 /* SegmentHeaderView.swift in Sources */,
 				0945B0502ABFDE9100AEC6D6 /* FoldersViewModel.swift in Sources */,
+				09CAEC2F2AF64A2B00AA9780 /* TextRecognizer.swift in Sources */,
 				0988DAF72A95D539000F8C35 /* DocumentsViewModel.swift in Sources */,
 				0991B63D2A7FC10600E44FB8 /* DBManager.swift in Sources */,
 				095BC8C12A5AA55D00729692 /* UIImage+Orientation.swift in Sources */,
@@ -1211,6 +1218,7 @@
 				0945B0072AB6F00600AEC6D6 /* DocumentPreviewCustomDialogView.swift in Sources */,
 				0950CA922A27C8210008E778 /* TabbarItemModel.swift in Sources */,
 				0950CA762A2789450008E778 /* Home.swift in Sources */,
+				09CAEC312AF653E600AA9780 /* SnapCarousel.swift in Sources */,
 				0924D5FD2A42AB3100FCF155 /* FolderCreationView.swift in Sources */,
 				095BC8C02A5AA55D00729692 /* Array+Utils.swift in Sources */,
 				0950CAA82A2FA2680008E778 /* CustomFoldersListCell.swift in Sources */,
@@ -1431,6 +1439,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"TreeFreeNote/Preview Content\"";
 				DEVELOPMENT_TEAM = 5UUZHRGMDL;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TreeFreeNote/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ReNote;
@@ -1467,6 +1476,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"TreeFreeNote/Preview Content\"";
 				DEVELOPMENT_TEAM = 5UUZHRGMDL;
 				ENABLE_PREVIEWS = YES;
+				EXCLUDED_ARCHS = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TreeFreeNote/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = ReNote;

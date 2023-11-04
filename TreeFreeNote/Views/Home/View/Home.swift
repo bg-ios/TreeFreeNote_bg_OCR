@@ -14,6 +14,7 @@ struct Home: View {
     @Binding var bottomSheetContentType: BottomSheetType
     @Binding var isShowingBottomSheet: Bool
     @Binding var isAlertShown: Bool
+    @Binding var isTabViewShown: Bool
 
     @Binding var isDocumentDialogShown: Bool
 
@@ -51,13 +52,13 @@ struct Home: View {
  
                         //Folder Horizontal View
                         if !folderViewModel.foldersArray.isEmpty {
-                            FoldersHorizontalListView(foldersArray: folderViewModel.foldersArray, isShowingBottomSheet: $isShowingBottomSheet, isDocumentDialogShown: $isDocumentDialogShown, bottomSheetContentType: $bottomSheetContentType, selectedTab: .constant("Home"), documentsViewModel: documentsViewModel) 
+                            FoldersHorizontalListView(foldersArray: folderViewModel.foldersArray, isShowingBottomSheet: $isShowingBottomSheet, isDocumentDialogShown: $isDocumentDialogShown, isTabViewShown: $isTabViewShown, bottomSheetContentType: $bottomSheetContentType, selectedTab: .constant("Home"), documentsViewModel: documentsViewModel)
                                 .frame(height: 120)
                         }
                         
                         Divider()
                         ///Documents ListView
-                        DocumentsListView(isShowingBottomSheet: $isShowingBottomSheet, isDocumentDialogShown: $isDocumentDialogShown, bottomSheetContentType: $bottomSheetContentType, selectedTab: .constant("Home") , documentViewModel: documentsViewModel)
+                        DocumentsListView(isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, isDocumentDialogShown: $isDocumentDialogShown, bottomSheetContentType: $bottomSheetContentType, selectedTab: .constant("Home") , documentViewModel: documentsViewModel)
                     })
                     .navigationBarTitleDisplayMode(.inline)
                 }

@@ -63,7 +63,7 @@ struct DocumentScannerView: UIViewControllerRepresentable {
             scannerView.didFinishScanning(.success(scannedPages))
             controller.dismiss(animated: true, completion: nil)
             
-            let previewView = ScannedImagePreviewView(imageNames: scannedPages, isFromScanner: true, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigated: $isNavigated, selectedTab: $selectedTab, isTabViewShown: $isTabViewShown, documentsViewModel: self.documentViewModel)
+            let previewView = ScannedImagePreviewView(imageNames: scannedPages, isFromScanner: true, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigated: $isNavigated, selectedTab: $selectedTab, isTabViewShown: $isTabViewShown, documentsViewModel: self.documentViewModel, ocrText: "")
                 
             
             let previewHostingController = UIHostingController(rootView: previewView)

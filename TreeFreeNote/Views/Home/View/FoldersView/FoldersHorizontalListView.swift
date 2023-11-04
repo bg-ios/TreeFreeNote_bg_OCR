@@ -11,6 +11,7 @@ struct FoldersHorizontalListView: View {
     var foldersArray: [FolderModel] //= [] // State to hold fetched data
     @Binding var isShowingBottomSheet: Bool
     @Binding var isDocumentDialogShown: Bool
+    @Binding var isTabViewShown: Bool
     @Binding var bottomSheetContentType: BottomSheetType
     @Binding var selectedTab: String
 
@@ -21,7 +22,7 @@ struct FoldersHorizontalListView: View {
             HStack(alignment: .top, spacing: 10) {
                 ForEach(0..<foldersArray.count, id: \.self) { index in
                     NavigationLink {
-                        DocumentsListView(isShowingBottomSheet: $isShowingBottomSheet, isDocumentDialogShown: $isDocumentDialogShown, bottomSheetContentType: $bottomSheetContentType, selectedTab: .constant("Home") , documentViewModel: documentsViewModel, selectedFolderId: foldersArray[index].id)
+                        DocumentsListView(isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, isDocumentDialogShown: $isDocumentDialogShown, bottomSheetContentType: $bottomSheetContentType, selectedTab: $selectedTab , documentViewModel: documentsViewModel, selectedFolderId: foldersArray[index].id)
 
                     } label: {
                         CustomFoldersListCell(folderInfo: foldersArray[index])

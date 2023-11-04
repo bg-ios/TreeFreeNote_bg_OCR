@@ -12,6 +12,7 @@ struct ScannedImagePreviewView: View {
     var imageNames = [UIImage]()
     var isFromScanner: Bool = false
 
+    @State var isOCRTranslated = false
     @State private var isToasterVisible = false
 
     @Binding var isShowingBottomSheet: Bool
@@ -29,6 +30,9 @@ struct ScannedImagePreviewView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @ObservedObject var documentsViewModel: DocumentsViewModel
+    
+    
+    @State var ocrText: String
     
     var body: some View {
         VStack {
@@ -78,39 +82,43 @@ struct ScannedImagePreviewView: View {
                 
                 
                 if isFromScanner {
-                    
-//                    if !documentName.isEmpty {
-                       
-                        NavigationLink {
-//                            if !documentName.isEmpty {
-                                FoldersListView(imageNames: imageNames, foldersArray: [], isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigate: $isNavigated, documentName: $documentName, selectedFolderName: "", selectedTab: $selectedTab)
-//                            }
-                        } label: {
-                            Text("Next")
-                                .foregroundColor(Color.black)
-                                .fontWeight(.medium)
-                                
-                        }
-                        .onTapGesture {
-                            showToast()
-                        }
+                    NavigationLink {
+                        FoldersListView(imageNames: imageNames, foldersArray: [], isTabViewShown: $isTabViewShown, isShowingBottomSheet: $isShowingBottomSheet, bottomSheetContentType: $bottomSheetContentType, isNavigate: $isNavigated, documentName: $documentName, selectedFolderName: "", selectedTab: $selectedTab)
+                    } label: {
+                        Text("Next")
+                            .foregroundColor(Color.black)
+                            .fontWeight(.medium)
                         
-//                    }
-                    
-//                    CustomLogoButton(imageName: "TickIcon") {
-//
-//                        self.saveImagesToFileDirectory()
-//                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didDismissOnSaving"), object: self, userInfo: nil)
-//                        self.presentationMode.wrappedValue.dismiss()
-//                        //TODO: Google drive integration
-//                    }
-//                    .foregroundColor(Color.black)
+                    }
+                    .onTapGesture {
+                        showToast()
+                    }
                 }
             }
             .frame(height: 55)
             .padding()
             .background(Color.clear)
             .cornerRadius(25, corners: [.topLeft,.topRight])
+            
+            if !isFromScanner {
+                DocumentPreviewOCRView(OCRAction: {
+                    self.translateTOOCR()
+                }, shareAction: {
+                    shareOCRData()
+                })
+                .padding(.bottom, -15)
+                .frame(height: 45)
+                
+                if self.isOCRTranslated {
+                    ScrollView {
+                        Text(ocrText)
+                            .font(.headline)
+                            .foregroundColor(.black)
+                            .padding()
+                    }
+                }
+            }
+            
             
             if isToasterVisible {
                 Text("Please enter document Name")
@@ -157,6 +165,31 @@ struct ScannedImagePreviewView: View {
     }
      */
     
+    private func translateTOOCR() {
+        
+        if let scanImage = imageNames.first {
+            let recognizer = TextRecognizer(cameraScan: scanImage)
+            recognizer.recognizeText(scannedImage: scanImage) { convertedText in
+                print(convertedText)
+                self.isOCRTranslated = true
+                if let convertedData = convertedText.first {
+                    self.ocrText = convertedData
+                }
+            }
+        }
+    }
+    
+    private func shareOCRData() {
+        let shareActivity = UIActivityViewController(activityItems: [self.ocrText], applicationActivities: nil)
+        if let vc = UIApplication.shared.windows.first?.rootViewController{
+            shareActivity.popoverPresentationController?.sourceView = vc.view
+            //Setup share activity position on screen on bottom center
+            shareActivity.popoverPresentationController?.sourceRect = CGRect(x: UIScreen.main.bounds.width / 2, y: UIScreen.main.bounds.height, width: 0, height: 0)
+            shareActivity.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.down
+            vc.present(shareActivity, animated: true, completion: nil)
+        }
+    }
+    
     private func showToast() {
         if documentName.isEmpty {
             isToasterVisible = true
@@ -165,5 +198,46 @@ struct ScannedImagePreviewView: View {
     
     private func hideToast() {
         isToasterVisible = false
+    }
+}
+
+
+struct DocumentPreviewOCRView: View {
+    
+    var OCRAction: (() -> Void)
+    var shareAction: (() -> Void)
+    
+    var body: some View {
+        VStack(alignment: .leading) {
+            HStack {
+                Spacer()
+                Button {
+                    print("OCR action")
+                    self.OCRAction()
+                } label: {
+                    Text("OCR")
+                    
+                        
+                }
+                Spacer()
+                CustomLogoButton(imageName: "share") {
+                    shareAction()
+                }
+                Spacer()
+            }
+        }
+        .padding(.horizontal, 15)
+        .frame(height: 45)
+//        .transition(.move(edge: .bottom))
+        .background(
+            Color.gray.opacity(0.8)
+        )
+        .cornerRadius(36, corners: [.topLeft, .topRight])
+    }
+}
+
+struct DocumentPreviewOCRView_Previews: PreviewProvider {
+    static var previews: some View {
+        DocumentPreviewOCRView(OCRAction: {}, shareAction: {})
     }
 }
